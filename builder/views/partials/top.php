@@ -33,27 +33,15 @@ $installation = $builder->get_installation();
     <div class="nav bg-green-500 shadow w-full">
         <div class="lg:max-w-screen-lg lg:mx-auto mx-6 flex justify-between">
             <div class="nav-container w-full mr-2">
-                <ul class="flex justify-between">
+                <ul class="flex">
                     <li>
-                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=role">Roles</a>
-                    </li>
-                    <li>
-                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=user">Users</a>
+                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/home/dashboard">Home</a>
                     </li>
                     <li>
                         <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=page">Pages</a>
                     </li>
                     <li>
                         <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=menu">Menus</a>
-                    </li>
-                    <li>
-                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/connection/index">Connection</a>
-                    </li>
-                    <li>
-                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/database/index">Database</a>
-                    </li>
-                    <li>
-                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/migration/index">Migration</a>
                     </li>
                 </ul>
             </div>
@@ -65,6 +53,7 @@ $installation = $builder->get_installation();
                         <i class="fa fa-caret-down align-text-top ml-2"></i>
                     </a>
                     <div class="nav-box absolute shadow bg-white hidden w-full pt-2 text-left" style="top:35px;">
+                        <a href="index.php" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Open Site</a>
                         <a href="?page=builder/setting/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Site Setting</a>
                         <a href="?action=auth/logout" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Keluar</a>
                     </div>

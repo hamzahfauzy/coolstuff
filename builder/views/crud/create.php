@@ -3,9 +3,12 @@
     <h2 class="text-4xl">Add <?=ucwords($_data)?></h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form id="login-form" action="" method="post" enctype="multipart/form-data">
-            <?php foreach($fields as $name => $field): ?>
+            <?php 
+            foreach($fields as $name => $field): 
+                $label = str_replace("_"," ",$name);
+            ?>
             <div class="form-group mb-2">
-                <label><?=ucwords($name)?></label>
+                <label><?=ucwords($label)?></label>
                 <?= Form::input($field, $name, ['class'=>"p-2 w-full border rounded","placeholder"=>$name]) ?>
             </div>
             <?php endforeach ?>

@@ -8,7 +8,7 @@ $auth_data = [];
 $builder = new Builder;
 $installation = $builder->get_installation();
 
-if(!empty($installation) && ($_POST['username']==$installation->username&&$_POST['password']==$installation->password))
+if(!empty($installation) && ($_POST['username']==$installation->username&&md5($_POST['password'])==$installation->password))
 {
     $role = "builder";
     $auth_data = [
@@ -31,5 +31,6 @@ else
     ];
 }
 
-$_SESSION['auth'] = $auth_data;
+if($auth_data)
+    $_SESSION['auth'] = $auth_data;
 echo json_encode($message);

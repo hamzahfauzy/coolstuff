@@ -1,9 +1,7 @@
 {
-    "id":"",
-    "title":"",
-    "slug":"",
-    "content":"",
-    "status":"",
-    "author":"",
-    "date":""
+    "title":"text",
+    "slug":"text",
+    "content":"textarea",
+    "status":"options:draft|public",
+    "date":"date"
 }

@@ -11,7 +11,7 @@ if(request() == 'POST')
     $datas = json_encode($datas);
     if($builder->set_content($_data.'s',$datas))
     {
-        set_flash_msg(['success'=>'Data berhasil di simpan']);
+        set_flash_msg(['success'=>'Data Saved']);
         header('location:index.php?page=builder/crud/index&data='.$_data);
         return;
     }

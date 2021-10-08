@@ -21,8 +21,6 @@ if($installation==false)
 }
 else
 {
-    if($installation)
-        $page = 'builder/home/dashboard';
     if(isset($_GET['page']) && !empty($_GET['page']) && isset($page_map[$_GET['page']]))
         $page = $page_map[$_GET['page']];
     else

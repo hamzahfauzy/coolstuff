@@ -3,9 +3,12 @@
     <h2 class="text-4xl">Edit <?=ucwords($_data)?></h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form id="login-form" action="" method="post" enctype="multipart/form-data">
-            <?php foreach($fields as $name => $field): ?>
+            <?php 
+            foreach($fields as $name => $field): 
+                $label = str_replace("_"," ",$name);
+            ?>
             <div class="form-group mb-2">
-                <label><?=ucwords($name)?></label>
+                <label><?=ucwords($label)?></label>
                 <?php if($field['type'] == 'file'): ?>
                 <a href="<?= get_file_storage("installation/".$field['value']) ?>" class="text-blue-700" target="_blank">Lihat File</a>
                 <?php endif ?>

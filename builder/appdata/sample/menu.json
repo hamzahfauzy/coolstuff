@@ -1,5 +1,5 @@
 {
-    "id":"",
-    "name":"",
-    "content":""
+    "name":"text",
+    "content_type":"options:page|plain text",
+    "content":"textarea"
 }
