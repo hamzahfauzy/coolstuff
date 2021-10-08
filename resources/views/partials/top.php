@@ -35,18 +35,23 @@ $installation = $builder->get_installation();
                     <input type="text" name="search" class="p-2 w-full outline-none" placeholder="Cari Berkas...">
                 </div>
             </form>
+            <?php if(isset($_SESSION['auth'])): ?>
             <div class="text-right leading-none flex items-center flex-row-reverse">
                 <div class="relative w-full">
                     <a href="javascript:void(0)" onclick="toggleNav()" class="leading-none">
-                        <span class="align-text-top"><?=strlen($_SESSION['auth']['username']) > 7 ? substr($_SESSION['auth']['username'],0,7).'..' : $_SESSION['auth']['username']?></span>
+                        <span class="align-text-top"><?=strlen($_SESSION['auth']['username']) > 15 ? substr($_SESSION['auth']['username'],0,15).'..' : $_SESSION['auth']['username']?></span>
                         <i class="fa fa-user-circle text-indigo-800 text-2xl ml-2"></i> 
                         <i class="fa fa-caret-down align-text-top ml-2"></i>
                     </a>
-                    <div class="nav-box absolute shadow bg-white hidden p-4 w-full text-left" style="top:45px;">
-                        <a href="?action=auth/logout" class="block">Keluar</a>
+                    <div class="nav-box absolute shadow bg-white hidden w-full pt-2 text-left" style="top:45px;">
+                        <?php if($_SESSION['auth']['role'] == 'builder'): ?>
+                        <a href="?page=builder/home/dashboard" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Go to Builder</a>
+                        <?php endif ?>
+                        <a href="?action=auth/logout" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Keluar</a>
                     </div>
                 </div>
             </div>
+            <?php endif ?>
         </div>
     </div>
     <div class="main bg-gray-100" style="min-height:calc(100vh - 58px);height:auto;">
