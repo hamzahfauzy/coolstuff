@@ -5,6 +5,7 @@
         <form id="login-form" action="" method="post" enctype="multipart/form-data">
             <?php foreach($fields as $name => $field): ?>
             <div class="form-group mb-2">
+                <label><?=ucwords($name)?></label>
                 <?= Form::input($field, $name, ['class'=>"p-2 w-full border rounded","placeholder"=>$name]) ?>
             </div>
             <?php endforeach ?>

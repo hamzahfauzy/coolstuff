@@ -15,6 +15,7 @@
         <form id="login-form" action="" method="post" enctype="multipart/form-data">
             <?php foreach($fields as $name => $field): ?>
             <div class="form-group mb-2">
+                <label><?=ucwords($name)?></label>
                 <?php if($field['type'] == 'file'): ?>
                 <a href="<?= get_file_storage("installation/".$field['value']) ?>" class="text-blue-700" target="_blank">Lihat File</a>
                 <?php endif ?>
