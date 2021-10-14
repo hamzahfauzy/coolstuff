@@ -1,0 +1,6 @@
+{
+    "tahun":"text",
+    "NOP":"text",
+    "jenis_objek_pajak":"options:bumi|bangunan",
+    "objek_pajak":"text"
+}

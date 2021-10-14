@@ -1,0 +1,13 @@
+{
+    "tahun":"text",
+    "NOP":"text",
+    "sppt":"options-obj:penetapan-sppt",
+    "sppt_ke":"text",
+    "jlh_pbb":"text",
+    "denda":"text",
+    "jlh_bayar":"text",
+    "tgl_bayar":"date",
+    "tempat_bayar":"options-obj:tempat-bayar",
+    "perekam":"options-obj:pejabat",
+    "tgl_rekam":"date"
+}

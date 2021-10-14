@@ -1,0 +1,15 @@
+{
+    "kecamatan":"options-obj:kecamatan",
+    "kelurahan":"options-obj:kelurahan",
+    "blok":"options-obj:blok",
+    "znt":"options-obj:znt",
+    "tahun":"text",
+    "nir_lama":"text",
+    "nir_baru":"text",
+    "status":"text",
+    "keterangan":"text",
+    "kelas":"text",
+    "NJOP":"text",
+    "min":"text",
+    "max":"text"
+}

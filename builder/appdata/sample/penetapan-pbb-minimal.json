@@ -1,0 +1,8 @@
+{
+    "tahun":"text",
+    "no_sk":"text",
+    "tanggal_sk":"date",
+    "nilai_pbb_min":"text",
+    "perekam":"options-obj:pejabat",
+    "tgl_perekam":"date"
+}

@@ -1,0 +1,18 @@
+{
+    "tahun":"text",
+    "objek_pajak":"text",
+    "tgl_jatuh_tempo":"date",
+    "tgl_terbit":"date",
+    "luas_bumi":"text",
+    "luas_bangunan":"text",
+    "kelas_bumi":"text",
+    "kelas_bangunan":"text",
+    "njop_bumi":"text",
+    "njop_bangunan":"text",
+    "total_njop":"text",
+    "tarif":"text",
+    "njoptkp":"text",
+    "njkp":"text",
+    "faktor_pbb":"text",
+    "tempat_bayar":"options-obj:tempat-bayar"
+}

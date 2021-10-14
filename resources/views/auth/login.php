@@ -70,7 +70,7 @@
             body:'username='+username.value+'&password='+password.value
         })
         var response = await request.json()
-        alert(response.message)
+        
         if(response.status == 'fail')
             resetForm()
         else

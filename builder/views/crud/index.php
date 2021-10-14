@@ -1,6 +1,8 @@
-<?php load('builder/partials/top') ?>
+<?php load('builder/partials/top');
+    $title = str_replace("-"," ", $_data);
+?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl"><?=ucwords($_data)?>s</h2>
+    <h2 class="text-3xl"><?=ucwords($title)?>s</h2>
     <div class="my-6">
         <?php if($msg): ?>
         <div class="bg-green-100 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md my-6" role="alert">
@@ -13,7 +15,7 @@
         </div>
         <?php endif ?>
         <a href="index.php?page=builder/crud/create&data=<?=$_data?>" class="p-2 bg-green-500 text-white rounded inline-block">+ Add New</a>
-        <div class="bg-white shadow-md rounded my-3">
+        <div class="bg-white shadow-md rounded my-3 overflow-x-auto">
             <table class="min-w-max w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

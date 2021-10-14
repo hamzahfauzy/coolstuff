@@ -10,7 +10,7 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 
 $page_map = require '../config/page_map.php';
 
-$page = 'dashboard/index';
+$page = 'builder/home/dashboard';
 $action = 1;
 $builder = new Builder;
 $installation = $builder->get_installation();

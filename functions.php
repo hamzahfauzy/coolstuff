@@ -3,6 +3,32 @@ require '../config/main.php';
 require '../helpers/Builder.php';
 require '../helpers/Form.php';
 
+function stringContains($string,$val){
+    if (strpos($string, $val) !== false) {
+        return true;
+    }
+
+    return false;
+}
+
+function arrStringContains($string,$arr){
+
+    $result = [];
+
+    for($i = 0; $i < count($arr);$i++){
+       $result[] = stringContains($string,$arr[$i]);
+    }
+
+    return in_array(true,$result);
+}
+
+function getCurrentPageDataNav($str){
+    $curr_page = $_GET['page'] == 'builder/crud/index';
+    $data = $_GET['data'];
+
+    return ($curr_page && (isset($data) ? $data : false) == $str) ? 'bg-purple-700 text-white' : '';
+}
+
 function isJson($string) {
    json_decode($string);
    return json_last_error() === JSON_ERROR_NONE;

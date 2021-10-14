@@ -1,8 +1,6 @@
 {
-    "id":"text",
     "name":"text",
-    "email":"text",
-    "status":"text",
     "username":"text",
-    "password":"password"
+    "password":"password",
+    "role":"options-obj:role"
 }

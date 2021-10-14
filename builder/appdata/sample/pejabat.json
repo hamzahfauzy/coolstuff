@@ -1,0 +1,6 @@
+{
+    "NIP":"text",
+    "name":"text",
+    "jabatan":"text",
+    "user":"options-obj:user"
+}

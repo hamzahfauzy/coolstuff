@@ -1,0 +1,13 @@
+{
+    "nomor_id":"text",
+    "name":"text",
+    "pekerjaan":"text",
+    "NPWP":"text",
+    "address":"textarea",
+    "kecamatan":"options-obj:kecamatan",
+    "kelurahan":"options-obj:kelurahan",
+    "blok":"options-obj:blok",
+    "rt":"text",
+    "rw":"text",
+    "kode_pos":"text"
+}
