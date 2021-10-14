@@ -3,6 +3,11 @@ require '../config/main.php';
 require '../helpers/Builder.php';
 require '../helpers/Form.php';
 
+function isJson($string) {
+   json_decode($string);
+   return json_last_error() === JSON_ERROR_NONE;
+}
+
 function url(){
     $server_name = $_SERVER['SERVER_NAME'];
 

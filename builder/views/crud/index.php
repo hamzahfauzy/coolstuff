@@ -31,7 +31,15 @@
                     <?php else: ?>
                     <?php foreach($datas as $key => $data): ?>
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <?php foreach($fields as $name => $type): if($type=='password') continue;?>
+                        <?php 
+                        foreach($fields as $name => $type): 
+                            if($type=='password') continue;
+                            if(isJson($data->{$name}))
+                            {
+                                $data_json = json_decode($data->{$name});
+                                $data->{$name} = $data_json->name;
+                            }
+                        ?>
                         <td class="py-3 px-6 text-left whitespace-nowrap>
                             <div class="flex items-center">
                                 <span class="font-medium"><?=$data->{$name}?></span>

@@ -15,14 +15,27 @@ class Form
             return self::textarea($name, $vals, $attr);
         }
 
+        $lists = "";
         if(substr($type,0,7) == 'options')
         {
             $types = explode(':',$type);
             $options = $types[1];
-            $options = explode('|',$options);
-            $lists = "";
-            foreach($options as $option)
-                $lists .= "<option value='$option' ".($option==$value?'selected=""':'').">$option</option>";
+            if(substr($type, 8,3) == 'obj')
+            {
+                $builder = new Builder;
+                $datas = $builder->get_content($options.'s');
+                $options = $datas;
+                foreach($options as $option)
+                {
+                    $lists .= "<option value='".json_encode($option)."' ".(json_encode($option)==$value?'selected=""':'').">".$option->name."</option>";
+                }
+            }
+            else
+            {
+                $options = explode('|',$options);
+                foreach($options as $option)
+                    $lists .= "<option value='$option' ".($option==$value?'selected=""':'').">$option</option>";
+            }
             
             return self::options($name, $lists, $attr);
         }

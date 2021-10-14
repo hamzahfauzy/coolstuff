@@ -8,7 +8,7 @@ if(request() == 'POST')
     $upload = upload($_FILES['logo'],'installation');
     if($upload['status'] == "success")
     {
-        $_POST['password'] = md5($_POST['password']);
+        // $_POST['password'] = md5($_POST['password']);
         $installation_data = $_POST;
         $installation_data['logo'] = $upload['filename'];
         $installation_data = json_encode($installation_data);

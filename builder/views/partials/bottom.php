@@ -10,10 +10,22 @@ $installation = $builder->get_installation();
         </div>
     </div>
     <script>
-    function toggleNav()
+    function toggleNav(id)
     {
-        document.querySelector('.nav-box').classList.toggle('hidden')
+        document.querySelector(id).classList.toggle('hidden')
     }
+
+    document.addEventListener('click',function(event){
+        if(event.target.classList.contains('dropdown') == false && event.target.parentNode.classList.contains('dropdown') == false){
+
+            document.querySelectorAll('.nav-box').forEach(item => {
+                if(item.classList.contains('hidden') == false)
+                    item.classList.add('hidden')
+            })
+            
+        }
+    })
+
     </script>
 </body>
 </html>

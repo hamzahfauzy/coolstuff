@@ -41,18 +41,39 @@ $installation = $builder->get_installation();
                         <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=page">Pages</a>
                     </li>
                     <li>
+                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=kecamatan">Kecamatan</a>
+                    </li>
+                    <li>
+                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=kelurahan">Kelurahan</a>
+                    </li>
+                    <li>
+                        <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=blok">Blok</a>
+                    </li>
+                    <li>
                         <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=menu">Menus</a>
+                    </li>
+                    <li class="relative w-full">
+                        <a href="#" onclick="toggleNav('#utility')" class="cursor-pointer dropdown text-white hover:bg-purple-700 p-2 px-4 inline-block">
+                            <span class="align-text-center">Utility</span>
+                            <i class="fa fa-caret-down align-text-center ml-2"></i>
+                        </a>
+                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="utility" style="top:40px">
+                            <a href="index.php" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Open Site</a>
+                            <a href="?page=builder/setting/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Site Setting</a>
+                            <a href="?action=auth/logout" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Keluar</a>
+                        </div>
+                        <!-- <a class="text-white hover:bg-purple-700 p-2 px-4 inline-block" href="index.php?page=builder/crud/index&data=menu">Menus</a> -->
                     </li>
                 </ul>
             </div>
             <div class="text-right leading-none flex items-center flex-row-reverse w-1/5">
                 <div class="relative w-full">
-                    <a href="javascript:void(0)" onclick="toggleNav()" class="leading-none text-white">
+                    <a href="#" onclick="toggleNav('#setting')" class="cursor-pointer dropdown leading-none text-white">
                         <span class="align-text-top"><?=strlen($_SESSION['auth']['username']) > 7 ? substr($_SESSION['auth']['username'],0,7).'..' : $_SESSION['auth']['username']?></span>
                         <i class="fa fa-user-circle text-purple-700 text-2xl ml-2"></i> 
                         <i class="fa fa-caret-down align-text-top ml-2"></i>
                     </a>
-                    <div class="nav-box absolute shadow bg-white hidden w-full pt-2 text-left" style="top:35px;">
+                    <div class="nav-box absolute shadow bg-white hidden w-full pt-2 text-left" id='setting' style="top:35px;">
                         <a href="index.php" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Open Site</a>
                         <a href="?page=builder/setting/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Site Setting</a>
                         <a href="?action=auth/logout" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Keluar</a>
