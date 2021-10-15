@@ -2,7 +2,7 @@
 $builder = new Builder;
 $installation = $builder->get_installation();
 
-$curr_page = $_GET['page'] == 'builder/crud/index';
+$curr_page = isset($_GET['page']) && $_GET['page'] == 'builder/crud/index';
 
 $pendataan = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['blok','znt','nir','jalan','subjek-pajak','objek-pajak-bumi','objek-pajak-bangunan'])  : false) ? 'bg-purple-700' : '';
 $penilaian = $curr_page && (isset($_GET['data']) ? stringContains($_GET['data'],'penilaian') : false) ? 'bg-purple-700' : '';
