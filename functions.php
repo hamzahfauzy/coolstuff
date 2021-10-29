@@ -22,11 +22,20 @@ function arrStringContains($string,$arr){
     return in_array(true,$result);
 }
 
-function getCurrentPageDataNav($str){
+function isBuilder(){
     $curr_page = $_GET['page'] == 'builder/crud/index';
-    $data = $_GET['data'];
 
-    return ($curr_page && (isset($data) ? $data : false) == $str) ? 'bg-purple-700 text-white' : '';
+    return $curr_page;
+}
+
+function getCurrentPageDataNav($str){
+    if(!isBuilder()){
+        $curr_page = $_GET['page'] == 'builder/'.$str.'/index';
+        return $curr_page ? 'bg-purple-700 text-white' : '';
+    }else{
+        $data = $_GET['data'];
+        return (isset($data) ? $data : false) == $str ? 'bg-purple-700 text-white' : '';
+    }
 }
 
 function isJson($string) {
@@ -118,7 +127,7 @@ function mime_icon_name($mime)
 }
 
 function load($path, $action = false)
-{
+{   
     $default_action_path = '../actions/'; 
     $default_view_path = '../resources/views/'; 
     if (strpos($path, 'builder') === 0) {

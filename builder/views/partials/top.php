@@ -2,17 +2,16 @@
 $builder = new Builder;
 $installation = $builder->get_installation();
 
-$curr_page = isset($_GET['page']) && $_GET['page'] == 'builder/crud/index';
+$nav_class_active = 'bg-purple-700 text-white';
 
-$pendataan = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['blok','znt','nir','jalan','subjek-pajak','objek-pajak-bumi','objek-pajak-bangunan'])  : false) ? 'bg-purple-700' : '';
-$penilaian = $curr_page && (isset($_GET['data']) ? stringContains($_GET['data'],'penilaian') : false) ? 'bg-purple-700' : '';
-$penetapan = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? 'bg-purple-700' : '';
-$referensi = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['kecamatan','kelurahan','tempat-bayar']) : false) ? 'bg-purple-700' : '';
-$utility = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['role','user','pejabat']) : false) ? 'bg-purple-700' : '';
+$pendataan = (isBuilder() ? arrStringContains($_GET['data'],['znt','nir','jalan','subjek-pajak','objek-pajak-bumi','objek-pajak-bangunan'])  : (arrStringContains($_GET['page'],['blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
+$penilaian = (isBuilder() ? stringContains($_GET['data'],'penilaian') : false) ? $nav_class_active : '';
+$penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
+$referensi = (isBuilder() ? arrStringContains($_GET['data'],['tempat-bayar']) : (arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '')) ? $nav_class_active : '';
+$utility = (isBuilder() ? arrStringContains($_GET['data'],['role','user','pejabat']) : false) ? $nav_class_active : '';
 
-$znt = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['blok','znt','nir','jalan']) : false) ? 'bg-purple-700 text-white' : '';
-$wilayah = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data'],['kecamatan','kelurahan']) : false) ? 'bg-purple-700 text-white' : '';
-
+$znt = (isBuilder() ? arrStringContains($_GET['data'],['znt','nir','jalan']) : (arrStringContains($_GET['page'],['blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
+$wilayah = arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '';
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +50,7 @@ $wilayah = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data']
             <div class="nav-container w-full mr-2">
                 <ul class="flex">
                     <li>
-                        <a class="text-white hover:bg-purple-700 <?=$_GET['page'] == 'builder/home/dashboard' ? 'bg-purple-700' : ''?> p-2 px-4 inline-block" href="index.php?page=builder/home/dashboard">Home</a>
+                        <a class="text-white hover:bg-purple-700 <?=$_GET['page'] == 'builder/home/dashboard' ? $nav_class_active : ''?> p-2 px-4 inline-block" href="index.php?page=builder/home/dashboard">Home</a>
                     </li>
                     <li class="relative">
                         <a href="#" onclick="toggleNav('#pendataan')" class="cursor-pointer dropdown text-white hover:bg-purple-700 <?=$pendataan?> p-2 px-4 inline-block">
@@ -65,7 +64,7 @@ $wilayah = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data']
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
                                 <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="zona-nilai-tanah">
-                                    <a href="?page=builder/crud/index&data=blok" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('blok') ?> hover:text-white">Blok</a>
+                                    <a href="?page=builder/blok/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('blok') ?> hover:text-white">Blok</a>
                                     <a href="?page=builder/crud/index&data=znt" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('znt') ?> hover:text-white">ZNT</a>
                                     <a href="?page=builder/crud/index&data=nir" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('nir') ?> hover:text-white">NIR</a>
                                     <a href="?page=builder/crud/index&data=jalan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('jalan') ?> hover:text-white">Nama Jalan</a>
@@ -111,8 +110,8 @@ $wilayah = $curr_page && (isset($_GET['data']) ? arrStringContains($_GET['data']
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
                                 <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="wilayah">
-                                    <a href="?page=builder/crud/index&data=kecamatan" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kecamatan')?> hover:text-white">Kecamatan</a>
-                                    <a href="?page=builder/crud/index&data=kelurahan" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kelurahan') ?> hover:text-white">Kelurahan</a>
+                                    <a href="?page=builder/kecamatan/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kecamatan')?> hover:text-white">Kecamatan</a>
+                                    <a href="?page=builder/kelurahan/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kelurahan') ?> hover:text-white">Kelurahan</a>
                                 </div>
                             </div>
 
