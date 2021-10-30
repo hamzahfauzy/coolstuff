@@ -4,14 +4,15 @@ $installation = $builder->get_installation();
 
 $nav_class_active = 'bg-purple-700 text-white';
 
-$pendataan = (isBuilder() ? arrStringContains($_GET['data'],['znt','nir','jalan','subjek-pajak','objek-pajak-bumi','objek-pajak-bangunan'])  : (arrStringContains($_GET['page'],['blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
+$pendataan = (isBuilder() ? arrStringContains($_GET['data'],['nir','subjek-pajak','objek-pajak-bumi','objek-pajak-bangunan'])  : ( isset($_GET['page']) && arrStringContains($_GET['page'],['nama-jalan','znt','blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
 $penilaian = (isBuilder() ? stringContains($_GET['data'],'penilaian') : false) ? $nav_class_active : '';
 $penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
-$referensi = (isBuilder() ? arrStringContains($_GET['data'],['tempat-bayar']) : (arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '')) ? $nav_class_active : '';
-$utility = (isBuilder() ? arrStringContains($_GET['data'],['role','user','pejabat']) : false) ? $nav_class_active : '';
+$referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
+$utility = (isset($_GET['page']) && arrStringContains($_GET['page'],['roles','users','pejabat']) ? $nav_class_active : '');
 
-$znt = (isBuilder() ? arrStringContains($_GET['data'],['znt','nir','jalan']) : (arrStringContains($_GET['page'],['blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
-$wilayah = arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '';
+$znt = (isset($_GET['page']) && arrStringContains($_GET['page'],['nama-jalan','znt','blok']) ? $nav_class_active : '');
+$objek_pajak = (isBuilder() ? arrStringContains($_GET['data'],['objek-pajak-bumi','objek-pajak-bangunan']) : false) ? $nav_class_active : '';
+$wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '' : '';
 
 ?>
 <!DOCTYPE html>
@@ -65,15 +66,23 @@ $wilayah = arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_cla
                                 </a>
                                 <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="zona-nilai-tanah">
                                     <a href="?page=builder/blok/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('blok') ?> hover:text-white">Blok</a>
-                                    <a href="?page=builder/crud/index&data=znt" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('znt') ?> hover:text-white">ZNT</a>
+                                    <a href="?page=builder/znt/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('znt') ?> hover:text-white">ZNT</a>
                                     <a href="?page=builder/crud/index&data=nir" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('nir') ?> hover:text-white">NIR</a>
-                                    <a href="?page=builder/crud/index&data=jalan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('jalan') ?> hover:text-white">Nama Jalan</a>
+                                    <a href="?page=builder/nama-jalan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('nama-jalan') ?> hover:text-white">Nama Jalan</a>
                                 </div>
                             </div>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DBKB</a>
                             <a href="?page=builder/crud/index&data=subjek-pajak" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('subjek-pajak') ?> hover:text-white">Subjek Pajak</a>
-                            <a href="?page=builder/crud/index&data=objek-pajak-bumi" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bumi') ?> hover:text-white">Objek Pajak Bumi</a>
-                            <a href="?page=builder/crud/index&data=objek-pajak-bangunan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bangunan') ?> hover:text-white">Objek Pajak Bangunan</a>
+                            <div class="relative">
+                                <a href="#" onclick="toggleNav('#objek-pajak')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$objek_pajak?> hover:text-white flex justify-between items-center">
+                                    <span class=" capitalize">objek pajak</span>
+                                    <i class="fa fa-caret-right text-right ml-2"></i>
+                                </a>
+                                <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="objek-pajak">
+                                    <a href="?page=builder/crud/index&data=objek-pajak-bumi" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bumi') ?> hover:text-white">Objek Pajak Bumi</a>
+                                    <a href="?page=builder/crud/index&data=objek-pajak-bangunan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bangunan') ?> hover:text-white">Objek Pajak Bangunan</a>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li class="relative">
@@ -116,10 +125,10 @@ $wilayah = arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_cla
                             </div>
 
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Klasifikasi Tarif/Rumah/Bangunan</a>
-                            <a href="?page=builder/crud/index&data=tempat-bayar" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('tempat-bayar') ?> hover:text-white">Tempat Pembayaran</a>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Status Penggunaan Kayu Ulin</a>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Update Resources</a>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Posting SPPT Lama</a>
+                            <a href="?page=builder/tempat-pembayaran/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('tempat-pembayaran') ?> hover:text-white">Tempat Pembayaran</a>
+                            <a href="?page=builder/kayu-ulin/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kayu-ulin') ?> hover:text-white">Status Penggunaan Kayu Ulin</a>
+                            <!-- <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Update Resources</a> -->
+                            <!-- <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Posting SPPT Lama</a> -->
                         </div>
                     </li>
                     <li class="relative">
@@ -150,9 +159,9 @@ $wilayah = arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_cla
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="utility" style="top:40px">
-                            <a href="?page=builder/crud/index&data=role" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('role') ?> hover:text-white">Roles</a>
-                            <a href="?page=builder/crud/index&data=user" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('user') ?> hover:text-white">User</a>
-                            <a href="?page=builder/crud/index&data=pejabat" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pejabat') ?> hover:text-white">Pejabat</a>
+                            <a href="?page=builder/roles/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('roles') ?> hover:text-white">Roles</a>
+                            <a href="?page=builder/users/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('users') ?> hover:text-white">Users</a>
+                            <a href="?page=builder/pejabat/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pejabat') ?> hover:text-white">Pejabat</a>
                         </div>
                     </li>
                 </ul>

@@ -2,6 +2,13 @@
 require '../config/main.php';
 require '../helpers/Builder.php';
 require '../helpers/Form.php';
+require_once '../config/database.php';
+
+function conn(){
+    global $conn;
+
+    return $conn;
+}
 
 function stringContains($string,$val){
     if (strpos($string, $val) !== false) {
@@ -23,9 +30,11 @@ function arrStringContains($string,$arr){
 }
 
 function isBuilder(){
-    $curr_page = $_GET['page'] == 'builder/crud/index';
-
-    return $curr_page;
+    if(isset($_GET['page'])){
+        $curr_page = $_GET['page'] == 'builder/crud/index';
+    
+        return $curr_page;
+    }
 }
 
 function getCurrentPageDataNav($str){

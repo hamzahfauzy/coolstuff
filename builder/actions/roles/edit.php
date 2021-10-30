@@ -1,48 +1,40 @@
 <?php
-$msg = get_flash_msg('success');
+require '../helpers/QueryBuilder.php';
 
-$builder = new Builder;
-$all_fields  = $builder->get_content('role','sample');
-$all_fields  = (array) $all_fields;
+$qb = new QueryBuilder();
 
-$roles       = $builder->get_content('roles');
-$values      = (array) $roles[$_GET['key']];
-$keys        = array_keys($values);
+$all_fields = $qb->columns("WEWENANG","KD_WEWENANG, NM_WEWENANG");
+$data = $qb->select('WEWENANG')->where('KD_WEWENANG',$_GET['roles'])->first();
+$keys        = array_keys($data);
 $fields      = [];
 
+
+$i = 0;
 foreach($keys as $key)
 {
+
+    if(empty($all_fields[$i]) || $all_fields[$i]['column_name'] != $key){
+        continue;
+    }
+
     $fields[$key] = [
-        'type' => $all_fields[$key],
-        'value' => $values[$key]
+        'type' => $all_fields[$i]['data_type'],
+        'character_maximum_length' => $all_fields[$i]['character_maximum_length'],
+        'value' => $data[$key],
     ];
+
+    $i++;
 }
 
 if(request() == 'POST')
-{
-    $role_data = $_POST;
-    $roles = (array) $roles;
-    $roles[$_GET['key']] = $role_data;
-    $role_data = json_encode($roles);
-    if($builder->set_content('roles',$role_data))
+{   
+
+    $update = $qb->update('WEWENANG',$_POST)->where('KD_WEWENANG',$_GET['roles'])->exec();
+
+    if($update)
     {
-        set_flash_msg(['success'=>'Data berhasil di update']);
+        set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/roles/index');
         return;
     }
-    // $installation_data = $_POST;
-    // if(isset($_FILES['logo']) && !empty($_FILES['logo']['name']))
-    // {
-    //     $upload = upload($_FILES['logo'],'installation');
-    //     $installation_data['logo'] = $upload['filename'];
-    // }
-    // else
-    //     $installation_data['logo'] = $fields['logo']['value'];
-    // $installation_data = json_encode($installation_data);
-    // if($builder->set_content('installation',$installation_data))
-    // {
-    //     set_flash_msg(['success'=>'Data berhasil di update']);
-    //     header('location:index.php?page=builder/setting/index');
-    //     return;
-    // }
 }

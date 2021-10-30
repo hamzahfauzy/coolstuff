@@ -1,14 +1,17 @@
 <?php load('builder/partials/top') ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-4xl">Add Role</h2>
+    <h2 class="text-4xl">Edit Roles : <?=$data['NM_WEWENANG']?></h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
-        <form id="login-form" action="" method="post" enctype="multipart/form-data">
-            <?php foreach($fields as $name => $field): ?>
+        <form id="login-form" action="index.php?page=<?=$_GET['page']?>&roles=<?=$_GET['roles']?>" method="post" enctype="multipart/form-data">
+            <?php 
+            foreach($fields as $key => $val): 
+                $label = str_replace("_"," ",$key);
+                $label = str_replace("KD","KODE",$label);
+                $label = str_replace("NM","NAMA",$label);
+            ?>
             <div class="form-group mb-2">
-                <?php if($field['type'] == 'file'): ?>
-                <a href="<?= get_file_storage("installation/".$field['value']) ?>" class="text-blue-700" target="_blank">Lihat File</a>
-                <?php endif ?>
-                <?= Form::input($field['type'], $name, ['class'=>"p-2 w-full border rounded","placeholder"=>$name,"value"=>$field['value']]) ?>
+                <label><?=ucwords($label)?></label>
+                <?= Form::input($val['type'], $key, ['class'=>"p-2 w-full border rounded","placeholder"=>$label,'value'=>$val['value'],'maxlength'=>$val['character_maximum_length'] ]) ?>
             </div>
             <?php endforeach ?>
 

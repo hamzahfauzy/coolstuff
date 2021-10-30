@@ -4,6 +4,7 @@ require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
 
+$msg = get_flash_msg('success');
 $datas = $qb
             ->select("REF_KELURAHAN","REF_KELURAHAN.*, kecamatan.NM_KECAMATAN")
             ->join('REF_KECAMATAN as kecamatan','REF_KELURAHAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN');

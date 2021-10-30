@@ -1,13 +1,17 @@
 <?php
-$builder = new Builder;
-$roles       = $builder->get_content('roles');
-$roles       = (array) $roles;
-unset($roles[$_GET['key']]);
+require '../helpers/QueryBuilder.php';
 
-$role_data = json_encode($roles);
-if($builder->set_content('roles',$role_data))
-{
-    set_flash_msg(['success'=>'Data berhasil di hapus']);
-    header('location:index.php?page=builder/roles/index');
-    return;
+$qb = new QueryBuilder();
+
+
+if(isset($_GET['roles']))
+{   
+    $delete = $qb->delete('WEWENANG')->where('KD_WEWENANG',$_GET['roles'])->exec();
+
+    if($delete)
+    {
+        set_flash_msg(['success'=>'Data Deleted']);
+        header('location:index.php?page=builder/roles/index');
+        return;
+    }
 }

@@ -1,16 +1,18 @@
 <?php
-$builder = new Builder;
-$fields  = $builder->get_content('role','sample');
+require '../helpers/QueryBuilder.php';
+
+$qb = new QueryBuilder();
+
+$fields = $qb->columns("WEWENANG","KD_WEWENANG, NM_WEWENANG");
 
 if(request() == 'POST')
-{
-    $builder = new Builder;
-    $roles  = $builder->get_content('roles');
-    $roles[] = $_POST;
-    $role_data = json_encode($roles);
-    if($builder->set_content('roles',$role_data))
+{   
+
+    $insert = $qb->create('WEWENANG',$_POST)->exec();
+
+    if($insert)
     {
-        set_flash_msg(['success'=>'Data berhasil di simpan']);
+        set_flash_msg(['success'=>'Data Saved']);
         header('location:index.php?page=builder/roles/index');
         return;
     }
