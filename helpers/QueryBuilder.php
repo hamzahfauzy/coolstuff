@@ -94,6 +94,22 @@ class QueryBuilder{
         return $datas;
     }
 
+    
+    function count($tbl,$column){
+
+        $this->sql = "select count($column) as count from $tbl";
+
+        $query = $this->exec();
+
+        $result = 0;
+        while($r = sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {
+            $result = $r['count'];
+        }
+
+
+        return $result;
+    }
+
     function create($tbl,$values){
     
         $columns = "";
