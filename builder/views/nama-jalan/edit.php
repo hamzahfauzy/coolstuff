@@ -112,16 +112,12 @@
         var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
         var kelurahan = document.querySelector("select[name='KD_KELURAHAN']")
 
-        console.log(kelurahan.value)
-
         fetch("index.php?page=builder/nama-jalan/index&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
                 var html = `
                         <label>ZNT</label>
                         <select name="KD_ZNT" class="p-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih ZNT -</option>`
-
-                            console.log(data)
 
                 data.map(dt=>{
                     html += `<option value="${dt.KD_ZNT}">${dt.KD_ZNT}</option>`
