@@ -21,6 +21,16 @@
                     <input type="hidden" name="page" value="<?=$_GET['page']?>">
 
                     <div class="form-group inline-block">
+                        <select class="p-2 w-full border rounded" name="limit" id="">
+                            <option value="" selected readonly>- Tampilkan jumlah data -</option>
+                            <option <?= (isset($_GET['limit']) && $_GET['limit'] == $limits['count']) ? "selected" : ""?> value="<?=$limits['count']?>">Tampilkan Semua</option>
+                            <?php for($i = 10; $i <= $limits['count'];$i+=10):?>
+                                <option <?= (isset($_GET['limit']) && $_GET['limit'] == $i) ? "selected" : ""?> value="<?=$i?>"><?=$i?></option>";
+                            <?php endfor ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group inline-block">
                         <select name="kecamatan" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">
                             <option value="" selected readonly>- Pilih Kecamatan -</option>
                             <?php foreach($kecamatans as $kecamatan):?>
@@ -77,12 +87,12 @@
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - ".$data['NM_KECAMATAN']?></span>
+                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - "?><?= $data['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - ".$data['NM_KELURAHAN']?></span>
+                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - "?><?= $data['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-center">

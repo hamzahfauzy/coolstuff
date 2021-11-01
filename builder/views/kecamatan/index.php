@@ -13,7 +13,30 @@
             </div>
         </div>
         <?php endif ?>
-        <a href="index.php?page=builder/kecamatan/create" class="p-2 bg-green-500 text-white rounded inline-block">+ Add New</a>
+        <div class="flex justify-between">
+            <a href="index.php?page=builder/kecamatan/create" class="p-2 bg-green-500 text-white rounded inline-block">+ Add New</a>
+            <div>
+                <form action="" method="get">
+
+                    <input type="hidden" name="page" value="<?=$_GET['page']?>">
+                    
+                    <div class="form-group inline-block">
+                        <select class="p-2 w-full border rounded" name="limit" id="">
+                            <option value="" selected readonly>- Tampilkan jumlah data -</option>
+                            <option <?= (isset($_GET['limit']) && $_GET['limit'] == $limits['count']) ? "selected" : ""?> value="<?=$limits['count']?>">Tampilkan Semua</option>
+                            <?php for($i = 10; $i <= $limits['count'];$i+=10):?>
+                                <option <?= (isset($_GET['limit']) && $_GET['limit'] == $i) ? "selected" : ""?> value="<?=$i?>"><?=$i?></option>";
+                            <?php endfor ?>
+                        </select>
+                    </div>
+                    <div class="form-group inline-block">
+                        <button class="p-2 bg-green-500 text-white rounded" name="filter">Filter</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
         <div class="bg-white shadow-md rounded my-3 overflow-x-auto">
             <table class="min-w-max w-full table-auto">
                 <tbody class="text-gray-600 text-sm font-light">

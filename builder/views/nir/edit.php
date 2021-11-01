@@ -1,8 +1,8 @@
 <?php load('builder/partials/top') ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-4xl">Edit Nama Jalan : <?=$data["NM_JLN"]?></h2>
+    <h2 class="text-4xl">Edit NIR : <?=$data["NO_DOKUMEN"]?> - <?=$data["NIR"]?></h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
-        <form id="login-form" action="index.php?page=<?=$_GET['page']?>&kecamatan=<?=$_GET['kecamatan']?>&kelurahan=<?=$_GET['kelurahan']?>&blok=<?=$_GET['blok']?>&znt=<?=$_GET['znt']?>&nama-jalan=<?=$_GET['nama-jalan']?>" method="post" enctype="multipart/form-data">
+        <form id="login-form" action="index.php?page=<?=$_GET['page']?>&kecamatan=<?=$_GET['kecamatan']?>&kelurahan=<?=$_GET['kelurahan']?>&znt=<?=$_GET['znt']?>&nir=<?=$data['NIR']?>&no_dokumen=<?=$data['NO_DOKUMEN']?>&tahun=<?=$data['THN_NIR_ZNT']?>" method="post" enctype="multipart/form-data">
             <div class="form-group mb-2">
                 <label>Kecamatan</label>
                 <select name="KD_KECAMATAN" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">
@@ -21,21 +21,12 @@
                     <?php endforeach ?>
                 </select>
             </div>
-            <div class="form-group mb-2 <?=isset($_GET['blok']) && $_GET['blok'] ? '' : 'hidden' ?>" id="blok">
-                <label>Blok</label>
-                <select name="KD_BLOK" class="p-2 w-full border rounded" onchange="blokChange(this)">
-                    <option value="" selected readonly>- Pilih Blok -</option>
-                    <?php foreach($bloks as $blok):?>
-                        <option <?= $_GET['blok'] == $blok['KD_BLOK'] && $_GET['kelurahan'] == $blok['KD_KELURAHAN'] && $_GET['kecamatan'] == $blok['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$blok['KD_BLOK']?>"><?=$blok['KD_BLOK']?></option>
-                    <?php endforeach ?>
-                </select>
-            </div>
             <div class="form-group mb-2 <?=isset($_GET['znt']) && $_GET['znt'] ? '' : 'hidden' ?>" id="znt">
                 <label>ZNT</label>
                 <select name="KD_ZNT" class="p-2 w-full border rounded">
                     <option value="" selected readonly>- Pilih ZNT -</option>
                     <?php foreach($znts as $znt):?>
-                        <option <?= $_GET['znt'] == $znt['KD_ZNT'] && $_GET['blok'] == $znt['KD_BLOK'] && $_GET['kelurahan'] == $znt['KD_KELURAHAN'] && $_GET['kecamatan'] == $znt['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$znt['KD_ZNT']?>"><?=$znt['KD_ZNT']?></option>
+                        <option <?= $_GET['znt'] == $znt['KD_ZNT'] && $_GET['kelurahan'] == $znt['KD_KELURAHAN'] && $_GET['kecamatan'] == $znt['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$znt['KD_ZNT']?>"><?=$znt['KD_ZNT']?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -61,7 +52,7 @@
 <script>
 
     function kecamatanChange(el){
-        fetch("index.php?page=builder/nama-jalan/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
+        fetch("index.php?page=builder/nir/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
 
                 var html = `
                         <label>Kelurahan</label>
@@ -86,33 +77,7 @@
     function kelurahanChange(el){
         var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
 
-        fetch("index.php?page=builder/nama-jalan/index&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
-
-                var html = `
-                        <label>Blok</label>
-                        <select name="KD_BLOK" class="p-2 w-full border rounded" onchange="blokChange(this)">
-                            <option value="" selected readonly>- Pilih Blok -</option>`
-
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_BLOK}">${dt.KD_BLOK}</option>`
-                })
-
-                html += `</select>`
-
-                var blok = document.querySelector("#blok")
-
-                blok.innerHTML = html
-
-                blok.classList.remove("hidden")
-
-        }); 
-    }    
-
-    function blokChange(el){
-        var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
-        var kelurahan = document.querySelector("select[name='KD_KELURAHAN']")
-
-        fetch("index.php?page=builder/nama-jalan/index&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+        fetch("index.php?page=builder/nir/index&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
                 var html = `
                         <label>ZNT</label>

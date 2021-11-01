@@ -63,6 +63,12 @@ class QueryBuilder{
         return $this;
     }
 
+    function groupBy($val){
+        $this->sql .= " group by $val ";
+
+        return $this;
+    }
+
     function exec($params = []){
         $query = sqlsrv_query( $this->conn, $this->sql ,$params);
 
@@ -192,6 +198,10 @@ class QueryBuilder{
 
             if($r['data_type'] == 'nvarchar'){
                 $r['data_type'] = 'text';
+            }
+
+            if($r['data_type'] == 'numeric'){
+                $r['data_type'] = 'number';
             }
 
             if(strtolower($r['column_name']) == 'password'){

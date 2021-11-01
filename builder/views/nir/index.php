@@ -1,7 +1,7 @@
 <?php load('builder/partials/top');
 ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Nama Jalan</h2>
+    <h2 class="text-3xl">NIR</h2>
     <div class="my-6">
         <?php if($msg): ?>
         <div class="bg-green-100 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md my-6" role="alert">
@@ -13,7 +13,7 @@
             </div>
         </div>
         <?php endif ?>
-        <a href="index.php?page=builder/nama-jalan/create" class="p-2 bg-green-500 text-white rounded">+ Add New</a>
+        <a href="index.php?page=builder/nir/create" class="p-2 bg-green-500 text-white rounded">+ Add New</a>
         <div class="mt-5">
             <form action="" method="get">
 
@@ -30,6 +30,15 @@
                 </div>
 
                 <div class="form-group inline-block">
+                    <select class="p-2 w-full border rounded" name="tahun" id="">
+                        <option value="" selected readonly>- Pilih Tahun -</option>
+                        <?php foreach($tahuns as $key => $data): ?>
+                            <option <?= (isset($_GET['tahun']) && $_GET['tahun'] == $data['THN_NIR_ZNT']) ? "selected" : ""?> value="<?=$data['THN_NIR_ZNT']?>"><?=$data['THN_NIR_ZNT']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+
+                <div class="form-group inline-block" id="kecamatan">
                     <select name="kecamatan" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">
                         <option value="" selected readonly>- Pilih Kecamatan -</option>
                         <?php foreach($kecamatans as $kecamatan):?>
@@ -47,20 +56,11 @@
                     </select>
                 </div>
 
-                <div class="form-group inline-block <?=(isset($_GET['blok']) && $_GET['blok']) || (isset($_GET['kelurahan']) && $_GET['kelurahan']) ? '' : 'hidden' ?>" id="blok">
-                    <select name="blok" class="p-2 w-full border rounded" onchange="blokChange(this)">
-                        <option value="" selected readonly>- Pilih Blok -</option>
-                        <?php foreach($bloks as $blok):?>
-                            <option <?= isset($_GET['blok']) && $_GET['blok'] == $blok['KD_BLOK'] && $_GET['kelurahan'] == $blok['KD_KELURAHAN']  && $_GET['kecamatan'] == $blok['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$blok['KD_BLOK']?>"><?=$blok['KD_BLOK']?></option>
-                        <?php endforeach ?>
-                    </select>
-                </div>
-
-                <div class="form-group inline-block <?=(isset($_GET['znt']) && $_GET['znt']) || (isset($_GET['blok']) && $_GET['blok']) ? '' : 'hidden' ?>" id="znt">
+                <div class="form-group inline-block <?=(isset($_GET['znt']) && $_GET['znt']) || (isset($_GET['kelurahan']) && $_GET['kelurahan']) ? '' : 'hidden' ?>" id="znt">
                     <select name="znt" class="p-2 w-full border rounded">
                         <option value="" selected readonly>- Pilih Znt -</option>
                         <?php foreach($znts as $znt):?>
-                            <option <?= isset($_GET['znt']) && $_GET['znt'] == $znt['KD_ZNT'] && $_GET['blok'] == $znt['KD_BLOK']  &&  $_GET['kelurahan'] == $znt['KD_KELURAHAN']  && $_GET['kecamatan'] == $znt['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$znt['KD_ZNT']?>"><?=$znt['KD_ZNT']?></option>
+                            <option <?= isset($_GET['znt']) && $_GET['znt'] == $znt['KD_ZNT'] &&  $_GET['kelurahan'] == $znt['KD_KELURAHAN']  && $_GET['kecamatan'] == $znt['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$znt['KD_ZNT']?>"><?=$znt['KD_ZNT']?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -82,8 +82,9 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">No</th>
-                            <th class="py-3 px-6 text-left">Blok</th>
-                            <th class="py-3 px-6 text-left">Nama Jalan</th>
+                            <th class="py-3 px-6 text-left">No Dokumen</th>
+                            <th class="py-3 px-6 text-left">NIR</th>
+                            <th class="py-3 px-6 text-left">Tahun NIR</th>
                             <th class="py-3 px-6 text-left">Kecamatan</th>
                             <th class="py-3 px-6 text-left">Kelurahan</th>
                             <th class="py-3 px-6 text-left">ZNT</th>
@@ -101,12 +102,17 @@
                         
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_BLOK']?></span>
+                                <span class="font-medium"><?=$data['NO_DOKUMEN']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NM_JLN']?></span>
+                                <span class="font-medium"><?=$data['NIR']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['THN_NIR_ZNT']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -132,12 +138,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </div> -->
-                                <a href="index.php?page=builder/nama-jalan/edit&kecamatan=<?=$data['KD_KECAMATAN']?>&kelurahan=<?=$data['KD_KELURAHAN']?>&blok=<?=$data['KD_BLOK']?>&znt=<?=$data['KD_ZNT']?>&nama-jalan=<?=$data['NM_JLN']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <a href="index.php?page=builder/nir/edit&kecamatan=<?=$data['KD_KECAMATAN']?>&kelurahan=<?=$data['KD_KELURAHAN']?>&znt=<?=$data['KD_ZNT']?>&nir=<?=$data['NIR']?>&no_dokumen=<?=$data['NO_DOKUMEN']?>&tahun=<?=$data['THN_NIR_ZNT']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
                                 </a>
-                                <a href="index.php?action=builder/nama-jalan/delete&kecamatan=<?=$data['KD_KECAMATAN']?>&kelurahan=<?=$data['KD_KELURAHAN']?>&blok=<?=$data['KD_BLOK']?>&znt=<?=$data['KD_ZNT']?>&nama-jalan=<?=$data['NM_JLN']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" onclick="if(confirm('Apakah anda yakin menghapus data ini')){return true}else{return false}">
+                                <a href="index.php?action=builder/nir/delete&kecamatan=<?=$data['KD_KECAMATAN']?>&kelurahan=<?=$data['KD_KELURAHAN']?>&znt=<?=$data['KD_ZNT']?>&nir=<?=$data['NIR']?>&no_dokumen=<?=$data['NO_DOKUMEN']?>&tahun=<?=$data['THN_NIR_ZNT']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" onclick="if(confirm('Apakah anda yakin menghapus data ini')){return true}else{return false}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -153,10 +159,11 @@
     </div>
 </div>
 
-<script>
+<script>  
 
     function kecamatanChange(el){
-        fetch("index.php?page=builder/nama-jalan/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
+        var tahun = document.querySelector("select[name='tahun']")
+        fetch("index.php?page=builder/nir/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
 
                 var html = `<select name="kelurahan" class="p-2 w-full border rounded" onchange="kelurahanChange(this)">
                             <option value="" selected readonly>- Pilih Kelurahan -</option>`
@@ -178,32 +185,9 @@
 
     function kelurahanChange(el){
         var kecamatan = document.querySelector("select[name='kecamatan']")
+        var tahun = document.querySelector("select[name='tahun']")
 
-        fetch("index.php?page=builder/nama-jalan/index&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
-
-                var html = `<select name="blok" class="p-2 w-full border rounded" onchange="blokChange(this)">
-                            <option value="" selected readonly>- Pilih Blok -</option>`
-
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_BLOK}">${dt.KD_BLOK}</option>`
-                })
-
-                html += `</select>`
-
-                var blok = document.querySelector("#blok")
-
-                blok.innerHTML = html
-
-                blok.classList.remove("hidden")
-
-        }); 
-    }    
-
-    function blokChange(el){
-        var kecamatan = document.querySelector("select[name='kecamatan']")
-        var kelurahan = document.querySelector("select[name='kelurahan']")
-
-        fetch("index.php?page=builder/nama-jalan/index&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+        fetch("index.php?page=builder/nir/index&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
                 var html = `<select name="znt" class="p-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih ZNT -</option>`
@@ -221,7 +205,7 @@
                 znt.classList.remove("hidden")
 
         }); 
-    }    
+    }   
 </script>
 
 <?php load('builder/partials/bottom') ?>

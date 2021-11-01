@@ -13,44 +13,52 @@
             </div>
         </div>
         <?php endif ?>
-        <div class="flex justify-between items-center">
-            <a href="index.php?page=builder/znt/create" class="p-2 bg-green-500 text-white rounded">+ Add New</a>
-            <div>
-                <form action="" method="get">
+        <a href="index.php?page=builder/znt/create" class="p-2 bg-green-500 text-white rounded">+ Add New</a>
+        <div class="mt-5">
+            <form action="" method="get">
 
-                    <input type="hidden" name="page" value="<?=$_GET['page']?>">
+                <input type="hidden" name="page" value="<?=$_GET['page']?>">
 
-                    <div class="form-group inline-block">
-                        <select name="kecamatan" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">
-                            <option value="" selected readonly>- Pilih Kecamatan -</option>
-                            <?php foreach($kecamatans as $kecamatan):?>
-                                <option <?= isset($_GET['kecamatan']) && $_GET['kecamatan'] == $kecamatan['KD_KECAMATAN'] ? 'selected' : ''?> value="<?=$kecamatan['KD_KECAMATAN']?>"><?=$kecamatan['KD_KECAMATAN']." - ".$kecamatan['NM_KECAMATAN']?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                    <div class="form-group inline-block <?=(isset($_GET['kelurahan']) && $_GET['kelurahan']) || (isset($_GET['kecamatan']) && $_GET['kecamatan']) ? '' : 'hidden' ?>" id="kelurahan">
-                        <select name="kelurahan" class="p-2 w-full border rounded" onchange="kelurahanChange(this)">
-                            <option value="" selected readonly>- Pilih Kelurahan -</option>
-                            <?php foreach($kelurahans as $kelurahan):?>
-                                <option <?= isset($_GET['kelurahan']) && $_GET['kelurahan'] == $kelurahan['KD_KELURAHAN'] && $_GET['kecamatan'] == $kelurahan['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$kelurahan['KD_KELURAHAN']?>"><?=$kelurahan['KD_KELURAHAN']." - ".$kelurahan['NM_KELURAHAN']?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                    <div class="form-group inline-block <?=(isset($_GET['blok']) && $_GET['blok']) || (isset($_GET['kelurahan']) && $_GET['kelurahan']) ? '' : 'hidden' ?>" id="blok">
-                        <select name="blok" class="p-2 w-full border rounded">
-                            <option value="" selected readonly>- Pilih Blok -</option>
-                            <?php foreach($bloks as $blok):?>
-                                <option <?= isset($_GET['blok']) && $_GET['blok'] == $blok['KD_BLOK'] && $_GET['kelurahan'] == $blok['KD_KELURAHAN']  && $_GET['kecamatan'] == $blok['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$blok['KD_BLOK']?>"><?=$blok['KD_BLOK']?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
+                <div class="form-group inline-block">
+                    <select class="p-2 w-full border rounded" name="limit" id="">
+                        <option value="" selected readonly>- Tampilkan jumlah data -</option>
+                        <option <?= (isset($_GET['limit']) && $_GET['limit'] == $limits['count']) ? "selected" : ""?> value="<?=$limits['count']?>">Tampilkan Semua</option>
+                        <?php for($i = 10; $i <= $limits['count'];$i+=10):?>
+                            <option <?= (isset($_GET['limit']) && $_GET['limit'] == $i) ? "selected" : ""?> value="<?=$i?>"><?=$i?></option>";
+                        <?php endfor ?>
+                    </select>
+                </div>
 
-                    <div class="form-group inline-block">
-                        <button class="p-2 bg-green-500 text-white rounded" name="filter">Filter</button>
-                    </div>
+                <div class="form-group inline-block">
+                    <select name="kecamatan" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">
+                        <option value="" selected readonly>- Pilih Kecamatan -</option>
+                        <?php foreach($kecamatans as $kecamatan):?>
+                            <option <?= isset($_GET['kecamatan']) && $_GET['kecamatan'] == $kecamatan['KD_KECAMATAN'] ? 'selected' : ''?> value="<?=$kecamatan['KD_KECAMATAN']?>"><?=$kecamatan['KD_KECAMATAN']." - ".$kecamatan['NM_KECAMATAN']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="form-group inline-block <?=(isset($_GET['kelurahan']) && $_GET['kelurahan']) || (isset($_GET['kecamatan']) && $_GET['kecamatan']) ? '' : 'hidden' ?>" id="kelurahan">
+                    <select name="kelurahan" class="p-2 w-full border rounded" onchange="kelurahanChange(this)">
+                        <option value="" selected readonly>- Pilih Kelurahan -</option>
+                        <?php foreach($kelurahans as $kelurahan):?>
+                            <option <?= isset($_GET['kelurahan']) && $_GET['kelurahan'] == $kelurahan['KD_KELURAHAN'] && $_GET['kecamatan'] == $kelurahan['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$kelurahan['KD_KELURAHAN']?>"><?=$kelurahan['KD_KELURAHAN']." - ".$kelurahan['NM_KELURAHAN']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="form-group inline-block <?=(isset($_GET['blok']) && $_GET['blok']) || (isset($_GET['kelurahan']) && $_GET['kelurahan']) ? '' : 'hidden' ?>" id="blok">
+                    <select name="blok" class="p-2 w-full border rounded">
+                        <option value="" selected readonly>- Pilih Blok -</option>
+                        <?php foreach($bloks as $blok):?>
+                            <option <?= isset($_GET['blok']) && $_GET['blok'] == $blok['KD_BLOK'] && $_GET['kelurahan'] == $blok['KD_KELURAHAN']  && $_GET['kecamatan'] == $blok['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$blok['KD_BLOK']?>"><?=$blok['KD_BLOK']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
 
-                </form>
-            </div>
+                <div class="form-group inline-block">
+                    <button class="p-2 bg-green-500 text-white rounded" name="filter">Filter</button>
+                </div>
+
+            </form>
         </div>
         <div class="bg-white shadow-md rounded my-3 overflow-x-auto">
             <table class="min-w-max w-full table-auto">
@@ -81,12 +89,12 @@
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - ".$data['NM_KECAMATAN']?></span>
+                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - "?><?= $data['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - ".$data['NM_KELURAHAN']?></span>
+                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - "?><?= $data['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">

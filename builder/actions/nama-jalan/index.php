@@ -39,8 +39,8 @@ if(isset($_GET['limit']) && $_GET['limit']){
 
 $datas = $qb
             ->select("JALAN","TOP $limit JALAN.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
-            ->join('REF_KECAMATAN as kecamatan','JALAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
-            ->join('REF_KELURAHAN as kelurahan','JALAN.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
+            ->leftJoin('REF_KECAMATAN as kecamatan','JALAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
+            ->leftJoin('REF_KELURAHAN as kelurahan','JALAN.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
             ->andJoin('JALAN.KD_KELURAHAN','kelurahan.KD_KELURAHAN');
 
 $kelurahans = $qb1->select("REF_KELURAHAN");   
