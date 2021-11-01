@@ -4,7 +4,7 @@ $installation = $builder->get_installation();
 
 $nav_class_active = 'bg-purple-700 text-white';
 
-$pendataan = (isBuilder() ? arrStringContains($_GET['data'],['subjek-pajak','objek-pajak-bumi','objek-pajak-bangunan'])  : ( isset($_GET['page']) && arrStringContains($_GET['page'],['nir','nama-jalan','znt','blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
+$pendataan = (isBuilder() ? arrStringContains($_GET['data'],['objek-pajak-bumi','objek-pajak-bangunan'])  : ( isset($_GET['page']) && arrStringContains($_GET['page'],['subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
 $penilaian = (isBuilder() ? stringContains($_GET['data'],'penilaian') : false) ? $nav_class_active : '';
 $penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
 $referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
@@ -72,7 +72,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                                 </div>
                             </div>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DBKB</a>
-                            <a href="?page=builder/crud/index&data=subjek-pajak" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('subjek-pajak') ?> hover:text-white">Subjek Pajak</a>
+                            <a href="?page=builder/subjek-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('subjek-pajak') ?> hover:text-white">Subjek Pajak</a>
                             <div class="relative">
                                 <a href="#" onclick="toggleNav('#objek-pajak')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$objek_pajak?> hover:text-white flex justify-between items-center">
                                     <span class=" capitalize">objek pajak</span>

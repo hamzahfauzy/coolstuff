@@ -92,6 +92,10 @@ class QueryBuilder{
 
         $query = $this->exec();
 
+        if( $query === false ) {
+            die( print_r( sqlsrv_errors(), true));
+        }
+
         $datas = array();
         while($r = sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {
             $datas[] = $r;
