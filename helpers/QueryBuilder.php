@@ -98,6 +98,22 @@ class QueryBuilder{
 
         $datas = array();
         while($r = sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {
+
+            if(isset($r["TGL_PENDATAAN_BNG"])){
+                $result = $r["TGL_PENDATAAN_BNG"]->format('Y-m-d');
+                $r["TGL_PENDATAAN_BNG"] = $result;
+            }
+
+            if(isset($r["TGL_PEMERIKSAAN_BNG"])){
+                $result = $r["TGL_PEMERIKSAAN_BNG"]->format('Y-m-d');
+                $r["TGL_PEMERIKSAAN_BNG"] = $result;
+            }
+
+            if(isset($r["TGL_PEREKAMAN_BNG"])){
+                $result = $r["TGL_PEREKAMAN_BNG"]->format('Y-m-d');
+                $r["TGL_PEREKAMAN_BNG"] = $result;
+            }
+
             $datas[] = $r;
         }
 
@@ -110,6 +126,13 @@ class QueryBuilder{
         $this->sql = "select count($column) as count from $tbl";
 
         $query = $this->exec();
+
+        // show errors
+        if( $query === false ) {
+            die( print_r( sqlsrv_errors(), true));
+
+            return;
+        }
 
         $result = 0;
         while($r = sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {

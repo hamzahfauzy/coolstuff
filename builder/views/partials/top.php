@@ -4,14 +4,14 @@ $installation = $builder->get_installation();
 
 $nav_class_active = 'bg-purple-700 text-white';
 
-$pendataan = (isBuilder() ? arrStringContains($_GET['data'],['objek-pajak-bumi','objek-pajak-bangunan'])  : ( isset($_GET['page']) && arrStringContains($_GET['page'],['subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '')) ? $nav_class_active : '';
+$pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],['objek-pajak-bumi','objek-pajak-bangunan','subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
 $penilaian = (isBuilder() ? stringContains($_GET['data'],'penilaian') : false) ? $nav_class_active : '';
 $penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
 $referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
 $utility = (isset($_GET['page']) && arrStringContains($_GET['page'],['roles','users','pejabat']) ? $nav_class_active : '');
 
 $znt = (isset($_GET['page']) && arrStringContains($_GET['page'],['nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
-$objek_pajak = (isBuilder() ? arrStringContains($_GET['data'],['objek-pajak-bumi','objek-pajak-bangunan']) : false) ? $nav_class_active : '';
+$objek_pajak = (isset($_GET['page']) && arrStringContains($_GET['page'],['objek-pajak-bumi','objek-pajak-bangunan'])) ? $nav_class_active : '';
 $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '' : '';
 
 ?>
@@ -79,8 +79,8 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
                                 <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="objek-pajak">
-                                    <a href="?page=builder/crud/index&data=objek-pajak-bumi" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bumi') ?> hover:text-white">Objek Pajak Bumi</a>
-                                    <a href="?page=builder/crud/index&data=objek-pajak-bangunan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bangunan') ?> hover:text-white">Objek Pajak Bangunan</a>
+                                    <a href="?page=builder/objek-pajak-bumi/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bumi') ?> hover:text-white">Objek Pajak Bumi</a>
+                                    <a href="?page=builder/objek-pajak-bangunan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bangunan') ?> hover:text-white">Objek Pajak Bangunan</a>
                                 </div>
                             </div>
                         </div>
