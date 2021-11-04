@@ -11,7 +11,7 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 
 $page_map = require '../config/page_map.php';
 
-$page = 'builder/home/dashboard';
+$page = 'landing';
 $action = 1;
 $builder = new Builder;
 $installation = $builder->get_installation();
@@ -22,13 +22,23 @@ if($installation==false)
 }
 else
 {
-    if(isset($_GET['page']) && !empty($_GET['page']) && isset($page_map[$_GET['page']]))
-        $page = $page_map[$_GET['page']];
+    if(isset($_SESSION['auth']))
+        $page = 'builder/home/dashboard';
+    
+    if(isset($_GET['page']) && !empty($_GET['page']))
+    {
+        if(isset($page_map[$_GET['page']]))
+            $page = $page_map[$_GET['page']];
+        else
+            $page = $_GET['page'];
+    }
     else
-        $page = isset($_GET['page']) && !empty($_GET['page']) ? $_GET['page'] : $page;
+    {    
+        $page = 'landing';
+        // $page = isset($_GET['page']) && !empty($_GET['page']) ? $_GET['page'] : $page;
+    }
+    // if(!isset($_SESSION['auth']))
 
-    if(!isset($_SESSION['auth']))
-        $page = 'auth/login';
 }
 
 load($page,$action);

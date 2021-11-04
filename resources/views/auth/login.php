@@ -26,7 +26,17 @@
             </div>
 
             <div class="login-form">
-                <form id="login-form" action="" method="post" onsubmit="return doLogin();">
+                <?php if($msg): ?>
+                <div id="login-error" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md my-6" role="alert">
+                    <div class="flex">
+                        <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                        <div class="flex items-center">
+                        <p class="m-0"><b>Login Gagal!</b> Username dan Password salah</p>
+                        </div>
+                    </div>
+                </div>
+                <?php endif ?>
+                <form id="login-form" action="index.php?action=auth/login" onsubmit="doLogin" method="post">
                     <div class="form-group mb-2">
                         <input type="text" placeholder="Nama Pengguna" name="username" class="p-2 w-full border rounded">
                     </div>
@@ -54,29 +64,12 @@
         btnLogin.innerHTML = "Masuk"
         btnLogin.disabled = false
     }
-    async function doLogin()
+    function doLogin()
     {
         event.preventDefault()
         var btnLogin = document.querySelector('#btn-login')
         btnLogin.innerHTML = "Silahkan Tunggu..."
         btnLogin.disabled = true
-        var username = document.querySelector('input[name=username]')
-        var password = document.querySelector('input[name=password]')
-        var request = await fetch('<?=API_URL?>auth/login',{
-            method:'POST',
-            headers:{
-                'content-type':'application/x-www-form-urlencoded'
-            },
-            body:'username='+username.value+'&password='+password.value
-        })
-        var response = await request.json()
-        
-        if(response.status == 'fail')
-            resetForm()
-        else
-            location.reload()
-        
-        return false;
     }
     </script>
 </body>
