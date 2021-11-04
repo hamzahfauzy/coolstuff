@@ -4,6 +4,12 @@ $builder = new Builder;
 $installation = $builder->get_installation();
 $msg = get_flash_msg('fail');
 
+if(isset($_SESSION['auth']))
+{
+    header('location:index.php?page=builder/home/dashboard');
+    return;
+}
+
 if(request() == 'POST')
 {
     require '../helpers/QueryBuilder.php';
