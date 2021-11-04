@@ -64,12 +64,12 @@
         // Creating map object
         var map = new google.maps.Map(document.getElementById('map_canvas'), {
             zoom: 12,
-            center: new google.maps.LatLng(3.0296405,98.3527601),
+            center: new google.maps.LatLng(2.560535, 98.226417),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         // creates a draggable marker to the given coords
         var vMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(3.0296405,98.3527601),
+            position: new google.maps.LatLng(2.560535, 98.226417),
             draggable: true
         });
         // adds a listener to the marker
