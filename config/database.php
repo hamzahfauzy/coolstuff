@@ -15,7 +15,7 @@ if (in_array($server_name,$stagging_name)) {
      $connectionInfo = array( "Database"=>"dbpajak", "UID"=>"SA", "PWD"=>"bappeda@4321");
 }
 
-if (in_array($server_name,$live)) {
+if (in_array($server_name,$live_name)) {
      $serverName = "127.0.0.1"; //serverName\instanceName, portNumber (default is 1433)
      $connectionInfo = array( "Database"=>"dbpajak", "UID"=>"SA", "PWD"=>"bappeda@4321");
 }
