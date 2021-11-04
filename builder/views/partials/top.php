@@ -58,13 +58,13 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <span class=" capitalize">pendataan</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
-                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="pendataan" style="top:40px">
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="pendataan" style="top:40px">
                             <div class="relative">
                                 <a href="#" onclick="toggleNav('#zona-nilai-tanah')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$znt?> hover:text-white flex justify-between items-center">
                                     <span class=" capitalize">zona nilai tanah</span>
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
-                                <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="zona-nilai-tanah">
+                                <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left left-full top-0" id="zona-nilai-tanah">
                                     <a href="?page=builder/blok/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('blok') ?> hover:text-white">Blok</a>
                                     <a href="?page=builder/znt/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('znt') ?> hover:text-white">ZNT</a>
                                     <a href="?page=builder/nir/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('nir') ?> hover:text-white">NIR</a>
@@ -78,7 +78,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                                     <span class=" capitalize">objek pajak</span>
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
-                                <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="objek-pajak">
+                                <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left left-full top-0" id="objek-pajak">
                                     <a href="?page=builder/objek-pajak-bumi/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bumi') ?> hover:text-white">Objek Pajak Bumi</a>
                                     <a href="?page=builder/objek-pajak-bangunan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('objek-pajak-bangunan') ?> hover:text-white">Objek Pajak Bangunan</a>
                                 </div>
@@ -90,7 +90,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <span class=" capitalize">penilaian</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
-                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="penilaian" style="top:40px">
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penilaian" style="top:40px">
                             <a href="?page=builder/crud/index&data=penilaian" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penilaian') ?> hover:text-white">Penilaian</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Laporan</a>
                         </div>
@@ -100,7 +100,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <span class=" capitalize">penetapan</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
-                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="penetapan" style="top:40px">
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penetapan" style="top:40px">
                             <a href="?page=builder/crud/index&data=penetapan-pbb-minimal" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-pbb-minimal') ?> hover:text-white">PBB Minimal</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Penetapan NJOPTKP</a>
                             <a href="?page=builder/crud/index&data=penetapan-sppt" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt') ?> hover:text-white">Penetapan SPPT</a>
@@ -112,13 +112,13 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <span class=" capitalize">referensi</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
-                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="referensi" style="top:40px">
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="referensi" style="top:40px">
                             <div class="relative">
                                 <a href="#" onclick="toggleNav('#wilayah')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$wilayah?> hover:text-white flex justify-between items-center">
                                     <span class=" capitalize">wilayah</span>
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
-                                <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="wilayah">
+                                <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left left-full top-0" id="wilayah">
                                     <a href="?page=builder/kecamatan/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kecamatan')?> hover:text-white">Kecamatan</a>
                                     <a href="?page=builder/kelurahan/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kelurahan') ?> hover:text-white">Kelurahan</a>
                                 </div>
@@ -136,7 +136,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <span class=" capitalize">laporan</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
-                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="laporan" style="top:40px">
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="laporan" style="top:40px">
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
@@ -145,7 +145,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                                     <span class=" capitalize">format lama</span>
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
-                                <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left left-full top-0" id="format-lama">
+                                <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left left-full top-0" id="format-lama">
                                     <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
                                     <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
                                     <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
@@ -158,7 +158,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <span class=" capitalize">utility</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
-                        <div class="nav-box absolute shadow bg-white hidden w-1/7 pt-2 text-left" id="utility" style="top:40px">
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="utility" style="top:40px">
                             <a href="?page=builder/roles/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('roles') ?> hover:text-white">Roles</a>
                             <a href="?page=builder/users/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('users') ?> hover:text-white">Users</a>
                             <a href="?page=builder/pejabat/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pejabat') ?> hover:text-white">Pejabat</a>
