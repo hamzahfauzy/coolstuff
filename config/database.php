@@ -1,6 +1,6 @@
 <?php
 $server_name = $_SERVER['HTTP_HOST'];
-$local_name = ['localhost'];
+$local_name = ['localhost','localhost:8000'];
 $live_name = ['pbb.z-techno.com','z-techno.com'];
 $stagging_name = ['127.0.0.1'];
 

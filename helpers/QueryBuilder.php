@@ -81,6 +81,21 @@ class QueryBuilder{
        
         $data = array();
         while($r = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)) {
+            if(isset($r["TGL_PENDATAAN_BNG"])){
+                $result = $r["TGL_PENDATAAN_BNG"]->format('Y-m-d');
+                $r["TGL_PENDATAAN_BNG"] = $result;
+            }
+
+            if(isset($r["TGL_PEMERIKSAAN_BNG"])){
+                $result = $r["TGL_PEMERIKSAAN_BNG"]->format('Y-m-d');
+                $r["TGL_PEMERIKSAAN_BNG"] = $result;
+            }
+
+            if(isset($r["TGL_PEREKAMAN_BNG"])){
+                $result = $r["TGL_PEREKAMAN_BNG"]->format('Y-m-d');
+                $r["TGL_PEREKAMAN_BNG"] = $result;
+            }
+
             $data = $r;
             break;
         }
@@ -225,6 +240,10 @@ class QueryBuilder{
 
             if($r['data_type'] == 'nvarchar'){
                 $r['data_type'] = 'text';
+            }
+
+            if($r['data_type'] == 'datetime'){
+                $r['data_type'] = 'date';
             }
 
             if($r['data_type'] == 'numeric'){

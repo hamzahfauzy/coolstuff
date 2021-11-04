@@ -3,55 +3,32 @@ require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
 
-if(isset($_GET['filter-blok']) && isset($_GET['filter-kelurahan']) && isset($_GET['filter-kecamatan'])){
-    $znts = $qb->select("DAT_PETA_ZNT")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->where('KD_KELURAHAN',$_GET['filter-kelurahan'])->where('KD_BLOK',$_GET['filter-blok'])->get();
+$msg = get_flash_msg('success');
 
-    echo json_encode($znts);
-    die;
-}
-
-if(isset($_GET['filter-kelurahan']) && isset($_GET['filter-kecamatan'])){
-    $bloks = $qb->select("DAT_PETA_BLOK")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->where('KD_KELURAHAN',$_GET['filter-kelurahan'])->get();
-
-    echo json_encode($bloks);
-    die;
-}
-
-if(isset($_GET['filter-kecamatan'])){
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->get();
-
-    echo json_encode($kelurahans);
-    die;
-}
-
+//KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP =  '" & Trim(aNOP.Text) & "' ORDER BY NO_BNG*1 DESC"
 $data = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$_GET['id'])->first();
 
-$opBumi = $qb->select("DAT_OP_BUMI")->where("SUBJEK_PAJAK_ID",$_GET['id'])->first();
+$opBumis = $qb->select("DAT_OP_BUMI","DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+            ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
+            ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
+            ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where("SUBJEK_PAJAK_ID",$_GET['id'])->get();
 
-if($opBumi){
-    
-    $fields = $qb->columns("DAT_OP_BUMI","NO_URUT,KD_JNS_OP,LUAS_BUMI,JNS_BUMI,NILAI_SISTEM_BUMI,NO_FORMULIR,STATUS_JADI");
-    
-    $kecamatans = $qb->select('REF_KECAMATAN')->get();
-    
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$opBumi['KD_KECAMATAN'])->get();
-    $bloks = $qb->select("DAT_PETA_BLOK")->where('KD_KECAMATAN',$opBumi['KD_KECAMATAN'])->where('KD_KELURAHAN',$opBumi['KD_KELURAHAN'])->get();
-    $znts = $qb->select("DAT_PETA_ZNT")->where('KD_KECAMATAN',$opBumi['KD_KECAMATAN'])->where('KD_KELURAHAN',$opBumi['KD_KELURAHAN'])->where('KD_BLOK',$opBumi['KD_BLOK'])->get();
-    
-    if(request() == 'POST')
-    {   
-        $_POST['KD_PROPINSI'] = 12;
-        $_POST['KD_DATI2'] = 12;
-        $_POST['NO_BUMI'] = 1;
-    
-        $insert = $qb->create('DAT_OP_BUMI',$_POST)->where("SUBJEK_PAJAK_ID",$_GET['id'])->exec();
-    
-        if($insert)
-        {
-            set_flash_msg(['success'=>'Data Saved']);
-            header('location:index.php?page=builder/objek-pajak-bumi/index');
-            return;
-        }
-    }
+$clause = "DAT_OP_BANGUNAN.KD_PROPINSI + '.' + DAT_OP_BANGUNAN.KD_DATI2 + '.' + DAT_OP_BANGUNAN.KD_KECAMATAN + '.' + DAT_OP_BANGUNAN.KD_KELURAHAN + '.' + DAT_OP_BANGUNAN.KD_BLOK + '-' + DAT_OP_BANGUNAN.NO_URUT + '.' + DAT_OP_BANGUNAN.KD_JNS_OP";
 
-}
+$qOP = $qb->select("QOBJEKPAJAK")->where("SUBJEK_PAJAK_ID",$data['SUBJEK_PAJAK_ID'])->first();
+
+$opBangunans = $qb
+            ->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+            ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BANGUNAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
+            ->leftJoin('JPB_JPT as jpb','DAT_OP_BANGUNAN.KD_JPB','jpb.KD_JPB_JPT')
+            ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BANGUNAN.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
+            ->andJoin('DAT_OP_BANGUNAN.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where($clause,$qOP['NOPQ'])->get();
+
+$kondisi = ["01-Sangat Baik","02-Baik","03-Sedang","04-Jelek"];
+$konstruksi = ["01-Baja","02-Beton","03-Batu Bata","04-Kayu"];
+$atap = ["01-Decrabon/Beton/Gtg Glazur","02-Gtg Beton/Aluminium","03-Gtg Biasa/Sirap","04-Asbes","05-Seng"];
+$dinding = ["01-Kaca/Aluminium","02-Beton","03-Batu Bata/Conblok","04-Kayu","05-Seng","06-Spandex"];
+$lantai = ["01-Marmer","02-Keramik","03-Teraso","04-Ubin PC/Papan","05-Semen"];
+$langit = ["01-Akuistik/Jati","02-Triplek/Asbes/Bambu","30-Tidak Ada"];
+
+$jenisBumi = ["01-TANAH DAN BANGUNAN","02-KAVLING SIAP BANGUN","03-TANAH KOSONG","04-FASILITAS UMUM"];
