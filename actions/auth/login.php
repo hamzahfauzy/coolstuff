@@ -23,7 +23,7 @@ if(request() == 'POST')
         ];
 
         $_SESSION['auth'] = $auth_data;
-        header('location:index.php');
+        header('location:index.php?page=builder/home/dashboard');
         return;
     }
 
