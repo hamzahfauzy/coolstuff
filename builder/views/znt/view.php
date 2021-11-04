@@ -44,13 +44,13 @@
             <label for="latitude">
                 Latitude:
             </label>
-            <input id="txtLat" type="text" style="color:red" value="28.47399" />
+            <?= Form::input('text', 'txtLat', ['id'=>'txtLat','class'=>"p-2 w-full border rounded"]) ?>
         </div>
         <div class="form-group mb-2">
             <label for="longitude">
                 Longitude:
             </label>
-            <input id="txtLng" type="text" style="color:red" value="77.026489" /><br />
+            <?= Form::input('text', 'txtLng', ['id'=>'txtLng','class'=>"p-2 w-full border rounded"]) ?>
         </div>
         <div class="form-group mb-2">
             <div id="map_canvas" style="width: auto; height: 400px;"></div>
@@ -76,8 +76,8 @@
         // gets the coords when drag event ends
         // then updates the input with the new coords
         google.maps.event.addListener(vMarker, 'dragend', function (evt) {
-            $("#txtLat").val(evt.latLng.lat().toFixed(6));
-            $("#txtLng").val(evt.latLng.lng().toFixed(6));
+            document.querySelector("#txtLat").val(evt.latLng.lat().toFixed(6));
+            document.querySelector("#txtLng").val(evt.latLng.lng().toFixed(6));
             map.panTo(evt.latLng);
         });
         // centers the map on markers coords
