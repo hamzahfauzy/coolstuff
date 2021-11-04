@@ -21,8 +21,7 @@ if($installation==false)
     $action = false;
 }
 else
-{   
-    // $page = 'builder/home/dashboard';    
+{     
     if(isset($_GET['page']) && !empty($_GET['page']))
     {
         if(isset($page_map[$_GET['page']]))
@@ -30,13 +29,12 @@ else
         else
             $page = $_GET['page'];
     }
-    else
-    {   
-        // if(!isset($_SESSION['auth']))
-        $page = 'landing';
-        // $page = isset($_GET['page']) && !empty($_GET['page']) ? $_GET['page'] : $page;
+
+    if(stringContains($page,'builder') && !isset($_SESSION['auth']))
+    {
+        header('location:index.php?page=auth/login');
+        die();
     }
-    // if(!isset($_SESSION['auth']))
 
 }
 
