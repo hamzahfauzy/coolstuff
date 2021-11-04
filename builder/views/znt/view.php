@@ -58,9 +58,9 @@
     </div>
 </div>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3_euJs5nXQ2yIloYBgvNTroQa2i9SfUM"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3_euJs5nXQ2yIloYBgvNTroQa2i9SfUM&callback=initMap"></script>
 <script type="text/javascript">
-    function initialize() {
+    function initMap() {
         // Creating map object
         var map = new google.maps.Map(document.getElementById('map_canvas'), {
             zoom: 12,
