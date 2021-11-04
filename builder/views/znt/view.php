@@ -76,8 +76,8 @@
         // gets the coords when drag event ends
         // then updates the input with the new coords
         google.maps.event.addListener(vMarker, 'dragend', function (evt) {
-            document.querySelector("#txtLat").val(evt.latLng.lat().toFixed(6));
-            document.querySelector("#txtLng").val(evt.latLng.lng().toFixed(6));
+            document.querySelector("#txtLat").value = evt.latLng.lat().toFixed(6);
+            document.querySelector("#txtLng").value = evt.latLng.lng().toFixed(6);
             map.panTo(evt.latLng);
         });
         // centers the map on markers coords
