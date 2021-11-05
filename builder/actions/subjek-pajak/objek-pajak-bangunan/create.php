@@ -20,6 +20,8 @@ $dindings = ["01-Kaca/Aluminium","02-Beton","03-Batu Bata/Conblok","04-Kayu","05
 $lantais = ["01-Marmer","02-Keramik","03-Teraso","04-Ubin PC/Papan","05-Semen"];
 $langits = ["01-Akuistik/Jati","02-Triplek/Asbes/Bambu","30-Tidak Ada"];
 
+// StrQ = "Select * From DBKB_STANDARD where THN_DBKB_STANDARD ='" & cTPajak.Text * 1 & "' and KD_JPB='" & JPB & "'  order BY KD_BNG_LANTAI,kd_JPB,TIPE_BNG ASC"
+
 // if($opBangunan){
 
 //     // rPajak!K_UTAMA = Round(JUM1.Caption, 0)
@@ -32,6 +34,11 @@ $langits = ["01-Akuistik/Jati","02-Triplek/Asbes/Bambu","30-Tidak Ada"];
     // $opBangunanFields = $qb->columns("DAT_OP_BANGUNAN","NO_URUT,KD_JNS_OP,NO_BNG,KD_JPB,NO_FORMULIR_LSPOP,THN_DIBANGUN_BNG,THN_RENOVASI_BNG,LUAS_BNG,JML_LANTAI_BNG,NILAI_SISTEM_BNG,JNS_TRANSAKSI_BNG,TGL_PENDATAAN_BNG,TGL_PEMERIKSAAN_BNG,TGL_PEREKAMAN_BNG,K_UTAMA,K_MATERIAL,K_FASILITAS,J_SUSUT,K_SUSUT,K_NON_SUSUT,NIP_PEREKAM_BNG,NIP_PEMERIKSA_BNG,NIP_PENDATA_BNG");
 // }
 
+$years = []; 
+for($i = 0 ; $i<100;$i++){
+    $years[] = date("Y",strtotime("-$i year"));
+}
+
 if(request() == 'POST')
 {   
     $_POST['KD_PROPINSI'] = 12;
@@ -42,6 +49,7 @@ if(request() == 'POST')
     // $val = "$_POST[KD_PROPINSI].$_POST[KD_DATI2].$_POST[KD_KECAMATAN].$_POST[KD_KELURAHAN].$_POST[KD_BLOK]-$_POST[NO_URUT].$_POST[KD_JNS_OP]";
 
     $opBangunan = $qb->select("DAT_OP_BANGUNAN")->where($clause,$_POST['NOP'])->first();
+    
 
     if($opBangunan){
 
@@ -78,6 +86,16 @@ if(request() == 'POST')
     $_POST['KD_JNS_OP'] = $arr[5];
 
     unset($_POST['NOP']);
+
+    extract($_POST);
+
+    $sql = "INSERT_BANGUNAN '12','12','" . $KD_KECAMATAN . "','" . $KD_KELURAHAN . "','" . $KD_BLOK . "','" . $NO_URUT . "','" . $KD_JNS_OP . "'," .
+                "'" . $NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," .
+                "'" . round($LUAS_BNG). "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," .
+                "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($NILAI_SISTEM_BNG) . "','" . $JNS_TRANSAKSI_BNG . "'," .
+                "'" . $TGL_PENDATAAN_BNG . "','" . $NIP_PENDATA_BNG . "','" . $TGL_PEMERIKSAAN_BNG . "','" . $NIP_PEMERIKSA_BNG . "'," .
+                "'" . $TGL_PEREKAMAN_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($K_UTAMA) . "','" . round($K_MATERIAL) . "'," .
+                "'" . round($K_MATERIAL) . "','" . round($K_SUSUT) . "','" . round($K_NON_SUSUT) . "','" . round($J_SUSUT) . "','" . round(sTotal.Text * 1, 0) . "','" . frmObjek_Pajak_Bg.chPajak(3).Value . "'";
 
     $insert = $qb->create('DAT_OP_BANGUNAN',$_POST)->exec();
 
