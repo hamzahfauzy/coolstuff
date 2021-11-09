@@ -72,6 +72,12 @@ class QueryBuilder{
     function exec($params = []){
         $query = sqlsrv_query( $this->conn, $this->sql ,$params);
 
+        if( $query === false ) {
+
+            // die( print_r( sqlsrv_errors()[0]['message'], true));
+            return false;
+        }
+
         return $query;
     }
 
@@ -106,10 +112,6 @@ class QueryBuilder{
     function get(){
 
         $query = $this->exec();
-
-        if( $query === false ) {
-            die( print_r( sqlsrv_errors(), true));
-        }
 
         $datas = array();
         while($r = sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {

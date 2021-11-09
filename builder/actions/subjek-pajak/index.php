@@ -47,7 +47,7 @@ if(isset($_GET['filter'])){
 
 }
 
-$datas = $datas->get();
+$datas = $datas->orderBy('NM_WP')->get();
 $limits = $limits->first();
 
 $kelurahans = $kelurahans->get();

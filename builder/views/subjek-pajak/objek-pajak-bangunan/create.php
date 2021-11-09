@@ -1,6 +1,11 @@
 <?php load('builder/partials/top') ?>
+<?php load('builder/subjek-pajak/objek-pajak-bangunan/modal') ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-2xl">Add Objek Pajak Bangunan : <?=$subjekPajak['NM_WP']?></h2>
+    
+    <div class="flex justify-between items-center mb-5">
+        <h2 class="text-lg mr-3">Add Objek Pajak Bangunan : <?=$subjekPajak['NM_WP']?></h2>
+        <a href="index.php?page=builder/subjek-pajak/view&id=<?=$_GET['id']?>" class="p-2 bg-green-500 text-white rounded">Kembali</a>
+    </div>
 
     <?php if($old): ?>
         <div class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md my-6" role="alert">
@@ -22,17 +27,17 @@
             <div class="grid grid-cols-3 gap-4">
                 <div class="form-group mb-2">
                     <label>NOP</label>
-                    <input type="text" class="p-2 w-full border rounded" value="<?=isset($old) && $old["NOP"] ? $old["NOP"] : ''?>" name="NOP">
+                    <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NOP"] ? $old["NOP"] : ''?>" name="NOP">
                 </div>
 
                 <div class="form-group mb-2">
                     <label>NO LSPOP</label>
-                    <input type="text" class="p-2 w-full border rounded" value="<?=isset($old) && $old["NO_FORMULIR_LSPOP"] ? $old["NO_FORMULIR_LSPOP"] : ''?>" name="NO_FORMULIR_LSPOP">
+                    <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NO_FORMULIR_LSPOP"] ? $old["NO_FORMULIR_LSPOP"] : ''?>" name="NO_FORMULIR_LSPOP">
                 </div>
 
                 <div class="form-group mb-2">
                     <label>Tahun Pajak</label>
-                    <select name="THN_PAJAK" class="p-2 w-full border rounded">
+                    <select name="THN_PAJAK" class="p-2 mt-2 w-full border rounded">
                         <option value="" selected readonly>- Pilih Tahun -</option>
                         <?php foreach($years as $year):?>
                             <option <?=isset($old) && $old['THN_PAJAK'] && $old['THN_PAJAK'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
@@ -54,23 +59,23 @@
                     <div class="grid grid-cols-3 gap-4">
                         <div class="form-group mb-2">
                             <label>No Bangunan</label>
-                            <input type="text" class="p-2 w-full border rounded" value="<?=isset($old) && $old["NOP"] ? $old["NOP"] : ''?>" name="NOP">
+                            <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NOP"] ? $old["NOP"] : ''?>" name="NOP">
                         </div>
         
                         <div class="form-group mb-2">
                             <label>Jumlah Lantai</label>
-                            <input type="text" class="p-2 w-full border rounded" value="<?=isset($old) && $old["JML_LANTAI_BNG"] ? $old["JML_LANTAI_BNG"] : ''?>" name="JML_LANTAI_BNG">
+                            <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["JML_LANTAI_BNG"] ? $old["JML_LANTAI_BNG"] : ''?>" name="JML_LANTAI_BNG">
                         </div>
         
                         <div class="form-group mb-2">
                             <label>Luas (M2)</label>
-                            <input type="text" class="p-2 w-full border rounded" value="<?=isset($old) && $old["NO_BNG"] ? $old["NO_BNG"] : ''?>" name="NO_BNG">
+                            <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NO_BNG"] ? $old["NO_BNG"] : ''?>" name="NO_BNG">
                         </div>
                     </div>
                 
                     <div class="form-group mb-2">
                         <label>Jenis Pajak Bangunan</label>
-                        <select name="KD_JPB" class="p-2 w-full border rounded">
+                        <select name="KD_JPB" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Jenis Pajak Bangunan -</option>
                             <?php foreach($jpbs as $jpb):?>
                                 <option <?=isset($old) && $old['KD_JPB'] && $old['KD_JPB'] == $jpb["KD_JPB"] ? 'selected'  : ''?> value="<?=$jpb['KD_JPB']?>"><?=$jpb['KD_JPB']." - ".$jpb['NM_JPB']?></option>
@@ -82,7 +87,7 @@
             
                         <div class="form-group mb-2">
                             <label>Tahun Dibangun</label>
-                            <select name="THN_DIBANGUN_BNG" class="p-2 w-full border rounded">
+                            <select name="THN_DIBANGUN_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Tahun -</option>
                                 <?php foreach($years as $year):?>
                                     <option <?=isset($old) && $old['THN_DIBANGUN_BNG'] && $old['THN_DIBANGUN_BNG'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
@@ -92,7 +97,7 @@
         
                         <div class="form-group mb-2">
                             <label>Tahun Renovasi</label>
-                            <select name="THN_RENOVASI_BNG" class="p-2 w-full border rounded">
+                            <select name="THN_RENOVASI_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Tahun -</option>
                                 <?php foreach($years as $year):?>
                                     <option <?=isset($old) && $old['THN_RENOVASI_BNG'] && $old['THN_RENOVASI_BNG'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
@@ -106,7 +111,7 @@
     
                         <div class="form-group mb-2">
                             <label>Kondisi Bangunan</label>
-                            <select name="KONDISI_BNG" class="p-2 w-full border rounded">
+                            <select name="KONDISI_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Kondisi -</option>
                                 <?php foreach($kondisis as $kondisi):?>
                                     <option <?=isset($old) && $old['KONDISI_BNG'] && $old['KONDISI_BNG'] == substr($kondisi,0,2) ? 'selected'  : ''?> value="<?=substr($kondisi,1,1)?>"><?=$kondisi?></option>
@@ -115,7 +120,7 @@
                         </div>
                         <div class="form-group mb-2">
                             <label>Jenis Konstruksi</label>
-                            <select name="JNS_KONSTRUKSI_BNG" class="p-2 w-full border rounded">
+                            <select name="JNS_KONSTRUKSI_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Jenis Konstruksi -</option>
                                 <?php foreach($konstruksis as $konstruksi):?>
                                     <option <?=isset($old) && $old['JNS_KONSTRUKSI_BNG'] && $old['JNS_KONSTRUKSI_BNG'] == substr($konstruksi,0,2) ? 'selected'  : ''?> value="<?=substr($konstruksi,1,1)?>"><?=$konstruksi?></option>
@@ -131,7 +136,7 @@
     
                     <div class="form-group mb-2">
                         <label>Jenis Atap</label>
-                        <select name="JNS_ATAP_BNG" class="p-2 w-full border rounded">
+                        <select name="JNS_ATAP_BNG" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Jenis Atap -</option>
                             <?php foreach($ataps as $atap):?>
                                 <option <?=isset($old) && $old['JNS_ATAP_BNG'] && $old['JNS_ATAP_BNG'] == substr($atap,0,2) ? 'selected'  : ''?> value="<?=substr($atap,1,1)?>"><?=$atap?></option>
@@ -140,7 +145,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label>Dinding</label>
-                        <select name="KD_DINDING" class="p-2 w-full border rounded">
+                        <select name="KD_DINDING" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Dinding -</option>
                             <?php foreach($dindings as $dinding):?>
                                 <option <?=isset($old) && $old['KD_DINDING'] && $old['KD_DINDING'] == substr($dinding,0,2) ? 'selected'  : ''?> value="<?=substr($dinding,1,1)?>"><?=$dinding?></option>
@@ -149,7 +154,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label>Lantai</label>
-                        <select name="KD_LANTAI" class="p-2 w-full border rounded">
+                        <select name="KD_LANTAI" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Lantai -</option>
                             <?php foreach($lantais as $lantai):?>
                                 <option <?=isset($old) && $old['KD_LANTAI'] && $old['KD_LANTAI'] == substr($lantai,0,2) ? 'selected'  : ''?> value="<?=substr($lantai,1,1)?>"><?=$lantai?></option>
@@ -158,7 +163,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label>Langit - Langit</label>
-                        <select name="KD_LANGIT_LANGIT" class="p-2 w-full border rounded">
+                        <select name="KD_LANGIT_LANGIT" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Langit - Langit -</option>
                             <?php foreach($langits as $langit):?>
                                 <option <?=isset($old) && $old['KD_LANGIT_LANGIT'] && $old['KD_LANGIT_LANGIT'] == substr($langit,0,2) ? 'selected'  : ''?> value="<?=substr($langit,1,1)?>"><?=$langit?></option>
@@ -183,7 +188,7 @@
                     <input type="text" placeholder="Jumlah AC Split" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["L_AC"]["AC_SPLIT"] ? $old["L_AC"]["AC_SPLIT"] : ''?>" name="L_AC[AC_SPLIT]">
                     <input type="text" placeholder="Jumlah AC Window" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["L_AC"]["AC_WINDOW"] ? $old["L_AC"]["AC_WINDOW"] : ''?>" name="L_AC[AC_WINDOW]">
 
-                    <select name="L_AC[AC_CENTRAL]" class="p-2 w-full border rounded">
+                    <select name="L_AC[AC_CENTRAL]" class="p-2 mt-2 w-full border rounded">
                         <option value="" selected readonly>- Pilih AC Central -</option>
                         <option <?= isset($old) && $old["L_AC"]["AC_CENTRAL"] && $old["L_AC"]["AC_CENTRAL"] == "01-Ada" ?  : ''?> value="01-Ada">01-Ada</option>
                         <option <?= isset($old) && $old["L_AC"]["AC_CENTRAL"] && $old["L_AC"]["AC_CENTRAL"] == "02-Tidak Ada" ?  : ''?>  value="02-Tidak Ada">02-Tidak Ada</option>
@@ -224,7 +229,7 @@
                 <div class="form-group mb-2">
                     <label>Pagar</label>
 
-                    <select name="PAGAR[BP]" class="p-2 w-full border rounded">
+                    <select name="PAGAR[BP]" class="p-2 mt-2 w-full border rounded">
                         <option value="" selected readonly>- Pilih Bahan Pagar -</option>
                         <option <?= isset($old) && $old["PAGAR"]["BP"] && $old["PAGAR"]["BP"] == "01-Baja/Besi" ?  : ''?> value="01-Baja/Besi">01-Baja/Besi</option>
                         <option <?= isset($old) && $old["PAGAR"]["BP"] && $old["PAGAR"]["BP"] == "02-Bata/Batako" ?  : ''?>  value="02-Bata/Batako">02-Bata/Batako</option>
@@ -244,20 +249,20 @@
 
                     <!-- select -->
 
-                    <select name="PK[HYDRAN]" class="p-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih AC Central -</option>
+                    <select name="PK[HYDRAN]" class="p-2 mt-2 w-full border rounded">
+                        <option value="" selected readonly>- Pilih -</option>
                         <option <?= isset($old) && $old["PK"]["HYDRAN"] && $old["PK"]["HYDRAN"] == "01-Ada" ?  : ''?> value="01-Ada">01-Ada</option>
                         <option <?= isset($old) && $old["PK"]["HYDRAN"] && $old["PK"]["HYDRAN"] == "02-Tidak Ada" ?  : ''?>  value="02-Tidak Ada">02-Tidak Ada</option>
                     </select>
 
-                    <select name="PK[SPRINGKLER]" class="p-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih AC Central -</option>
+                    <select name="PK[SPRINGKLER]" class="p-2 mt-2 w-full border rounded">
+                        <option value="" selected readonly>- Pilih -</option>
                         <option <?= isset($old) && $old["PK"]["SPRINGKLER"] && $old["PK"]["SPRINGKLER"] == "01-Ada" ?  : ''?> value="01-Ada">01-Ada</option>
                         <option <?= isset($old) && $old["PK"]["SPRINGKLER"] && $old["PK"]["SPRINGKLER"] == "02-Tidak Ada" ?  : ''?>  value="02-Tidak Ada">02-Tidak Ada</option>
                     </select>
 
-                    <select name="PK[FIRE_ALARM]" class="p-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih AC Central -</option>
+                    <select name="PK[FIRE_ALARM]" class="p-2 mt-2 w-full border rounded">
+                        <option value="" selected readonly>- Pilih -</option>
                         <option <?= isset($old) && $old["PK"]["FIRE_ALARM"] && $old["PK"]["FIRE_ALARM"] == "01-Ada" ?  : ''?> value="01-Ada">01-Ada</option>
                         <option <?= isset($old) && $old["PK"]["FIRE_ALARM"] && $old["PK"]["FIRE_ALARM"] == "02-Tidak Ada" ?  : ''?>  value="02-Tidak Ada">02-Tidak Ada</option>
                     </select>
@@ -286,8 +291,8 @@
                     <label>Kolam Renang</label>
 
                     <!-- select -->
-                    <select name="KOLAM_RENANG[F_KOLAM]" class="p-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih AC Central -</option>
+                    <select name="KOLAM_RENANG[F_KOLAM]" class="p-2 mt-2 w-full border rounded">
+                        <option value="" selected readonly>- Pilih -</option>
                         <option <?= isset($old) && $old["KOLAM_RENANG"]["F_KOLAM"] && $old["KOLAM_RENANG"]["F_KOLAM"] == "01-Displester" ?  : ''?> value="01-Displester">01-Displester</option>
                         <option <?= isset($old) && $old["KOLAM_RENANG"]["F_KOLAM"] && $old["KOLAM_RENANG"]["F_KOLAM"] == "02-Dengan Pelapis" ?  : ''?>  value="02-Dengan Pelapis">02-Dengan Pelapis</option>
                     </select>
@@ -300,9 +305,50 @@
         </div>
 
         <div class="bg-white shadow-md rounded my-6 p-8">
+             <div class="grid grid-cols-2 gap-4 mt-4">
+
+                <div class="form-group mb-2">
+                    <label>Tanggal Pendataan</label>
+                    <input type="date" class="p-2 mt-2 w-full border rounded" name="TGL_PENDATAAN_BNG">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>NIP Pendata</label>
+                    <input type="text" class="p-2 mt-2 w-full border rounded" name="NIP_PENDATA_BNG">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>Tanggal Pemeriksaan</label>
+                    <input type="date" class="p-2 mt-2 w-full border rounded" name="TGL_PEMERIKSAAN_BNG">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>NIP Pemeriksa</label>
+                    <input type="text" class="p-2 mt-2 w-full border rounded" name="NIP_PEMERIKSA_BNG">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>Tanggal Perekam</label>
+                    <input type="date" class="p-2 mt-2 w-full border rounded" name="TGL_PEREKAM_BNG">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>NIP Perekam</label>
+                    <input type="text" class="p-2 mt-2 w-full border rounded" name="NIP_PEREKAM_BNG">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded my-6 p-8">
+
+            <div class="form-group mb-2">
+                <label>Keterangan</label>
+                <input type="text" class="p-2 mt-2 w-full border rounded" name="KETERANGAN">
+            </div>
 
             <div class="form-group">
-                <button class="w-full p-2 bg-indigo-800 text-white rounded" id="btn-login">Proses</button>
+                <button type="button" class="w-full p-2 bg-indigo-800 text-white rounded" id="btn-login">Proses</button>
             </div>
 
         </div>
@@ -312,53 +358,14 @@
 
 <script>
 
-    function kecamatanChange(el){
-        fetch("index.php?page=builder/subjek-pajak/objek-pajak-bangunan/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
+    var nop = $("input[name='NOP']");
 
-                var html = `
-                        <label>Kelurahan</label>
-                        <select name="KD_KELURAHAN" class="p-2 w-full border rounded" onchange="kelurahanChange(this)">
-                            <option value="" selected readonly>- Pilih Kelurahan -</option>`
+    nop.inputmask({mask:"12.12.999.999.999-999.9"})
 
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_KELURAHAN}">${dt.KD_KELURAHAN} - ${dt.NM_KELURAHAN}</option>`
-                })
-
-                html += `</select>`
-
-                var kelurahan = document.querySelector("#kelurahan")
-
-                kelurahan.innerHTML = html
-
-                kelurahan.classList.remove("hidden")
-
-        }); 
-    }    
-
-    function kelurahanChange(el){
-        var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
-
-        fetch("index.php?page=builder/subjek-pajak/objek-pajak-bangunan/index&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
-
-                var html = `
-                        <label>Blok</label>
-                        <select name="KD_BLOK" class="p-2 w-full border rounded">
-                            <option value="" selected readonly>- Pilih Blok -</option>`
-
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_BLOK}">${dt.KD_BLOK}</option>`
-                })
-
-                html += `</select>`
-
-                var blok = document.querySelector("#blok")
-
-                blok.innerHTML = html
-
-                blok.classList.remove("hidden")
-
-        }); 
-    }     
+    $("#btn-login").on('click',function(){
+        $("#modal").removeClass("hidden")
+    })
+      
 </script>
 
 <?php load('builder/partials/bottom') ?>

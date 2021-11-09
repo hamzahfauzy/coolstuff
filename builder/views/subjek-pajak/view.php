@@ -177,7 +177,9 @@
                                 <span class="font-medium">
                                     <?php foreach($jenisBumi as $bumi){
                                         echo $data['JNS_BUMI'] == substr($bumi,0,2) ? $bumi : '';
-                                    }?>
+                                    }
+                                    print_r($data['JNS_BUMI'])
+                                    ?>
                                 </span>
                             </div>
                         </td>
