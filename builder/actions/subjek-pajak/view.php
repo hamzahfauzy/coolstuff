@@ -4,6 +4,7 @@ require '../helpers/QueryBuilder.php';
 $qb = new QueryBuilder();
 
 $msg = get_flash_msg('success');
+$failed = get_flash_msg('failed');
 
 //KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP =  '" & Trim(aNOP.Text) & "' ORDER BY NO_BNG*1 DESC"
 $data = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$_GET['id'])->first();

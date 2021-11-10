@@ -69,12 +69,14 @@ if(request() == 'POST')
     extract($_POST);
 
     $kelasTanah = $qb->select("KELAS_TANAH")->where('THN_AWAL_KLS_TANAH',$TAHUN)->first();
-
+    
     $nilaiKelas = $kelasTanah && $kelasTanah['NILAI_PER_M2_TANAH'] ? $kelasTanah['NILAI_PER_M2_TANAH'] : 1;
+
+    $NOP = "12.12.$opBumi[KD_KECAMATAN].$opBumi[KD_KELURAHAN].$opBumi[KD_BLOK]-$opBumi[NO_URUT].$opBumi[KD_JNS_OP]";
 
     $tBumi3 = $LUAS_TANAH * $nilaiKelas;
 
-    $sql =  "UPDATE_BUMI '12', '12', '" . $KD_KECAMATAN . "', '" . $KD_KELURAHAN . "', '" . $KD_BLOK . "', '" . $NO_URUT . "', '" . $KODE . "', '1', '" . $KD_ZNT . "', '" . round($LUAS_TANAH) . "', '" . $JNS_BUMI . "', '" . round($tBumi3) . "','" . $NO_SPOP . "', '0'," . "'12', '12', '" . $KD_KECAMATAN . "', '" . $KD_KELURAHAN . "', '" . $KD_BLOK . "', '" . $NO_URUT . "', '" . $KODE . "', '" . $SUBJEK_PAJAK_ID . "', '" . $NO_SPOP . "', '" . $NO_PERSIL . "', '" . $JALAN . "', '" . $KD_BLOK . "', '" . $RW . "', '" . $RT . "', '" . $STATUS_WP . "', '" . $LUAS_TANAH . "', '" . $tBumi3 * 1000 . "', '1', '" . $TGL_PENDATAAN . "', '" . $NIP_PENDATA . "', '" . $TGL_PEMERIKSAAN . "', '" . $NIP_PEMERIKSA . "', '" . $TGL_PEREKAMAN . "', '" . $NIP_PEREKAM . "','0',0,0,'1'";
+    $sql = "UPDATE_BUMI '12', '12', '" . $KD_KECAMATAN . "', '" . $KD_KELURAHAN . "', '" . $KD_BLOK . "', '" . $NO_URUT . "', '" . $KODE . "', '1', '" . $KD_ZNT . "', '" . round($LUAS_TANAH) . "', '" . $JNS_BUMI . "', '" . round($tBumi3) . "','" . $NO_SPOP . "', '0','" . $NOP . "'," . "'12', '12', '" . $KD_KECAMATAN . "', '" . $KD_KELURAHAN . "', '" . $KD_BLOK . "', '" . $NO_URUT . "', '" . $KODE . "', '" . $SUBJEK_PAJAK_ID . "', '" . $NO_SPOP . "', '" . $NO_PERSIL . "', '" . $JALAN . "', '" . $KD_BLOK . "', '" . $RW . "', '" . $RT . "', '" . $STATUS_WP * 1 . "', '" . $LUAS_TANAH . "', '" . $tBumi3 * 1000 . "', '1', '" . $TGL_PENDATAAN . "', '" . $NIP_PENDATA . "', '" . $TGL_PEMERIKSAAN . "', '" . $NIP_PEMERIKSA . "', '" . $TGL_PEREKAMAN . "', '" . $NIP_PEREKAM . "','0',0,0,'1','" . $NOP . "'";
 
     $update = $qb->rawQuery($sql)->exec();
 

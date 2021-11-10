@@ -36,9 +36,9 @@ if(isset($_GET['filter'])){
 
         $kels = explode("-",$_GET['kelurahan']);
 
-        $datas->where('KD_KELURAHAN',$kels[0]);
-        $bloks->where('KD_KELURAHAN',$kels[0]);
-        $limits->where('KELURAHAN_WP',"%".$kels[1]."%",'like');
+        $datas->where('KD_KELURAHAN',trim($kels[0]))->where('NM_KELURAHAN',trim($kels[1]),'like');
+        $bloks->where('KD_KELURAHAN',trim($kels[0]));
+        $limits->where('KELURAHAN_WP',"%".trim($kels[1])."%",'like');
     }
 
     if($_GET['blok']){
@@ -50,5 +50,5 @@ if(isset($_GET['filter'])){
 $datas = $datas->orderBy('NM_WP')->get();
 $limits = $limits->first();
 
-$kelurahans = $kelurahans->get();
+$kelurahans = $kelurahans->orderBy('KD_KELURAHAN')->get();
 $bloks = $bloks->groupBy("KD_BLOK")->get();
