@@ -4,12 +4,13 @@ $installation = $builder->get_installation();
 
 $nav_class_active = 'bg-purple-700 text-white';
 
-$pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],['objek-pajak-bumi','objek-pajak-bangunan','subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
+$pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],['dbkb-utama','dbkb-material','dbkb-fasilitas','dbkb-utama-material','objek-pajak-bumi','objek-pajak-bangunan','subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
 $penilaian = (isBuilder() ? stringContains($_GET['data'],'penilaian') : false) ? $nav_class_active : '';
 $penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
 $referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
 $utility = (isset($_GET['page']) && arrStringContains($_GET['page'],['roles','users','pejabat']) ? $nav_class_active : '');
 
+$dbkb = (isset($_GET['page']) && arrStringContains($_GET['page'],['dbkb-utama','dbkb-material','dbkb-fasilitas','dbkb-utama-material']) ? $nav_class_active : '');
 $znt = (isset($_GET['page']) && arrStringContains($_GET['page'],['nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
 $objek_pajak = (isset($_GET['page']) && arrStringContains($_GET['page'],['objek-pajak-bumi','objek-pajak-bangunan'])) ? $nav_class_active : '';
 $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '' : '';
@@ -73,7 +74,18 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                                     <a href="?page=builder/nama-jalan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('nama-jalan') ?> hover:text-white">Nama Jalan</a>
                                 </div>
                             </div>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DBKB</a>
+                            <div class="relative">
+                                <a href="#" onclick="toggleNav('#dbkb')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$dbkb?> hover:text-white flex justify-between items-center">
+                                    <span class=" capitalize">DBKB</span>
+                                    <i class="fa fa-caret-right text-right ml-2"></i>
+                                </a>
+                                <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left left-full top-0" id="dbkb">
+                                    <a href="?page=builder/dbkb-utama-material/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-utama-material') ?> hover:text-white">DBKB Utama dan Material</a>
+                                    <a href="?page=builder/dbkb-fasilitas/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-fasilitas') ?> hover:text-white">DBKB Fasilitas</a>
+                                    <a href="?page=builder/dbkb-utama/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-utama') ?> hover:text-white">DBKB Utama</a>
+                                    <a href="?page=builder/dbkb-material/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-material') ?> hover:text-white">DBKB Material</a>
+                                </div>
+                            </div>
                             <a href="?page=builder/subjek-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('subjek-pajak') ?> hover:text-white">Subjek Pajak</a>
                             <div class="relative">
                                 <a href="#" onclick="toggleNav('#objek-pajak')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$objek_pajak?> hover:text-white flex justify-between items-center">
