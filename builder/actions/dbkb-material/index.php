@@ -7,31 +7,6 @@ $qb = new QueryBuilder();
 $qb1 = new QueryBuilder();
 
 if(request() == 'POST'){
-    if(!isset($_GET['fasilitas']) || $_GET['fasilitas'] == 'k1'){
-        foreach($_POST['HARGA_BARU'] as $key => $hb){
-            if($hb){
-                $upd = $qb->update("FAS_NON_DEP",['NILAI_NON_DEP'=>$hb])->where('THN_NON_DEP',$_GET['year'])->where('KD_FASILITAS',$key)->exec();
-            }
-        }
-    }else if(isset($_GET['fasilitas']) && $_GET['fasilitas'] == 'k2'){
-        foreach($_POST['HARGA_BARU'] as $key => $hb){
-            if($hb){
-
-                $keys = explode('-',$key);
-
-                $upd = $qb->update("FAS_DEP_JPB_KLS_BINTANG",['NILAI_FASILITAS_KLS_BINTANG'=>$hb])->where('THN_DEP_JPB_KLS_BINTANG',$_GET['year'])->where('KD_FASILITAS',$keys[0])->where('KD_JPB',$keys[1])->exec();
-            }
-        }
-    }else if(isset($_GET['fasilitas']) && $_GET['fasilitas'] == 'k3'){
-        foreach($_POST['HARGA_BARU'] as $key => $hb){
-            if($hb){
-
-                $keys = explode('-',$key);
-
-                $upd = $qb->update("FAS_DEP_MIN_MAX",['NILAI_DEP_MIN_MAX'=>$hb])->where('THN_DEP_MIN_MAX',$_GET['year'])->where('KD_FASILITAS',$keys[0])->where('KLS_DEP_MIN',$keys[1])->where('KLS_DEP_MAX',$keys[2])->exec();
-            }
-        }
-    }
 
 }
 
@@ -46,22 +21,18 @@ if(isset($_GET['year']) && $_GET['year']){
     $year = $_GET['year'];
 }
 
-$k1 = "SELECT FASILITAS.KD_FASILITAS, FASILITAS.NM_FASILITAS, FASILITAS.SATUAN_FASILITAS, FAS_NON_DEP.NILAI_NON_DEP, FAS_NON_DEP.THN_NON_DEP FROM FASILITAS INNER JOIN FAS_NON_DEP ON FASILITAS.KD_FASILITAS = FAS_NON_DEP.KD_FASILITAS where FAS_NON_DEP.THN_NON_DEP= '" . $year . "' order by FASILITAS.KD_FASILITAS asc";
+$sqlPekerjaan = "Select * From PEKERJAAN where KD_PEKERJAAN BETWEEN 21 AND 24 ORDER BY KD_PEKERJAAN ASC ";
+$pekerjaans = $qb->rawQuery($sqlPekerjaan)->get();
 
-$k2 = "SELECT FASILITAS.KD_FASILITAS, FASILITAS.NM_FASILITAS, FASILITAS.SATUAN_FASILITAS, FAS_DEP_JPB_KLS_BINTANG.KLS_BINTANG, FAS_DEP_JPB_KLS_BINTANG.NILAI_FASILITAS_KLS_BINTANG, FAS_DEP_JPB_KLS_BINTANG.KD_JPB,FAS_DEP_JPB_KLS_BINTANG.THN_DEP_JPB_KLS_BINTANG FROM FASILITAS INNER JOIN FAS_DEP_JPB_KLS_BINTANG ON FASILITAS.KD_FASILITAS = FAS_DEP_JPB_KLS_BINTANG.KD_FASILITAS where FAS_DEP_JPB_KLS_BINTANG.THN_DEP_JPB_KLS_BINTANG= '" . $year . "' order by KLS_BINTANG, FASILITAS.KD_FASILITAS asc";
+$sql = "SELECT DBKB_MATERIAL.KD_PROPINSI, DBKB_MATERIAL.KD_DATI2, DBKB_MATERIAL.THN_DBKB_MATERIAL, DBKB_MATERIAL.KD_PEKERJAAN, PEKERJAAN.NM_PEKERJAAN, DBKB_MATERIAL.KD_KEGIATAN, PEKERJAAN_KEGIATAN.NM_KEGIATAN, DBKB_MATERIAL.NILAI_DBKB_MATERIAL FROM (PEKERJAAN INNER JOIN PEKERJAAN_KEGIATAN ON PEKERJAAN.KD_PEKERJAAN = PEKERJAAN_KEGIATAN.KD_PEKERJAAN) INNER JOIN DBKB_MATERIAL ON (PEKERJAAN.KD_PEKERJAAN = DBKB_MATERIAL.KD_PEKERJAAN) AND (PEKERJAAN_KEGIATAN.KD_KEGIATAN = DBKB_MATERIAL.KD_KEGIATAN) where DBKB_MATERIAL.THN_DBKB_MATERIAL= '" .$year. "'";
 
-$k3 = "SELECT FASILITAS.KD_FASILITAS, FASILITAS.NM_FASILITAS, FASILITAS.SATUAN_FASILITAS, FAS_DEP_MIN_MAX.KLS_DEP_MIN, FAS_DEP_MIN_MAX.KLS_DEP_MAX, FAS_DEP_MIN_MAX.NILAI_DEP_MIN_MAX, FAS_DEP_MIN_MAX.THN_DEP_MIN_MAX FROM FASILITAS INNER JOIN FAS_DEP_MIN_MAX ON FASILITAS.KD_FASILITAS = FAS_DEP_MIN_MAX.KD_FASILITAS where FAS_DEP_MIN_MAX.THN_DEP_MIN_MAX= '" . $year . "' order by FASILITAS.KD_FASILITAS,KLS_DEP_MIN asc";
-
-if(isset($_GET['fasilitas']) && $_GET['fasilitas']){
-    $datas = $qb->rawQuery(${$_GET['fasilitas']});
-}else{
-    $datas = $qb->rawQuery($k1);
-}
+$datas = $qb->rawQuery($sql);
 
 if(isset($_GET['filter'])){
-    if($_GET['dbkb']){
-        $datas->where('FASILITAS.NM_FASILITAS',"%".$_GET['dbkb']."%",'like');
+
+    if($_GET['material']){
+        $datas->where('DBKB_MATERIAL.KD_PEKERJAAN',$_GET['material']);
     }
 }
 
-$datas = $datas->get();
+$datas = $datas->orderBy('DBKB_MATERIAL.KD_PEKERJAAN')->get();
