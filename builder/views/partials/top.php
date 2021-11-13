@@ -105,7 +105,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penilaian" style="top:40px">
-                            <a href="?page=builder/crud/index&data=penilaian" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penilaian') ?> hover:text-white">Penilaian</a>
+                            <a href="?page=builder/penilaian-massal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penilaian-massal') ?> hover:text-white">Penilaian Massal</a>
                             <div class="relative">
                                 <a href="#" onclick="toggleNav('#laporan-penilaian')" class="cursor-pointer block dropdown px-4 py-3 hover:bg-purple-700 <?=$znt?> hover:text-white flex justify-between items-center">
                                     <span class=" capitalize">Laporan</span>
