@@ -14,7 +14,7 @@
         </div>
         <?php endif ?>
         <div class="bg-white shadow-md rounded my-6 p-8">
-            <form id="loginForm" onsubmit="return toSubmit(event)"  action="index.php?page=<?=$_GET['page']?>" method="post" enctype="multipart/form-data">
+            <form id="loginForm" onsubmit="toSubmit(this); return false;"  action="index.php?page=<?=$_GET['page']?>" method="post" enctype="multipart/form-data">
 
                 <div class="form-group mb-2">
                     <label>Tahun Pajak</label> 
@@ -78,8 +78,7 @@
     }    
 
     async function toSubmit(e){
-        // e.preventDefault()
-        var formData = new FormData(e.target)
+        var formData = new FormData(e)
 
         var results = false
 
@@ -89,15 +88,12 @@
 
         if(data.result == true){
             var res = confirm('Wilayah yang anda pilih sudah dinilai, Lakukan penilaian ulang??')
-
             results = res
         }else{
             results = true
         }
 
-        console.log(results)
-
-        return results
+        if(results) e.submit()
     }
 
 </script>

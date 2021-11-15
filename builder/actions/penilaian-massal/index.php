@@ -48,13 +48,11 @@ if(request() == 'POST' && $_POST['KD_KECAMATAN'] && $_POST['KD_KELURAHAN'] && $_
     dbkb_fas3a();
     dbkb_fas2a();
     nilai_individu();
-
     call_op();
-
     sv_bumi();
     sv_individu();
     sv_objek();
-        
+
     set_flash_msg(['success'=>'Data Saved']);
     header("location:index.php?page=builder/penilaian-massal/index");
     return;

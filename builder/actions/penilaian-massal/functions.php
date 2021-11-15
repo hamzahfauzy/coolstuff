@@ -5,6 +5,24 @@
     $vFAS = [];
     $vOP = [];
 
+    $ccMin = [];
+    $ccMax = [];
+    $ccTarif = [];
+    $ccTKP = [];
+
+    $strTarif = "Select * From TARIF order by NJOP_MIN Asc";
+
+    $tarif = $qb->rawQuery($strTarif)->get();
+
+    if($tarif){
+        foreach($tarif as $key => $value){
+            $ccMin[$key][] = $value['NJOP_MIN'];
+            $ccMax[$key][]= $value['NJOP_MAX'];
+            $ccTarif[$key][] = $value['NILAI_TARIF'];
+            $ccTKP[$key][] = $value['NJOPTKP'];
+        }
+    }
+
     $tb = "SELECT THN_AWAL_KLS_BNG FROM KELAS_BANGUNAN order by THN_AWAL_KLS_BNG desc";
     $kl = "SELECT THN_AWAL_KLS_TANAH FROM KELAS_TANAH order by THN_AWAL_KLS_TANAH desc";
 
@@ -1101,12 +1119,12 @@
 
                 $vOP[$key][30] = $vOP[$key][11]+ $vOP[$key][16];
 
-                if($vOP[$key][30] * 1 >= ccMin(1) And $vOP[$key][30] * 1 <= ccMax(1) ){
-                    $vOP[$key][31] = ccTarif(1);
-                    $vOP[$key][32] = ccTKP(1);
+                if($vOP[$key][30] * 1 >= $ccMin[0] And $vOP[$key][30] * 1 <= $ccMax[0] ){
+                    $vOP[$key][31] = $ccTarif[0];
+                    $vOP[$key][32] = $ccTKP[0];
                 }else{
-                    $vOP[$key][31] = ccTarif(2);
-                    $vOP[$key][32] = ccTKP(2);
+                    $vOP[$key][31] = $ccTarif[1];
+                    $vOP[$key][32] = $ccTKP[1];
                 }
 
                 if($vOP[$key][19] != 1 || $vOP[$key][16] == 0 ) $vOP[$key][32] = 0;
@@ -1122,7 +1140,6 @@
         $SPPT = $qb->rawQuery($Q_SPPT)->first();
 
         if($SPPT){
-
             foreach ($vOP as $key => $value) {
                 if($SPPT['NOPQ'] == $vOP[$key][8]){
                     if(is_null($SPPT['NM_WP'])){
@@ -1320,19 +1337,23 @@
     }
 
     function sv_objek(){
-        global $vOP,$ccProses;
-
-        $qb = qb();
-
-        $b_sv_objek = "B_OP '" . $ccProses . "','" . $_POST['KD_KECAMATAN'] . "','" . $_POST['KD_KELURAHAN'] . "'";
-        $sv_objek = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
-
-        $qb->rawQuery($b_sv_objek)->exec();
+        global $vOP,$ccProses,$xTT,$xTB;
         
-        $data = $qb->rawQuery($sv_objek)->first();
+        $qb = qb();
+        
+        $b_sv_objek = "B_OP '" . $ccProses . "','" . $_POST['KD_KECAMATAN'] . "','" . $_POST['KD_KELURAHAN'] . "'";
+        // $sv_objek = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
+        
+        $qb->rawQuery($b_sv_objek)->exec();
+        // return;
+        
+        // $data = $qb->rawQuery($sv_objek)->first();
 
-        if($data){
+        
+        // if($data){
+        try {
             foreach ($vOP as $key => $value) {
+                $data = [];
                 $data['KD_PROPINSI'] = $value[1];
                 $data['KD_DATI2'] = $value[2];
                 $data['KD_KECAMATAN'] = $value[3];
@@ -1358,24 +1379,15 @@
 
                 $data['STATUS_PETA_OP'] = 1;
                 $data['JNS_TRANSAKSI_OP'] = $value[38];
-                $data['TGL_PENDATAAN_OP'] = $value[39];
+                $data['TGL_PENDATAAN_OP'] = !empty($value[39]) ? $value[39]->format("Y-m-d\TH:i:s") : (new DateTime)->format("Y-m-d\TH:i:s");
                 $data['NIP_PENDATA'] = $value[40];
-                $data['TGL_PEMERIKSAAN_OP'] = $value[41];
+                $data['TGL_PEMERIKSAAN_OP'] = !empty($value[41]) ? $value[41]->format("Y-m-d\TH:i:s") : (new DateTime)->format("Y-m-d\TH:i:s");
                 $data['NIP_PEMERIKSA_OP'] = $value[42];
-                $data['TGL_PEREKAMAN_OP'] = $value[43];
+                $data['TGL_PEREKAMAN_OP'] = !empty($value[43]) ? $value[43]->format("Y-m-d\TH:i:s") : (new DateTime)->format("Y-m-d\TH:i:s");
                 $data['NIP_PEREKAM_OP'] = $value[44];
 
-                $qb->insert("DAT_OBJEK_PAJAK",$data)->exec();
-            }
-        }
+                $qb->create("DAT_OBJEK_PAJAK",$data)->exec();
 
-        $sppt = "select * from SPPT WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KECAMATAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "'";
-
-        $sppt = $qb->rawQuery($sppt)->first();
-    
-        if($sppt){
-
-            foreach ($vOP as $key => $value) {
                 $xxProp = $value[1];
                 $xxKab = $value[2];
                 $xxKec = $value[3];
@@ -1386,7 +1398,7 @@
                 $xNOP1 = $xxProp . "." . $xxKab . "." . $xxKec . "." . $xxKel . "." . $xxBlok . "-" . $xxUrut . "." . $xxJenis;
                 $xxKelas1 = $value[10];
                 $xxKelas2 = $value[14];
-                $xxJatuh = date("dd/mm/yyyy");
+                $xxJatuh = (new DateTime)->format("Y-m-d\TH:i:s");
                 $LBumi = $value[9];
                 $LBng = $value[12];
                 $NBumi = $value[11];
@@ -1405,6 +1417,7 @@
 
                 if($value[19] != "4" ){
 
+                    $new_data = [];
                     $new_data['KD_PROPINSI'] = "12";
                     $new_data['KD_DATI2'] = "12";
                     $new_data['KD_KECAMATAN'] = $xxKec;
@@ -1452,10 +1465,11 @@
                     $new_data['KD_TP'] = "93";
                     $new_data['PROSES'] = "N";
 
-                    $qb->insert("SPPT",$new_data)->exec();
+                    $qb->create("SPPT",$new_data)->exec();
 
                 }
-
             }
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
