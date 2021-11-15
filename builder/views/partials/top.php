@@ -5,7 +5,7 @@ $installation = $builder->get_installation();
 $nav_class_active = 'bg-purple-700 text-white';
 
 $pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],['dbkb-utama','dbkb-material','dbkb-fasilitas','dbkb-utama-material','objek-pajak-bumi','objek-pajak-bangunan','subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
-$penilaian = (isBuilder() ? stringContains($_GET['data'],'penilaian') : false) ? $nav_class_active : '';
+$penilaian = (isset($_GET['page']) && arrStringContains($_GET['page'],['penilaian-massal']) ? $nav_class_active : '');
 $penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
 $referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
 $utility = (isset($_GET['page']) && arrStringContains($_GET['page'],['roles','users','pejabat']) ? $nav_class_active : '');

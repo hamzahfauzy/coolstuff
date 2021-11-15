@@ -14,11 +14,11 @@
         </div>
         <?php endif ?>
         <div class="bg-white shadow-md rounded my-6 p-8">
-            <form id="login-form" action="index.php?page=<?=$_GET['page']?>" method="post" enctype="multipart/form-data">
+            <form id="loginForm" onsubmit="return toSubmit(event)"  action="index.php?page=<?=$_GET['page']?>" method="post" enctype="multipart/form-data">
 
                 <div class="form-group mb-2">
-                    <label>Tahun Pajak</label>
-                    <select class="p-2 w-full border rounded" name="YEAR" id="">
+                    <label>Tahun Pajak</label> 
+                    <select class="p-2 w-full border rounded" name="YEAR" id="" required>
                         <option value="" selected readonly>- Pilih Tahun -</option>
                         <?php foreach($years as $Y):?>
                             <option <?= ( $year == $Y) ? "selected" : ""?> value="<?=$Y?>"><?=$Y?></option>
@@ -26,14 +26,14 @@
                     </select>
                 </div>
                 
-                <div class="form-group mb-2">
+                <!-- <div class="form-group mb-2">
                     <input type="checkbox" id="CEK_PROSES" checked name="CEK_PROSES">
                     <label for="CEK_PROSES">Cek Proses</label>
-                </div>
+                </div> -->
 
                 <div class="form-group mb-2">
                     <label>Kecamatan</label>
-                    <select name="KD_KECAMATAN" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">
+                    <select name="KD_KECAMATAN" class="p-2 w-full border rounded" onchange="kecamatanChange(this)" required>
                         <option value="" selected readonly>- Pilih Kecamatan -</option>
                         <?php foreach($kecamatans as $kecamatan):?>
                             <option value="<?=$kecamatan['KD_KECAMATAN']?>"><?=$kecamatan['KD_KECAMATAN']." - ".$kecamatan['NM_KECAMATAN']?></option>
@@ -43,8 +43,9 @@
                 <div class="form-group mb-2 hidden" id="kelurahan"></div>
 
                 <div class="form-group">
-                    <button class="w-full p-2 bg-indigo-800 text-white rounded" id="btn-login">Proses</button>
+                    <button class="w-full p-2 bg-indigo-800 text-white rounded">Proses</button>
                 </div>
+                
             </form>
         </div>
     </div>
@@ -58,7 +59,7 @@
 
                 var html = `
                         <label>Kelurahan</label>
-                        <select name="KD_KELURAHAN" class="p-2 w-full border rounded">
+                        <select name="KD_KELURAHAN" class="p-2 w-full border rounded" required>
                             <option value="" selected readonly>- Pilih Kelurahan -</option>`
 
                 data.map(dt=>{
@@ -75,5 +76,29 @@
 
         }); 
     }    
+
+    async function toSubmit(e){
+        // e.preventDefault()
+        var formData = new FormData(e.target)
+
+        var results = false
+
+        var response = await fetch("index.php?page=builder/penilaian-massal/index&KD_KECAMATAN="+formData.get('KD_KECAMATAN')+"&KD_KELURAHAN="+formData.get('KD_KELURAHAN')+"&YEAR="+formData.get('YEAR')+"&sppt=true")
+
+        var data = await response.json()
+
+        if(data.result == true){
+            var res = confirm('Wilayah yang anda pilih sudah dinilai, Lakukan penilaian ulang??')
+
+            results = res
+        }else{
+            results = true
+        }
+
+        console.log(results)
+
+        return results
+    }
+
 </script>
 <?php load('builder/partials/bottom') ?>
