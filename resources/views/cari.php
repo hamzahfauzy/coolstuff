@@ -6,7 +6,13 @@
                 <input type="hidden" name="page" value="cari">
                 <div class="hero-form field field-grouped" style="margin-left:auto;margin-right:auto;">
                     <div class="control control-expanded">
-                        <input class="input" type="text" name="subjek_pajak_id" placeholder="NIK / Subjek Pajak ID" value="<?=@$_GET['subjek_pajak_id']?>">
+                        <select name="type" id="">
+                            <option>Subjek Pajak</option>
+                            <option>NOP</option>
+                        </select>
+                    </div>
+                    <div class="control control-expanded">
+                        <input class="input" type="text" name="subjek_pajak_id" placeholder="NIK / Subjek Pajak ID / NOP" value="<?=@$_GET['subjek_pajak_id']?>">
                     </div>
                     <div class="control">
                         <button class="button button-primary button-block" href="#">Cari</button>

@@ -11,7 +11,10 @@ $cari = false;
 if(isset($_GET['subjek_pajak_id']))
 {
     $cari = true;
-    $query = "SELECT * FROM QOBJEKPAJAK WHERE SUBJEK_PAJAK_ID = '$_GET[subjek_pajak_id]'";
+    if($_GET['type'] == 'NOP')
+        $query = "SELECT * FROM QOBJEKPAJAK WHERE NOPQ = '$_GET[subjek_pajak_id]'";
+    else
+        $query = "SELECT * FROM QOBJEKPAJAK WHERE SUBJEK_PAJAK_ID = '$_GET[subjek_pajak_id]'";
     $datas = $qb->rawQuery($query)->get();
 
     foreach($datas as $key => $data)
