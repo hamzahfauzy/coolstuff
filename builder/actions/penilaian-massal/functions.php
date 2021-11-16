@@ -48,6 +48,12 @@
 
     $nMezanin = $nMz['NILAI_DBKB_MEZANIN'] ?? 0;
 
+    $Qulin = "Select * From KAYU_ULIN where THN_STATUS_KAYU_ULIN='" . $_POST['YEAR'] .  "'";
+
+    $ulin = $qb->rawQuery($Qulin)->first();
+
+    $ck_Ulin = $ulin['STATUS_KAYU_ULIN'] ?? 0;
+
     function qb(){
         return new QueryBuilder();
     }
@@ -620,10 +626,6 @@
             $vBangunan[$key][] = $xNOP;
 
         
-        }
-
-        if(!$results){
-            $vBangunan = [];
         }
 
         call_kelas();
@@ -1471,5 +1473,220 @@
             }
         } catch (\Throwable $th) {
             throw $th;
+        }
+    }
+
+    function Call_Susut(){
+
+        global $vBng,$ck_Ulin;
+
+        $qb = qb();
+        
+        $StrQ = "SELECT PENYUSUTAN.KD_RANGE_PENYUSUTAN, PENYUSUTAN.UMUR_EFEKTIF, PENYUSUTAN.KONDISI_BNG_SUSUT, RANGE_PENYUSUTAN.NILAI_MIN_PENYUSUTAN, RANGE_PENYUSUTAN.NILAI_MAX_PENYUSUTAN, PENYUSUTAN.NILAI_PENYUSUTAN FROM PENYUSUTAN INNER JOIN RANGE_PENYUSUTAN ON PENYUSUTAN.KD_RANGE_PENYUSUTAN = RANGE_PENYUSUTAN.KD_RANGE_PENYUSUTAN ORDER BY PENYUSUTAN.UMUR_EFEKTIF";
+        
+        $data = $qb->rawQuery($StrQ)->first();
+
+        if($data){
+            foreach ($vBng as $key => $value) {
+                $JGuna = $value[9];
+
+                if( $JGuna == 3){
+                    $nMaterial1 = (($value[58]) + ($value[57]) + ($value[55])) * 1.3 * $value[12];
+
+                    $nMaterial2 = $value[12] * $value[70] * $value[49] * (10 / 6) * $value[56] * 1.3;
+
+                    $nMaterial = $nMaterial1 + $nMaterial2;
+                }
+                elseif( $JGuna == 8){
+                    $nMaterial1 = (($value[58]) + ($value[57]) + ($value[55])) * $value[12];
+                    $nMaterial2 = $value[12] * $value[70] * $value[49] * (10 / 6) * $value[56];
+                    $nMaterial = $nMaterial1 + $nMaterial2;
+                }
+                else{
+                    $nMaterial = (($value[58]) + ($value[57]) + ($value[56]) + ($value[55])) * $value[12];
+                }
+
+                $nMez_DDukung = $value[45] + $value[47];
+            
+                if($value[9] == "02" || $value[9] == "04" ){
+                    $nAC = ($value[65] * $value[12]) ;
+                }
+                else{
+                    $nAC = ($value[65] * $value[53]) + ($value[66] * $value[54]);
+                }
+
+                $nBoiler = $value[67] * $value[52];
+
+                $JPB1 = $vBng[$key][27];
+            
+                $JPB2 = $vBng[$key][28];
+            
+                $JPB3 = $vBng[$key][29];
+            
+                $JPB4 = $vBng[$key][30];
+            
+                $JPB5 = $vBng[$key][31];
+            
+                $JPB6 = $vBng[$key][32];
+            
+                $JPB7 = $vBng[$key][33];
+            
+                $JPB8 = $vBng[$key][34];
+            
+                $JPB9 = $vBng[$key][35];
+            
+                $JPB10 = $vBng[$key][36];
+            
+                $JPB11 = $vBng[$key][37];
+            
+                $JPB12 = $vBng[$key][38];
+            
+                $JPB13 = $vBng[$key][39];
+            
+                $JPB14 = $vBng[$key][40];
+            
+                $JPB15 = $vBng[$key][41];
+            
+                $JPB16 = $vBng[$key][42];
+            
+                $JPB17 = $vBng[$key][43];
+
+                $nSistem_B4_Susut = ($JPB1 + $JPB2 + $JPB3 + $JPB4 + $JPB5 + $JPB6 + $JPB7 + $JPB8 + $JPB9 + $JPB10 + $JPB11 + $JPB12 + $JPB13 + $JPB14 + $JPB15 + $JPB16 + $JPB17) * $vBng[$key][12];
+                
+                $vBng[$key][64] = ($JPB1 + $JPB2 + $JPB3 + $JPB4 + $JPB5 + $JPB6 + $JPB7 + $JPB8 + $JPB9 + $JPB10 + $JPB11 + $JPB12 + $JPB13 + $JPB14 + $JPB15 + $JPB16 + $JPB17);
+
+                $TPajak = $_POST['YEAR'];
+                $TBangun = $vBng[$key][10];
+                $TRenovasi = $vBng[$key][11];
+                
+                $JLANTAI = $vBng[$key][13];
+
+                if( ($JGuna == 1 || $JGuna == 3 || $JGuna == 8 || $JGuna == 10 || $JGuna == 11 || $JGuna == 2 || $JGuna == 4 || $JGuna == 5 || $JGuna == 7 || $JGuna == 9) && $JLANTAI <= 4 ){
+                    if( $TRenovasi > 0 ){
+                        $Umur = $TPajak - $TRenovasi;
+                    }else{
+                        $Umur = $TPajak - $TBangun;
+                    }
+                    
+                }else{
+                    if( $TBangun > 0 && $TRenovasi > 0 ){
+                        if( $TPajak - $TBangun > 10 ){
+                            $Umur = (($TPajak - $TBangun) + (2 * 10)) / 3;
+                        }else{
+                            $Umur = (($TPajak - $TBangun) + 2 * ($TPajak - $TRenovasi)) / 3;
+                        }
+                    }else{ 
+                        if( $TPajak - $TBangun > 10 ){
+                            $Umur = (($TPajak - $TBangun) + (2 * 10)) / 3;
+                        }else{
+                            $Umur = $TPajak - $TBangun;
+                        }
+                    }
+                    $nMaterial = 0;
+                }
+
+                if( $Umur > 40 ){
+                    $Umur = 40;
+                }
+
+                $umur_EFF = round($Umur);
+        
+                if( $value[15] == 4 && $ck_Ulin == 0 ){
+                    $nSistem_B4_Susut = $nSistem_B4_Susut * 0.7;
+                }
+                $n_Fas1 = $value[59];
+                $n_Fas2 = $value[60];
+                $s_Fas2 = $value[69];
+
+                if( $vBng[$key][44] == 0 || $vBng[$key][44] == "" ){
+                    $xxMez = 0;
+                }else{ 
+                    $xxMez = $vBng[$key][45] / $vBng[$key][44];
+                }
+                
+                $xxDD = $vBng[$key][47];
+                
+                $nBaru = (($nMaterial + $xxDD + $nSistem_B4_Susut) / $vBng[$key][12]) + $xxMez + $s_Fas2;
+                
+                if( $nBaru * 1000 >= $data['NILAI_MIN_PENYUSUTAN'] && $nBaru * 1000 <= $data['NILAI_MAX_PENYUSUTAN'] ){
+                    if( ($vBng[$key][14] = $data['KONDISI_BNG_SUSUT']) && ($umur_EFF = $data['UMUR_EFEKTIF']) ){   
+                        $vBng[$key][61] = $data['NILAI_PENYUSUTAN'];
+                    }
+                }
+
+                $nSusut = $vBng[$key][62];
+                
+                if( $nSusut > 50 && $vBng[$key][9] == "15" ){
+                    $nSusut = 50;
+                }
+                
+                
+                $xSistem1 = $nMaterial + $nMez_DDukung + $nSistem_B4_Susut + $n_Fas2 + $n_Fas1 + $nAC + $nBoiler;
+                $xSistem2 = ($nMaterial + $xxDD + $nSistem_B4_Susut + $n_Fas2) * ($nSusut / 100) ;
+                $vBng[$key][62] = $xSistem1 - $xSistem2;
+                $vBng[$key][80] = $nMez_DDukung + $nSistem_B4_Susut ;
+                $vBng[$key][81] = $nMaterial;
+                $vBng[$key][82] = $n_Fas2 ;
+                $vBng[$key][83] = $nSusut ;
+                $vBng[$key][84] = $xSistem2; 
+                $vBng[$key][85] = $n_Fas1 + $nAC + $nBoiler ;
+            }
+        }
+
+    }
+
+    function NFAS(){
+        global $vBng,$vFAS;
+
+        $cJum = 0;
+        $nMaterial = 0;
+        $nMez_DDukung = 0;
+        $cJum1 = 0;
+        $cJum2 = 0;
+        $cJum3 = 0;
+        $cJum4 = 0;
+        $s_FJ = 0;
+
+        foreach($vFAS as $key => $value){
+            $NOP1 = $value[1] . "." . $value[2] . "." . $value[3] . "." . $value[4] . "." . $value[5] . "-" . $value[6] . "." . $value[7];
+
+            $vFAS[$key][13] = $NOP1;
+        }
+        
+        foreach($vBng as $key => $value){
+            $NOP2 = $value[1] . "." . $value[2] . "." . $value[3] . "." . $value[4] . "." . $value[5] . "-" . $value[6] . "." . $value[7];
+
+            $vBng[$key][63] = $NOP2;
+
+            foreach($vFAS as $key2 => $value2){
+                if( ($value[64] == $value2[14]) && ($value[9] == $value2[9]) ){
+                    $cJum = $cJum + ($value2[13]);
+                    $cJum1 = $cJum1 + ($value2[15]);
+                    $cJum2 = $cJum2 + ($value2[16]);
+                    $cJum3 = $cJum3 + ($value2[17]);
+                    $cJum4 = $cJum4 + ($value2[18]);
+                    $s_FJ = $s_FJ + ($value2[19]);
+                }
+            }
+
+            $vBng[$key][59] = $cJum;
+            $vBng[$key][60] = $cJum1;
+            $vBng[$key][65] = $cJum2;
+            $vBng[$key][66] = $cJum3;
+            $vBng[$key][67] = $cJum4;
+            $vBng[$key][69] = $s_FJ;
+            
+        }
+
+        Call_Susut();
+    }
+
+    function TIDAK_KENA_PAJAK(){
+        global $vBng;
+
+        foreach ($vBng as $key => $value) {
+            if( trim($vBng[$key][10]) == 11 ){
+                $vBng[$key][63] = 0;
+            }
         }
     }

@@ -47,7 +47,9 @@ if(request() == 'POST' && $_POST['KD_KECAMATAN'] && $_POST['KD_KELURAHAN'] && $_
     dbkb_fas1a();
     dbkb_fas3a();
     dbkb_fas2a();
+    NFAS();
     nilai_individu();
+    TIDAK_KENA_PAJAK();
     call_op();
     sv_bumi();
     sv_individu();
