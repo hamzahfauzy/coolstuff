@@ -23,7 +23,7 @@ if(isset($_GET['filter']))
         QOBJEKPAJAK.NILAI_SISTEM_BUMI, QOBJEKPAJAK.JNS_BUMI
     FROM 
         QOBJEKPAJAK 
-    INNER JOIN 
+    LEFT JOIN 
         DAT_NIR 
         ON 
             (QOBJEKPAJAK.KD_Kecamatan = DAT_NIR.KD_KECAMATAN) AND 

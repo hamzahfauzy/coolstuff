@@ -52,6 +52,7 @@ if(request() == 'POST' && $_POST['KD_KECAMATAN'] && $_POST['KD_KELURAHAN'] && $_
     TIDAK_KENA_PAJAK();
     call_op();
     sv_bumi();
+    sv_bangunan();
     sv_individu();
     sv_objek();
 

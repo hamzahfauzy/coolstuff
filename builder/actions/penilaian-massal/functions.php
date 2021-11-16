@@ -609,13 +609,13 @@
             $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
             
             $vBangunan[$key][] = trim($data['KD_PROPINSI']);
-            $vBangunan[$key][] =trim($data['KD_DATI2']);
-            $vBangunan[$key][] =trim($data['KD_KECAMATAN']);
-            $vBangunan[$key][] =trim($data['KD_KELURAHAN']);
-            $vBangunan[$key][] =trim($data['KD_BLOK']);
-            $vBangunan[$key][] =trim($data['NO_URUT']);
-            $vBangunan[$key][] =trim($data['KD_JNS_OP']);
-            $vBangunan[$key][] =trim($data['NO_BUMI']);
+            $vBangunan[$key][] = trim($data['KD_DATI2']);
+            $vBangunan[$key][] = trim($data['KD_KECAMATAN']);
+            $vBangunan[$key][] = trim($data['KD_KELURAHAN']);
+            $vBangunan[$key][] = trim($data['KD_BLOK']);
+            $vBangunan[$key][] = trim($data['NO_URUT']);
+            $vBangunan[$key][] = trim($data['KD_JNS_OP']);
+            $vBangunan[$key][] = trim($data['NO_BUMI']);
             $vBangunan[$key][] = trim($data['KD_ZNT']);
             $vBangunan[$key][] = trim($data['NIR']);
             $vBangunan[$key][] = trim($data['LUAS_BUMI']);
@@ -624,8 +624,11 @@
             $vBangunan[$key][] = 0 ;
             $vBangunan[$key][] = 0 ;
             $vBangunan[$key][] = $xNOP;
-
         
+        }
+
+        if(!$results){
+            $vBangunan = [];
         }
 
         call_kelas();
@@ -888,6 +891,10 @@
             $vFAS[$key][] = 0;
         }
 
+        if(!$results){
+            $vFAS = [];
+        }
+
     }
 
     function dbkb_fas1a(){
@@ -1103,7 +1110,7 @@
         $kb = "SELECT * FROM KELAS_BANGUNAN WHERE THN_AWAL_KLS_BNG ='" . $xTB . "'";
         $kb_single = $qb->rawQuery($kb)->first();
 
-        if($kb_single){
+        if($kb_single && $vOP){
             foreach ($vOP as $key => $value) {
                 if($vOP[$key][13] != 0 || $vOP[$key][12] != 0){
                     if($vOP[$key][13] / $vOP[$key][12] >= $kb_single['NILAI_MIN_BNG'] && $vOP[$key][13] / $vOP[$key][12] >= $kb_single['NILAI_MAX_BNG']){
@@ -1139,127 +1146,130 @@
 
         $Q_SPPT = "SELECT * FROM QOBJEKPAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "' ORDER BY NOPQ ASC";
 
-        $SPPT = $qb->rawQuery($Q_SPPT)->first();
+        $SPPTs = $qb->rawQuery($Q_SPPT)->get();
 
-        if($SPPT){
-            foreach ($vOP as $key => $value) {
-                if($SPPT['NOPQ'] == $vOP[$key][8]){
-                    if(is_null($SPPT['NM_WP'])){
-                        $vOP[$key][20] = "";
-                    }else{
-                        $vOP[$key][20] = $SPPT['NM_WP'];
-                    }
-
-                    if(is_null($SPPT['JALAN_WP'])){
-                        $vOP[$key][21] = "-";
-                    }else{
-                        $vOP[$key][21] = $SPPT['JALAN_WP'];
-                    }
-
-                    if(is_null($SPPT['BLOK_KAV_NO_WP'])){
-                        $vOP[$key][22] = "00";
-                    }else{
-                        $vOP[$key][22] = $SPPT['BLOK_KAV_NO_WP'];
-                    }
-
-                    if(is_null($SPPT['RW_WP'])){
-                        $vOP[$key][23] = "00";
-                    }else{
-                        $vOP[$key][23] = $SPPT['RW_WP'];
-                    }
-
-                    if(is_null($SPPT['RT_WP'])){
-                        $vOP[$key][24] = "00";
-                    }else{
-                        $vOP[$key][24] = $SPPT['RT_WP'];
-                    }
-
-                    if(is_null($SPPT['KELURAHAN_WP'])){
-                        $vOP[$key][25] = "-";
-                    }else{
-                        $vOP[$key][25] = $SPPT['KELURAHAN_WP'];
-                    }
-
-                    if(is_null($SPPT['KOTA_WP'])){
-                        $vOP[$key][26] = "-";
-                    }else{
-                        $vOP[$key][26] = $SPPT['KOTA_WP'];
-                    }
-
-                    if(is_null($SPPT['KD_POS_WP'])){
-                        $vOP[$key][27] = "00000";
-                    }else{
-                        $vOP[$key][27] = $SPPT['KD_POS_WP'];
-                    }
-
-                    if(is_null($SPPT['NPWP'])){
-                        $vOP[$key][28] = "-";
-                    }else{
-                        $vOP[$key][28] = $SPPT['NPWP'];
-                    }
-
-                    if(is_null($SPPT['NO_PERSIL'])){
-                        $vOP[$key][29] = "00";
-                    }else{
-                        $vOP[$key][29] = $SPPT['NO_PERSIL'];
-                    }
-
-                    if(is_null($SPPT['SUBJEK_PAJAK_ID'])){
-                        $vOP[$key][35] = "-";
-                    }else{
-                        $vOP[$key][35] = $SPPT['SUBJEK_PAJAK_ID'];
-                    }
-
-                    $vOP[$key][36] = $SPPT['NO_FORMULIR_SPOP'];
-                    $vOP[$key][37] = $SPPT['KD_STATUS_WP'];
-                    $vOP[$key][38] = $SPPT['JNS_TRANSAKSI_OP'];
-
-                    if(is_null($SPPT['NIP_PENDATA']) || $SPPT['NIP_PENDATA'] == "" ){
-                        $SPPT['NIP_PENDATA'] = "-";
-                    }
-
-                    if(is_null($SPPT['NIP_PEMERIKSA_OP']) || $SPPT['NIP_PEMERIKSA_OP'] == "" ){
-                        $SPPT['NIP_PEMERIKSA_OP'] = "-";
-                    }
-
-                    if(is_null($SPPT['NIP_PEREKAM_OP']) || $SPPT['NIP_PEREKAM_OP'] == "" ){
-                        $SPPT['NIP_PEREKAM_OP'] = "-";
-                    }
-
-                    $vOP[$key][39] = $SPPT['TGL_PENDATAAN_OP'];
-                    $vOP[$key][40] = $SPPT['NIP_PENDATA'];
-                    $vOP[$key][41] = $SPPT['TGL_PEMERIKSAAN_OP'];
-                    $vOP[$key][42] = $SPPT['NIP_PEMERIKSA_OP'];
-                    $vOP[$key][43] = $SPPT['TGL_PEREKAMAN_OP'];
-                    $vOP[$key][44] = $SPPT['NIP_PEREKAM_OP'];
-
-                    if(is_null($SPPT['JALAN_OP'])){
-                        $vOP[$key][45] = "-";
-                    }else{
-                        $vOP[$key][45] = $SPPT['JALAN_OP'];
-                    }
-
-                    if(is_null($SPPT['BLOK_KAV_NO_OP'])){
-                        $vOP[$key][46] = "00";
-                    }else{
-                        $vOP[$key][46] = $SPPT['BLOK_KAV_NO_OP'];
-                    }
-
-                    if(is_null($SPPT['RW_OP'])){
-                        $vOP[$key][47] = "00";
-                    }else{
-                        $vOP[$key][47] = $SPPT['RW_OP'];
-                    }
-
-                    if(is_null($SPPT['RT_OP'])){
-                        $vOP[$key][48] = "00";
-                    }else{
-                        $vOP[$key][48] = $SPPT['RT_OP'];
-                    }
-
-               }
+        foreach ($SPPTs as $key => $SPPT) {
+            if($SPPT && $vOP){
+                foreach ($vOP as $key => $value) {
+                    if($SPPT['NOPQ'] == $vOP[$key][8]){
+                        if(is_null($SPPT['NM_WP'])){
+                            $vOP[$key][20] = "";
+                        }else{
+                            $vOP[$key][20] = $SPPT['NM_WP'];
+                        }
+    
+                        if(is_null($SPPT['JALAN_WP'])){
+                            $vOP[$key][21] = "-";
+                        }else{
+                            $vOP[$key][21] = $SPPT['JALAN_WP'];
+                        }
+    
+                        if(is_null($SPPT['BLOK_KAV_NO_WP'])){
+                            $vOP[$key][22] = "00";
+                        }else{
+                            $vOP[$key][22] = $SPPT['BLOK_KAV_NO_WP'];
+                        }
+    
+                        if(is_null($SPPT['RW_WP'])){
+                            $vOP[$key][23] = "00";
+                        }else{
+                            $vOP[$key][23] = $SPPT['RW_WP'];
+                        }
+    
+                        if(is_null($SPPT['RT_WP'])){
+                            $vOP[$key][24] = "00";
+                        }else{
+                            $vOP[$key][24] = $SPPT['RT_WP'];
+                        }
+    
+                        if(is_null($SPPT['KELURAHAN_WP'])){
+                            $vOP[$key][25] = "-";
+                        }else{
+                            $vOP[$key][25] = $SPPT['KELURAHAN_WP'];
+                        }
+    
+                        if(is_null($SPPT['KOTA_WP'])){
+                            $vOP[$key][26] = "-";
+                        }else{
+                            $vOP[$key][26] = $SPPT['KOTA_WP'];
+                        }
+    
+                        if(is_null($SPPT['KD_POS_WP'])){
+                            $vOP[$key][27] = "00000";
+                        }else{
+                            $vOP[$key][27] = $SPPT['KD_POS_WP'];
+                        }
+    
+                        if(is_null($SPPT['NPWP'])){
+                            $vOP[$key][28] = "-";
+                        }else{
+                            $vOP[$key][28] = $SPPT['NPWP'];
+                        }
+    
+                        if(is_null($SPPT['NO_PERSIL'])){
+                            $vOP[$key][29] = "00";
+                        }else{
+                            $vOP[$key][29] = $SPPT['NO_PERSIL'];
+                        }
+    
+                        if(is_null($SPPT['SUBJEK_PAJAK_ID'])){
+                            $vOP[$key][35] = "";
+                        }else{
+                            $vOP[$key][35] = $SPPT['SUBJEK_PAJAK_ID'];
+                        }
+    
+                        $vOP[$key][36] = $SPPT['NO_FORMULIR_SPOP'];
+                        $vOP[$key][37] = $SPPT['KD_STATUS_WP'];
+                        $vOP[$key][38] = $SPPT['JNS_TRANSAKSI_OP'];
+    
+                        if(is_null($SPPT['NIP_PENDATA']) || $SPPT['NIP_PENDATA'] == "" ){
+                            $SPPT['NIP_PENDATA'] = "-";
+                        }
+    
+                        if(is_null($SPPT['NIP_PEMERIKSA_OP']) || $SPPT['NIP_PEMERIKSA_OP'] == "" ){
+                            $SPPT['NIP_PEMERIKSA_OP'] = "-";
+                        }
+    
+                        if(is_null($SPPT['NIP_PEREKAM_OP']) || $SPPT['NIP_PEREKAM_OP'] == "" ){
+                            $SPPT['NIP_PEREKAM_OP'] = "-";
+                        }
+    
+                        $vOP[$key][39] = $SPPT['TGL_PENDATAAN_OP'];
+                        $vOP[$key][40] = $SPPT['NIP_PENDATA'];
+                        $vOP[$key][41] = $SPPT['TGL_PEMERIKSAAN_OP'];
+                        $vOP[$key][42] = $SPPT['NIP_PEMERIKSA_OP'];
+                        $vOP[$key][43] = $SPPT['TGL_PEREKAMAN_OP'];
+                        $vOP[$key][44] = $SPPT['NIP_PEREKAM_OP'];
+    
+                        if(is_null($SPPT['JALAN_OP'])){
+                            $vOP[$key][45] = "-";
+                        }else{
+                            $vOP[$key][45] = $SPPT['JALAN_OP'];
+                        }
+    
+                        if(is_null($SPPT['BLOK_KAV_NO_OP'])){
+                            $vOP[$key][46] = "00";
+                        }else{
+                            $vOP[$key][46] = $SPPT['BLOK_KAV_NO_OP'];
+                        }
+    
+                        if(is_null($SPPT['RW_OP'])){
+                            $vOP[$key][47] = "00";
+                        }else{
+                            $vOP[$key][47] = $SPPT['RW_OP'];
+                        }
+    
+                        if(is_null($SPPT['RT_OP'])){
+                            $vOP[$key][48] = "00";
+                        }else{
+                            $vOP[$key][48] = $SPPT['RT_OP'];
+                        }
+    
+                   }
+                }
             }
         }
+
     }
 
     function sv_bumi(){
@@ -1269,21 +1279,32 @@
 
         $sv_bumi = "Select * From DAT_OP_BUMI WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
 
-        $data = $qb->rawQuery($sv_bumi)->first();
+        $datas = $qb->rawQuery($sv_bumi)->get();
 
-        if($data){
-            foreach ($vBangunan as $key => $value) {
-                $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
-                if($data['NO_BUMI'] == $value[8] && $xNOP == $value[16]){
+        foreach ($datas as $key => $data) {
 
-                    $data['LUAS_BUMI'] = $value[11];
-                    $data['JNS_BUMI'] = $value[12];
-                    $data['NILAI_SISTEM_BUMI'] = $value[13];
-
-                    $qb->update("DAT_OP_BUMI",$data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
-                }
+            if($data && $vBangunan){
+                
+                // foreach ($vBangunan as $key => $value) {
+    
+                    $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
+    
+                    if($data['NO_BUMI'] == $vBangunan[0][8] && $xNOP == $vBangunan[0][16]){
+    
+                        $new_data = [];
+    
+                        $new_data['LUAS_BUMI'] = $vBangunan[0][11];
+                        $new_data['JNS_BUMI'] = $vBangunan[0][12];
+                        $new_data['NILAI_SISTEM_BUMI'] = $vBangunan[0][13];
+    
+                        $upd = $qb->update("DAT_OP_BUMI",$new_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
+    
+                    }
+                // }
             }
+
         }
+
     }
 
     function sv_bangunan(){
@@ -1293,25 +1314,31 @@
 
         $sv_bangunan = "Select * From DAT_OP_BANGUNAN WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
 
-        $data = $qb->rawQuery($sv_bangunan)->first();
+        $datas = $qb->rawQuery($sv_bangunan)->get();
 
-        if($data){
-            foreach ($vBng as $key => $value) {
-                $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
-
-                if($value[63] == $xNOP && $data['NO_BNG'] == $value[8] && $data['KD_JPB'] == $value[9]){
-                    $data['K_UTAMA'] = $value[80];
-                    $data['K_MATERIAL'] = $value[81];
-                    $data['K_FASILITAS'] = $value[82];
-                    $data['J_SUSUT'] = $value[83];
-                    $data['K_SUSUT'] = $value[84];
-                    $data['K_NON_SUSUT'] = $value[85];
-                    $data['NILAI_SISTEM_BNG'] = $value[62];
-
-                    $qb->update("DAT_OP_BANGUNAN",$data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
-                }
+        foreach ($datas as $key => $data) {
+            
+            if($data && $vBng){
+                // foreach ($vBng as $key => $value) {
+                    $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
+    
+                    if($vBng[0][63] == $xNOP && $data['NO_BNG'] == $vBng[0][8] && $data['KD_JPB'] == $vBng[0][9]){
+                        $new_data = [];
+                        $new_data['K_UTAMA'] = $vBng[0][80];
+                        $new_data['K_MATERIAL'] = $vBng[0][81];
+                        $new_data['K_FASILITAS'] = $vBng[0][82];
+                        $new_data['J_SUSUT'] = $vBng[0][83];
+                        $new_data['K_SUSUT'] = $vBng[0][84];
+                        $new_data['K_NON_SUSUT'] = $vBng[0][85];
+                        $new_data['NILAI_SISTEM_BNG'] = $vBng[0][62];
+    
+                        $upd = $qb->update("DAT_OP_BANGUNAN",$new_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
+                    }
+                // }
             }
+            
         }
+
     }
 
     function sv_individu(){
@@ -1324,16 +1351,16 @@
         $data = $qb->rawQuery($sv_individu)->first();
 
         if($data){
-            foreach ($vBng as $key => $value) {
+            // foreach ($vBng as $key => $value) {
 
                 $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
 
-                if($value[64] == $xNOP && $data['NO_BNG'] == $value[9]){
-                    $data['NILAI_INDIVIDU'] = $value[80];
+                if($vBng[0][64] == $xNOP && $data['NO_BNG'] == $vBng[0][9]){
+                    $data['NILAI_INDIVIDU'] = $vBng[0][80];
 
-                    $qb->update("DAT_NILAI_INDIVIDU",$data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
+                    $upd = $qb->update("DAT_NILAI_INDIVIDU",$data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
                 }
-            }
+            // }
         }
     
     }
@@ -1342,17 +1369,19 @@
         global $vOP,$ccProses,$xTT,$xTB;
         
         $qb = qb();
-        
-        $b_sv_objek = "B_OP '" . $ccProses . "','" . $_POST['KD_KECAMATAN'] . "','" . $_POST['KD_KELURAHAN'] . "'";
-        // $sv_objek = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
-        
-        $qb->rawQuery($b_sv_objek)->exec();
-        // return;
-        
-        // $data = $qb->rawQuery($sv_objek)->first();
 
+        if($vOP){
+            $b_sv_objek = "B_OP '" . $ccProses . "','" . $_POST['KD_KECAMATAN'] . "','" . $_POST['KD_KELURAHAN'] . "'";
+            // $sv_objek = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
+            
+            $qb->rawQuery($b_sv_objek)->exec();
+            // return;
+            
+            // $data = $qb->rawQuery($sv_objek)->get();
+    
+            // if($data){
+        }
         
-        // if($data){
         try {
             foreach ($vOP as $key => $value) {
                 $data = [];
@@ -1362,7 +1391,7 @@
                 $data['KD_KELURAHAN'] = $value[4];
                 $data['KD_BLOK'] = $value[5];
                 $data['NO_URUT'] = $value[6];
-                $data['KD_JNS_OP'] = $value[27];
+                $data['KD_JNS_OP'] = $value[7];
 
                 $data['NO_PERSIL'] = $value[29];
                 $data['SUBJEK_PAJAK_ID'] = $value[35];
