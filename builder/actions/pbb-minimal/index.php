@@ -30,9 +30,6 @@ if(request() == 'POST'){
 
             $del = $qb->delete('PBB_MINIMAL')->where('THN_PBB_MINIMAL',trim($_POST['THN_PBB_MINIMAL'])); //->exec();
 
-            echo $del->sql;
-            die();
-
             if($del){
                 set_flash_msg(['success'=>'Data Deleted']);
                 header("location:index.php?page=builder/pbb-minimal/index");
