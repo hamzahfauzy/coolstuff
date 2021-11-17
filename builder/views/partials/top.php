@@ -24,7 +24,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $installation->app_name ?></title>
     <link rel="shortcut icon" href="<?=get_file_storage('installation/'.$installation->logo)?>" type="image/x-icon">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="css/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -125,7 +125,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penetapan" style="top:40px">
-                            <a href="?page=builder/crud/index&data=penetapan-pbb-minimal" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-pbb-minimal') ?> hover:text-white">PBB Minimal</a>
+                            <a href="?page=builder/pbb-minimal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pbb-minimal') ?> hover:text-white">PBB Minimal</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Penetapan NJOPTKP</a>
                             <a href="?page=builder/crud/index&data=penetapan-sppt" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt') ?> hover:text-white">Penetapan SPPT</a>
                             <a href="?page=builder/crud/index&data=pelunasan" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pelunasan') ?> hover:text-white">Pelunasan</a>
