@@ -6,7 +6,7 @@ $nav_class_active = 'bg-purple-700 text-white';
 
 $pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],['dbkb-utama','dbkb-material','dbkb-fasilitas','dbkb-utama-material','objek-pajak-bumi','objek-pajak-bangunan','subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
 $penilaian = (isset($_GET['page']) && arrStringContains($_GET['page'],['penilaian-massal']) ? $nav_class_active : '');
-$penetapan = (isBuilder() ? arrStringContains($_GET['data'],['penetapan-ppdb-minimal','penetapan-sppt','pelunasan']) : false) ? $nav_class_active : '';
+$penetapan = (isset($_GET['page']) && arrStringContains($_GET['page'],['pbb-minimal','penetapan-njoptkp','penetapan-sppt','pelunasan']) ? $nav_class_active : '');
 $referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
 $utility = (isset($_GET['page']) && arrStringContains($_GET['page'],['roles','users','pejabat']) ? $nav_class_active : '');
 
@@ -126,9 +126,9 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penetapan" style="top:40px">
                             <a href="?page=builder/pbb-minimal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pbb-minimal') ?> hover:text-white">PBB Minimal</a>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Penetapan NJOPTKP</a>
-                            <a href="?page=builder/crud/index&data=penetapan-sppt" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt') ?> hover:text-white">Penetapan SPPT</a>
-                            <a href="?page=builder/crud/index&data=pelunasan" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pelunasan') ?> hover:text-white">Pelunasan</a>
+                            <a href="?page=builder/penetapan-njoptkp/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-njoptkp') ?> hover:text-white">Penetapan NJOPTKP</a>
+                            <a href="?page=builder/penetapan-sppt/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt') ?> hover:text-white">Penetapan SPPT</a>
+                            <a href="?page=builder/pelunasan/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pelunasan') ?> hover:text-white">Pelunasan</a>
                         </div>
                     </li>
                     <li class="relative">
