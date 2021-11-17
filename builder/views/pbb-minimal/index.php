@@ -105,7 +105,7 @@
         var data = await res.json()
 
         if(data){
-            var c = confirm("Data tidak ditemukan! Apakah anda yakin ingin menghapus data ini ?")
+            var c = confirm("Data ditemukan! Apakah anda yakin ingin menghapus data ini ?")
 
             if(c){
 
