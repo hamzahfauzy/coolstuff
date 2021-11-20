@@ -1,4 +1,5 @@
 <?php load('builder/partials/top');
+
 ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
     <h2 class="text-3xl">Subjek Pajak</h2>
@@ -78,7 +79,9 @@
                             <th class="py-3 px-6 text-center">Action</th>
                         </tr>
                     </thead>
-                    <?php foreach($datas as $key => $data): ?>
+                    <?php foreach($datas as $key => $data):
+                        // $NOP = $data['KD_PROPINSI'] . '.' . $data['KD_DATI2'] . '.' . $data['KD_KECAMATAN'] . '.' . $data['KD_KELURAHAN'] . '.' . $data['KD_BLOK'] . '-' . $data['NO_URUT'] . '.' . $data['KD_JNS_OP'];
+                        ?>
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         
                         <td class="py-3 px-6 text-left whitespace-nowrap">
