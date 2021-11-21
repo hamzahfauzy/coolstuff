@@ -252,10 +252,10 @@
                       
                       <li class="font-bold">AC Central</li>
   
-                      <p class="mt-2 ml-4">Bangunan Lain</p>
-                      <p class="mt-2 ml-4">Kamar</p>
-                      <p class="mt-2 ml-4">Ruangan Lain</p>
-                      <p class="mt-2 ml-4">Boiler</p>
+                      <p class="mt-2 ml-4" id="AC1">Bangunan Lain</p>
+                      <p class="mt-2 ml-4" id="AC2">Kamar</p>
+                      <p class="mt-2 ml-4" id="AC3">Ruangan Lain</p>
+                      <p class="mt-2 ml-4" id="LBOILER">Boiler</p>
   
                     </div>
                   

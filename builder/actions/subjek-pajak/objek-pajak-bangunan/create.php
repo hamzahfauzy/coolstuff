@@ -42,13 +42,13 @@ if(request() == 'POST')
     if(isset($_POST['hitung'])){
         
         // init vars
-
+        
             $nDBKB = 0;
             $nMezanine = 0;
             $LDBKB = 0;
+            $nTipe_K = 0;
             
             $nDUKUNG = 0;
-            $nTipe_K = 0;
 
             $xDinding = 0;
             $xLantai = 0;
@@ -1185,6 +1185,8 @@ if(request() == 'POST')
     
         extract($_POST);
 
+        print_r($_POST);
+
         $xxKec = substr($NOP,6,3);
         $xxKel = substr($NOP,10,3);
         $xxBlok = substr($NOP,14,3);
@@ -1195,295 +1197,338 @@ if(request() == 'POST')
 
             global $xxKec,$xxKel,$xxBlok,$xxUrut,$xxJenis;
 
-            // not finished yet
+            extract($_POST);
 
             $qb = new QueryBuilder();
 
-            if($BKF_PAGAR_HASIL > 1 ){
-                $iSQL4 = "INSERT INTO DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','" . Left(Trim(LPAGAR.Caption), 2) . "','" . Round(FLK1(0).Text, 0) . "')";
+            if(substr($BKF_PAGAR_HASIL,3) > 1 ){
+                $iSQL4 = "INSERT INTO DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','" . substr($PAGAR['BP'],0,2) . "','" . round($PAGAR['PP']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if($BKF_PH_RINGAN_HASIL > 1 ){ 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','14','" . Round(FLK1(3).Text, 0) . "')";
+            if(substr($BKF_PH_RINGAN_HASIL ,3)> 1 ){ 
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','14','" . round($LPH['RINGAN']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if($BKF_PH_SEDANG_HASIL > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','15','" . Round(FLK1(6).Text, 0) . "')";
+            if(substr($BKF_PH_SEDANG_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','15','" . round($LPH['SEDANG']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if($BKF_PH_BERAT_HASIL > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','16','" . Round(FLK1(9).Text, 0) . "')";
+            if(substr($BKF_PH_BERAT_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','16','" . round($LPH['BERAT']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if($BKF_PH_PL_HASIL > 1 ){ 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','17','" . Round(FLK1(12).Text, 0) . "')";
+            if(substr($BKF_PH_PL_HASIL ,3)> 1 ){ 
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','17','" . round($LPH['P_LANTAI']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(17).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','40','" . Round(FLK1(15).Text, 0) . "')";
+            if(substr($BKF_KG_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','40','" . round($OTHERS['K_GENSET']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(20).Text > 1 ){ 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','42','" . Round(FLK1(18).Text, 0) . "')";
+            if(substr($BKF_SA_HASIL ,3)> 1 ){ 
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','42','" . round($OTHERS['DLM_SUMUR_A']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if(FLK1(23).Text > 1 ){ 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','41','" . Round(FLK1(21).Text, 0) . "')";
+            if(substr($BKF_JSP_HASIL ,3)> 1 ){ 
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','41','" . round($OTHERS['JLH_S_PABX']) . "')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(26).Text > 1 ){ 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','" . Left(Trim(LKOLAM.Caption), 2) . "','" . Round(FLK1(24).Text, 0) . " ')";
+            if(substr($BKF_KR_HASIL ,3)> 1 ){ 
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','" . $KOLAM_RENANG['F_KOLAM'] . "','" . round($KOLAM_RENANG['LUAS']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(29).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','37','" . Round(FLK1(27).Text, 0) . " ')";
+            if(substr($BKF_PK_HYDRAN_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','37','" . round($LUAS_BNG) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(32).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','39','" . Round(FLK1(30).Text, 0) . " ')";
+            if(substr($BKF_PK_SPRINGKLER_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','39','" . round($LUAS_BNG) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(35).Text > 1 ){ 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','38','" . Round(FLK1(33).Text, 0) . " ')";
+            if(substr($BKF_PK_FIRE_AL_HASIL ,3)> 1 ){ 
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','38','" . round($LUAS_BNG) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
             
-            if(FLK1(38).Text > 1 ){ 
+            if(substr($BKF_LT_DL_BETON_HASIL ,3)> 1 ){ 
                 if(FLK1(36).Text == 1 ){
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','18','" . Round(FLK1(36).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','18','" . round($JLT_DL['BETON']) . " ')";
                 }else{
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','24','" . Round(FLK1(36).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','24','" . round($JLT_DL['BETON']) . " ')";
                 }
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(41).Text > 1 ){
+            if(substr($BKF_LT_DL_ASPAL_HASIL,3) > 1 ){
                 if(FLK1(39).Text == 1 ){
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','19','" . Round(FLK1(39).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','19','" . round($JLT_DL['ASPAL']) . " ')";
                 }else{
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','25','" . Round(FLK1(39).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','25','" . round($JLT_DL['ASPAL']) . " ')";
                 }
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(44).Text > 1 ){ 
+            if(substr($BKF_LT_DL_TANAH_HASIL ,3)> 1 ){ 
                 if(FLK1(42).Text == 1 ){
-                        $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','20','" . Round(FLK1(42).Text, 0) . " ')";
+                        $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','20','" . round($JLT_DL['TR']) . " ')";
                 }else{
-                        $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','26','" . Round(FLK1(42).Text, 0) . " ')";
+                        $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','26','" . round($JLT_DL['TR']) . " ')";
                 }
                 
                 $qb->rawQuery($iSQL4)->exec();
                 
             }
 
-            if(FLK1(47).Text > 1 ){
+            if(substr($BKF_LT_TL_BETON_HASIL,3) > 1 ){
                 if(FLK1(45).Text == 1 ){
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','21','" . Round(FLK1(45).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','21','" . round($JLT_TL['BETON']) . " ')";
                 }else{
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','27','" . Round(FLK1(45).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','27','" . round($JLT_TL['BETON']) . " ')";
                 }
                     
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(50).Text > 1 ){
+            if(substr($BKF_LT_TL_ASPAL_HASIL,3) > 1 ){
                 if(FLK1(48).Text == 1 ){
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','22','" . Round(FLK1(48).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','22','" . round($JLT_TL['ASPAL']) . " ')";
                 }else{
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','28','" . Round(FLK1(48).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','28','" . round($JLT_TL['ASPAL']) . " ')";
                 }
                     
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(53).Text > 1 ){
+            if(substr($BKF_LT_TL_TANAH_HASIL,3) > 1 ){
                 if(FLK1(51).Text == 1 ){
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','23','" . Round(FLK1(51).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','23','" . round($JLT_TL['TR']) . " ')";
                 }else{
-                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','29','" . Round(FLK1(51).Text, 0) . " ')";
+                    $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','29','" . round($JLT_TL['TR']) . " ')";
                 }
                     
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if(FLK1(56).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','30','" . Round(FLK1(54).Text, 0) . " ')";
+            if(substr($BKF_LIFT_PENUMPANG_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','30','" . round($J_LIFT['PENUMPANG']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(59).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','31','" . Round(FLK1(57).Text, 0) . " ')";
+            if(substr($BKF_LIFT_KAPSUL_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','31','" . round($J_LIFT['KAPSUL']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(62).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','32','" . Round(FLK1(60).Text, 0) . " ')";
+            if(substr($BKF_LIFT_BARANG_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','32','" . round($J_LIFT['BARANG']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if(FLK1(65).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','33','" . Round(FLK1(63).Text, 0) . " ')";
+            if(substr($BKF_ESKALATOR_KD_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','33','" . round($LTB['LT']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(68).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','34','" . Round(FLK1(66).Text, 0) . " ')";
+            if(substr($BKF_ESKALATOR_LD_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','34','" . round($LTB['MT']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if(FLK1(71).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','" . Left(Trim(AC1.Caption), 2) . "','" . Round(FLK1(69).Text, 0) . " ')";
+            if(substr($BKF_AC_BNG_LAIN_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','" . substr(trim($AC1),0, 2) . "','" . round($FLK169) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(74).Text > 1 ){
+            if(substr($BKF_AC_KAMAR_HASIL,3) > 1 ){
 
                 if(xLK(0).Text == "05" ) $xFas = "07" ;
 
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','" . Left(Trim(AC2.Caption), 2) . "','" . Round(FLK1(72).Text, 0) . " ')";
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','" . substr(trim($AC2),0, 2) . "','" . round($FLK172) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(77).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','" . Left(Trim(AC3.Caption), 2) . "','" . Round(FLK1(75).Text, 0) . " ')";
+            if(substr($BKF_AC_RUANGAN_LAIN_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','" . substr(trim($AC3),0, 2) . "','" . round($FLK175) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK1(80).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','" . Left(Trim(LBOILER.Caption), 2) . "','" . Round(FLK1(78).Text, 0) . " ')";
+            if(substr($BKF_AC_BOILER_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','" . substr(trim($LBOILER),0, 2) . "','" . round($FLK178) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
-            if(FLK2(2).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','44','" . Round(FLK2(0).Text * 1000, 0) . " ')";
+            if(substr($BKF_TD_DL_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','44','" . round($L_AC['DAYA_LISTRIK'] * 1000) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if(FLK2(5).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','01','" . Round(FLK2(3).Text, 0) . " ')";
+            if(substr($BKF_TD_JAS_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','01','" . round($L_AC['AC_SPLIT']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
             
-            if(FLK2(8).Text > 1 ){
-                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . xLK(6).Text * 1 . "','02','" . Round(FLK2(6).Text, 0) . " ')";
+            if(substr($BKF_TD_JAW_HASIL,3) > 1 ){
+                $iSQL4 = "insert into DAT_FASILITAS_BANGUNAN(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KD_FASILITAS,JML_SATUAN) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $NO_BNG . "','02','" . round($L_AC['AC_SPLIT']) . " ')";
                 
                 $qb->rawQuery($iSQL4)->exec();
             }
 
         }
 
-        $sql = "INSERT_BANGUNAN '12','12','" . $xxKec . "','" . $xxKel . "','" . $xxBlok . "','" . $xxUrut . "','" . $xxJenis . "'," ."'" . $NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," ."'" . round($LUAS_BNG). "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($NILAI_SISTEM_BNG) . "','" . $JNS_TRANSAKSI_BNG . "'," .
+        function CALL_TAMBAHAN(){
+
+            global $xxKec,$xxKel,$xxBlok,$xxUrut,$xxJenis;
+
+            extract($_POST);
+
+            $xJPB = $_POST['KD_JPB'];
+
+            if( ($xJPB == 1 || $xJPB == 10 || $xJPB == 11) || (($xJPB == 2 || $xJPB == 4 || $xJPB == 5 || $xJPB == 7 || $xJPB == 9) && $_POST['JML_LANTAI_BNG'] <= 4) ){
+
+                // DATA TIDAK BENAR
+
+            }elseif( $xJPB == "02" ){ 
+                $iSQL5 = "insert into DAT_JPB2(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB2) " & "Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','1')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "03" ){ 
+
+                $iSQL5 = "insert into DAT_JPB3(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TYPE_KONSTRUKSI,TING_KOLOM_JPB3,LBR_BENT_JPB3,LUAS_MEZZANINE_JPB3,KELILING_DINDING_JPB3,DAYA_DUKUNG_LANTAI_JPB3) " . "Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . $nTipe_K . "','" . round(0) . " ','" . round(0) . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "04" ){ 
+
+                $iSQL5 = "insert into DAT_JPB4(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB4) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "05" ){
+
+                $iSQL5 = "insert into DAT_JPB5(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB5,LUAS_KMR_JPB5_DGN_AC_SENT,LUAS_RNG_LAIN_JPB5_DGN_AC_SENT) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ','" . round(0) . " ','" . round(0) . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "06" ){ 
+
+                $iSQL5 = "insert into DAT_JPB6(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB6) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "07" ){ 
+
+                $iSQL5 = "insert into DAT_JPB7(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,JNS_JPB7,BINTANG_JPB7,JML_KMR_JPB7,LUAS_KMR_JPB7_DGN_AC_SENT,LUAS_KMR_LAIN_JPB7_DGN_AC_SENT)" . "Values ('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . 1 . "','" . 0 . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "08" ){ 
+
+                $iSQL5 = "insert into DAT_JPB8(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TYPE_KONSTRUKSI,TING_KOLOM_JPB8,LBR_BENT_JPB8,LUAS_MEZZANINE_JPB8,KELILING_DINDING_JPB8,DAYA_DUKUNG_LANTAI_JPB8) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . $nTipe_K . "','" . round(0) . " ','" . round(0) . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "09" ){
+
+                $iSQL5 = "insert into DAT_JPB9(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB9) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "12" ){
+
+                $iSQL5 = "insert into DAT_JPB12(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TYPE_JPB12) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "13" ){
+
+                $iSQL5 = "insert into DAT_JPB13(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB13,JML_JPB13,LUAS_JPB13_DGN_AC_SENT,LUAS_JPB13_LAIN_DGN_AC_SENT) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . 1 . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "14" ){
+
+                $iSQL5 = "insert into DAT_JPB14(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,LUAS_KANOPI_JPB14) " . "Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . round(xLK(1).Text, 0) . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "15" ){ 
+
+                $iSQL5 = "insert into DAT_JPB15(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,LETAK_TANGKI_JPB15,KAPASITAS_TANGKI_JPB15)  Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ', '" . round(0) . " ')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "16" ){
+
+                $iSQL5 = "insert into DAT_JPB16(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB16) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . "')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }elseif( $xJPB == "17" ){ 
+
+                $iSQL5 = "insert into DAT_JPB17(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TINGGI_BNG_JPB17) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . round(0) . "')";
+
+                $qb->rawQuery($$iSQL5)->exec();
+
+            }
+        }
+
+        $sql = "INSERT_BANGUNAN '12','12','" . $xxKec . "','" . $xxKel . "','" . $xxBlok . "','" . $xxUrut . "','" . $xxJenis . "'," ."'" . $NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," ."'" . round($LUAS_BNG). "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($tTotal1) . "','" . $JNS_TRANSAKSI_BNG . "'," .
                 "'" . $TGL_PENDATAAN_BNG . "','" . $NIP_PENDATA_BNG . "','" . $TGL_PEMERIKSAAN_BNG . "','" . $NIP_PEMERIKSA_BNG . "'," .
-                "'" . $TGL_PEREKAMAN_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($JUM1) . "','" . round($JUM2) . "'," .
-                "'" . round($JUM3) . "','" . round($JUM4) . "','" . round($JUM5) . "','" . round($NILAI_INDIVIDU) . "','" . round($sTotal) . "','0'";
+                "'" . $TGL_PEREKAM_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($JUM1) . "','" . round($JUM2) . "'," .
+                "'" . round($JUM3) . "','" . round($JUM4) . "','" . round($JUM5) . "','" . round($xSUSUT) . "','" . round($NILAI_INDIVIDU) . "','0'";
 
-        $qb->rawQuery($sql)->exec();
+        $insert = $qb->rawQuery($sql)->exec();
+        
+        if($insert){
 
-        CALL_FASILITAS();
+            CALL_FASILITAS();
+            CALL_TAMBAHAN();
 
-    }
+            set_flash_msg(['success'=>'Data Saved']);
+            header('location:index.php?page=builder/subjek-pajak/view&id='.$_GET['id']);
+            return;
 
-    die;
+        }
 
 
-    $_POST['KD_PROPINSI'] = 12;
-    $_POST['KD_DATI2'] = 12;
-    
-    $clause = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP";
-
-    // $val = "$_POST[KD_PROPINSI].$_POST[KD_DATI2].$_POST[KD_KECAMATAN].$_POST[KD_KELURAHAN].$_POST[KD_BLOK]-$_POST[NO_URUT].$_POST[KD_JNS_OP]";
-
-    $opBangunan = $qb->select("DAT_OP_BANGUNAN")->where($clause,$_POST['NOP'])->first();
-    
-
-    if($opBangunan){
-
-        set_flash_msg(["old"=>$_POST]);
-
-        header('location:index.php?page=builder/subjek-pajak/objek-pajak-bangunan/create&id='.$_GET['id']);
-        return;
-    }
-
-    if(isset($_POST["TGL_PENDATAAN_BNG"])){
-        $result = $_POST["TGL_PENDATAAN_BNG"]." 00:00:00";
-        $_POST["TGL_PENDATAAN_BNG"] = $result;
-    }
-
-    if(isset($_POST["TGL_PEMERIKSAAN_BNG"])){
-        $result = $_POST["TGL_PEMERIKSAAN_BNG"]." 00:00:00";
-        $_POST["TGL_PEMERIKSAAN_BNG"] = $result;
-    }
-
-    if(isset($_POST["TGL_PEREKAMAN_BNG"])){
-        $result = $_POST["TGL_PEREKAMAN_BNG"]." 00:00:00";
-        $_POST["TGL_PEREKAMAN_BNG"] = $result;
-    }
-
-    $arr = explode(".",$_POST["NOP"]);
-
-    $_POST['KD_KECAMATAN'] = $arr[2];
-    $_POST['KD_KELURAHAN'] = $arr[3];
-
-    $arr2 = explode("-",$arr[4]);
-    $_POST['KD_BLOK'] = $arr2[0];
-    $_POST['NO_URUT'] = $arr2[1];
-
-    $_POST['KD_JNS_OP'] = $arr[5];
-
-    unset($_POST['NOP']);
-
-    extract($_POST);
-
-    // $sql = "INSERT_BANGUNAN '12','12','" . $KD_KECAMATAN . "','" . $KD_KELURAHAN . "','" . $KD_BLOK . "','" . $NO_URUT . "','" . $KD_JNS_OP . "'," ."'" . $NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," ."'" . round($LUAS_BNG). "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($NILAI_SISTEM_BNG) . "','" . $JNS_TRANSAKSI_BNG . "'," .
-    //             "'" . $TGL_PENDATAAN_BNG . "','" . $NIP_PENDATA_BNG . "','" . $TGL_PEMERIKSAAN_BNG . "','" . $NIP_PEMERIKSA_BNG . "'," .
-    //             "'" . $TGL_PEREKAMAN_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($K_UTAMA) . "','" . round($K_MATERIAL) . "'," .
-    //             "'" . round($K_MATERIAL) . "','" . round($K_SUSUT) . "','" . round($K_NON_SUSUT) . "','" . round($J_SUSUT) . "','" . round(sTotal.Text * 1, 0) . "','" . frmObjek_Pajak_Bg.chPajak(3).Value . "'";
-
-    $insert = $qb->create('DAT_OP_BANGUNAN',$_POST)->exec();
-
-    if($insert)
-    {
-        set_flash_msg(['success'=>'Data Saved']);
-        header('location:index.php?page=builder/subjek-pajak/view&id='.$_GET['id']);
-        return;
     }
 
 }

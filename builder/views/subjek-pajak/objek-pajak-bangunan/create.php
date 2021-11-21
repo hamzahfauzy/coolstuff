@@ -3,8 +3,10 @@
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
     
     <div class="flex justify-between items-center mb-5">
+
         <h2 class="text-lg mr-3">Add Objek Pajak Bangunan : <?=$subjekPajak['NM_WP']?></h2>
         <a href="index.php?page=builder/subjek-pajak/view&id=<?=$_GET['id']?>" class="p-2 bg-green-500 text-white rounded">Kembali</a>
+        
     </div>
 
     <?php if($old): ?>
@@ -410,9 +412,6 @@
 
                 var result = await request.json()
 
-                console.log(data)
-                console.log(result)
-
                 $("#modal").removeClass("hidden")
 
                 $("#NOP").html(data['NOP'])
@@ -582,10 +581,10 @@
 
                         $("#BKF_PH_BERAT_HASIL").html(BKF_PH_BERAT_HASIL)
                 
-                        var BKF_PH_PL = `<p>${data['LPH[RINGAN]']} M2 x <span class="font-bold">Rp.${result.LUAS_HPENUTUP}</span> </p>`;
+                        var BKF_PH_PL = `<p>${data['LPH[P_LANTAI]']} M2 x <span class="font-bold">Rp.${result.LUAS_HPENUTUP}</span> </p>`;
                         $("#BKF_PH_PL").html(BKF_PH_PL)
 
-                        var BKF_PH_PL_HASIL = data['LPH[RINGAN]'] * result.LUAS_HPENUTUP
+                        var BKF_PH_PL_HASIL = data['LPH[P_LANTAI]'] * result.LUAS_HPENUTUP
 
                         JUM3 += BKF_PH_PL_HASIL
 
@@ -826,6 +825,8 @@
 
                             $("#BKF_AC_BNG_LAIN_HASIL").html(BKF_AC_BNG_LAIN_HASIL)
 
+                            $("#AC1").prepend("03 ")
+
                         }else if(data['KD_JPB'] == "04"){
                             var BKF_AC_BNG_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[4]}</span> </p>`;
                             $("#BKF_AC_BNG_LAIN").html(BKF_AC_BNG_LAIN)
@@ -837,6 +838,8 @@
                             BKF_AC_BNG_LAIN_HASIL = `Rp.${BKF_AC_BNG_LAIN_HASIL}`;
 
                             $("#BKF_AC_BNG_LAIN_HASIL").html(BKF_AC_BNG_LAIN_HASIL)
+
+                            $("#AC1").prepend("06 ")
                         }else if(data['KD_JPB'] == "05"){
                             var BKF_AC_KAMAR = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[5]}</span> </p>`;
                             $("#BKF_AC_KAMAR").html(BKF_AC_KAMAR)
@@ -849,6 +852,8 @@
 
                             $("#BKF_AC_KAMAR_HASIL").html(BKF_AC_KAMAR_HASIL)
 
+                            $("#AC2").prepend("07 ")
+
                             var BKF_AC_RUANGAN_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[6]}</span> </p>`;
                             $("#BKF_AC_RUANGAN_LAIN").html(BKF_AC_RUANGAN_LAIN)
 
@@ -859,6 +864,9 @@
                             BKF_AC_RUANGAN_LAIN_HASIL = `Rp.${BKF_AC_RUANGAN_LAIN_HASIL}`;
 
                             $("#BKF_AC_RUANGAN_LAIN_HASIL").html(BKF_AC_RUANGAN_LAIN_HASIL)
+
+                            $("#AC3").prepend("08 ")
+
                         }else if(data['KD_JPB'] == "07"){
                             var BKF_AC_KAMAR = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[2]}</span> </p>`;
                             $("#BKF_AC_KAMAR").html(BKF_AC_KAMAR)
@@ -871,6 +879,8 @@
 
                             $("#BKF_AC_KAMAR_HASIL").html(BKF_AC_KAMAR_HASIL)
 
+                            $("#AC2").prepend("04 ")
+
                             var BKF_AC_RUANGAN_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[3]}</span> </p>`;
                             $("#BKF_AC_RUANGAN_LAIN").html(BKF_AC_RUANGAN_LAIN)
 
@@ -881,6 +891,8 @@
                             BKF_AC_RUANGAN_LAIN_HASIL = `Rp.${BKF_AC_RUANGAN_LAIN_HASIL}`;
 
                             $("#BKF_AC_RUANGAN_LAIN_HASIL").html(BKF_AC_RUANGAN_LAIN_HASIL)
+
+                            $("#AC3").prepend("05 ")
                         }else if(data['KD_JPB'] == "13"){
                             var BKF_AC_KAMAR = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[7]}</span> </p>`;
                             $("#BKF_AC_KAMAR").html(BKF_AC_KAMAR)
@@ -893,6 +905,8 @@
 
                             $("#BKF_AC_KAMAR_HASIL").html(BKF_AC_KAMAR_HASIL)
 
+                            $("#AC2").prepend("09 ")
+
                             var BKF_AC_RUANGAN_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_AC_Central[8]}</span> </p>`;
                             $("#BKF_AC_RUANGAN_LAIN").html(BKF_AC_RUANGAN_LAIN)
 
@@ -903,13 +917,34 @@
                             BKF_AC_RUANGAN_LAIN_HASIL = `Rp.${BKF_AC_RUANGAN_LAIN_HASIL}`;
 
                             $("#BKF_AC_RUANGAN_LAIN_HASIL").html(BKF_AC_RUANGAN_LAIN_HASIL)
+
+                            $("#AC3").prepend("10 ")
                         }else{
 
-                            var BKF_AC_BNG_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${0}</span> </p>`;
-                            $("#BKF_AC_BNG_LAIN").html(BKF_AC_BNG_LAIN)
+                            if(data['L_AC[AC_CENTRAL]'] == "01"){
 
-                            var BKF_AC_BNG_LAIN_HASIL = `Rp.${0 * 0}`;
-                            $("#BKF_AC_BNG_LAIN_HASIL").html(BKF_AC_BNG_LAIN_HASIL)
+                                var BKF_AC_BNG_LAIN = `<p>${data['LUAS_BNG']} M2 x <span class="font-bold">Rp.${result.JUM_AC_CENTRAL}</span> </p>`;
+                                $("#BKF_AC_BNG_LAIN").html(BKF_AC_BNG_LAIN)
+
+                                var BKF_AC_BNG_LAIN_HASIL = data['LUAS_BNG'] * result.JUM_AC_CENTRAL
+
+                                JUM3 += BKF_AC_BNG_LAIN_HASIL
+
+                                BKF_AC_BNG_LAIN_HASIL = `Rp.${BKF_AC_BNG_LAIN_HASIL}`;
+
+                                $("#BKF_AC_BNG_LAIN_HASIL").html(BKF_AC_BNG_LAIN_HASIL)
+
+                                $("#AC1").prepend("11 ")
+                            }else{
+                                var BKF_AC_BNG_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${0}</span> </p>`;
+                                $("#BKF_AC_BNG_LAIN").html(BKF_AC_BNG_LAIN)
+
+                                var BKF_AC_BNG_LAIN_HASIL = `Rp.${0 * 0}`;
+                                $("#BKF_AC_BNG_LAIN_HASIL").html(BKF_AC_BNG_LAIN_HASIL)
+
+                                $("#AC1").prepend("00 ")
+                            }
+
 
                             var BKF_AC_KAMAR = `<p>${0} M2 x <span class="font-bold">Rp.${0}</span> </p>`;
                             $("#BKF_AC_KAMAR").html(BKF_AC_KAMAR)
@@ -917,25 +952,15 @@
                             var BKF_AC_KAMAR_HASIL = `Rp.${0 * 0}`;
                             $("#BKF_AC_KAMAR_HASIL").html(BKF_AC_KAMAR_HASIL)
 
+                            $("#AC2").prepend("00 ")
+
                             var BKF_AC_RUANGAN_LAIN = `<p>${0} M2 x <span class="font-bold">Rp.${0}</span> </p>`;
                             $("#BKF_AC_RUANGAN_LAIN").html(BKF_AC_RUANGAN_LAIN)
 
                             var BKF_AC_RUANGAN_LAIN_HASIL = `Rp.${0 * 0}`;
                             $("#BKF_AC_RUANGAN_LAIN_HASIL").html(BKF_AC_RUANGAN_LAIN_HASIL)
-                        }
 
-                        if(data['L_AC[AC_CENTRAL]'] == "01"){
-
-                            var BKF_AC_BNG_LAIN = `<p>${data['LUAS_BNG']} M2 x <span class="font-bold">Rp.${result.JUM_AC_CENTRAL}</span> </p>`;
-                            $("#BKF_AC_BNG_LAIN").html(BKF_AC_BNG_LAIN)
-
-                            var BKF_AC_BNG_LAIN_HASIL = data['LUAS_BNG'] * result.JUM_AC_CENTRAL
-
-                            JUM3 += BKF_AC_BNG_LAIN_HASIL
-
-                            BKF_AC_BNG_LAIN_HASIL = `Rp.${BKF_AC_BNG_LAIN_HASIL}`;
-
-                            $("#BKF_AC_BNG_LAIN_HASIL").html(BKF_AC_BNG_LAIN_HASIL)
+                            $("#AC3").prepend("00 ")
                         }
                         
                         if(data['KD_JPB'] == "07"){
@@ -949,8 +974,10 @@
                             BKF_AC_BOILER_HASIL = `Rp.${BKF_AC_BOILER_HASIL}`;
 
                             $("#BKF_AC_BOILER_HASIL").html(BKF_AC_BOILER_HASIL)
+
+                            $("#LBOILER").prepend("43 ")
                         }else if(data['KD_JPB'] == "13"){
-                             var BKF_AC_BOILER = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_Boiler_Ap}</span> </p>`;
+                            var BKF_AC_BOILER = `<p>${0} M2 x <span class="font-bold">Rp.${result.Nil_Boiler_Ap}</span> </p>`;
                             $("#BKF_AC_BOILER").html(BKF_AC_BOILER)
 
                             var BKF_AC_BOILER_HASIL = 0 * result.Nil_Boiler_Ap
@@ -960,6 +987,8 @@
                             BKF_AC_BOILER_HASIL = `Rp.${BKF_AC_BOILER_HASIL}`;
 
                             $("#BKF_AC_BOILER_HASIL").html(BKF_AC_BOILER_HASIL)
+
+                            $("#LBOILER").prepend("45 ")
                         }else{
                             var BKF_AC_BOILER = `<p>${0} M2 x <span class="font-bold">Rp.${0}</span> </p>`;
                             $("#BKF_AC_BOILER").html(BKF_AC_BOILER)
@@ -971,6 +1000,8 @@
                             BKF_AC_BOILER_HASIL = `Rp.${BKF_AC_BOILER_HASIL}`;
 
                             $("#BKF_AC_BOILER_HASIL").html(BKF_AC_BOILER_HASIL)
+
+                            $("#LBOILER").prepend("00 ")
                         }
                         
                     var BKF_TOTAL = `Rp.${JUM3}`;
@@ -1051,14 +1082,96 @@
                     console.log("PROSESS")
                     var form = $(document.forms.bangunan)
 
+                    form.append(`<input type='hidden' name='BKF_PAGAR_HASIL' value='${BKF_PAGAR_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_PH_RINGAN_HASIL' value='${BKF_PH_RINGAN_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_PH_SEDANG_HASIL' value='${BKF_PH_SEDANG_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_PH_BERAT_HASIL' value='${BKF_PH_BERAT_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_PH_PL_HASIL' value='${BKF_PH_PL_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_KG_HASIL' value='${BKF_KG_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_SA_HASIL' value='${BKF_SA_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_JSP_HASIL' value='${BKF_JSP_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_KR_HASIL' value='${BKF_KR_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_PK_HYDRAN_HASIL' value='${BKF_PK_HYDRAN_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_PK_SPRINGKLER_HASIL' value='${BKF_PK_SPRINGKLER_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_PK_FIRE_AL_HASIL' value='${BKF_PK_FIRE_AL_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_LT_DL_BETON_HASIL' value='${BKF_LT_DL_BETON_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_LT_DL_ASPAL_HASIL' value='${BKF_LT_DL_ASPAL_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_LT_DL_TANAH_HASIL' value='${BKF_LT_DL_TANAH_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_LT_TL_BETON_HASIL' value='${BKF_LT_TL_BETON_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_LT_TL_ASPAL_HASIL' value='${BKF_LT_TL_ASPAL_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_LT_TL_TANAH_HASIL' value='${BKF_LT_TL_TANAH_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_LIFT_PENUMPANG_HASIL' value='${BKF_LIFT_PENUMPANG_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_LIFT_KAPSUL_HASIL' value='${BKF_LIFT_KAPSUL_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_LIFT_BARANG_HASIL' value='${BKF_LIFT_BARANG_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_ESKALATOR_KD_HASIL' value='${BKF_ESKALATOR_KD_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_ESKALATOR_LD_HASIL' value='${BKF_ESKALATOR_LD_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_AC_BNG_LAIN_HASIL' value='${BKF_AC_BNG_LAIN_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_AC_KAMAR_HASIL' value='${BKF_AC_KAMAR_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_AC_RUANGAN_LAIN_HASIL' value='${BKF_AC_RUANGAN_LAIN_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_AC_BOILER_HASIL' value='${BKF_AC_BOILER_HASIL}' >`)
+
+                    form.append(`<input type='hidden' name='BKF_TD_DL_HASIL' value='${BKF_TD_DL_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_TD_JAS_HASIL' value='${BKF_TD_JAS_HASIL}' >`)
+                    form.append(`<input type='hidden' name='BKF_TD_JAW_HASIL' value='${BKF_TD_JAW_HASIL}' >`)
+
+                    var AC1 = $("#AC1").text()
+                    var AC2 = $("#AC2").text()
+                    var AC3 = $("#AC3").text()
+                    var LBOILER = $("#LBOILER").text()
+
+                    var FLK69 = $("#BKF_AC_BNG_LAIN").text()
+                    var FLK72 = $("#BKF_AC_KAMAR").text()
+                    var FLK75 = $("#BKF_AC_RUANGAN_LAIN").text()
+                    var FLK78 = $("#BKF_AC_BOILER").text()
+
+                    FLK69 = FLK69.split("M2")
+                    FLK69 = FLK69[0]
+
+                    FLK72 = FLK72.split("M2")
+                    FLK72 = FLK72[0]
+
+                    FLK75 = FLK75.split("M2")
+                    FLK75 = FLK75[0]
+
+                    FLK78 = FLK78.split("M2")
+                    FLK78 = FLK78[0]
+
+                    form.append(`<input type='hidden' name='AC1' value='${AC1}' >`)
+                    form.append(`<input type='hidden' name='AC2' value='${AC2}' >`)
+                    form.append(`<input type='hidden' name='AC3' value='${AC3}' >`)
+                    form.append(`<input type='hidden' name='LBOILER' value='${LBOILER}' >`)
+
+                    form.append(`<input type='hidden' name='FLK69' value='${FLK69}' >`)
+                    form.append(`<input type='hidden' name='FLK72' value='${FLK72}' >`)
+                    form.append(`<input type='hidden' name='FLK75' value='${FLK75}' >`)
+                    form.append(`<input type='hidden' name='FLK78' value='${FLK78}' >`)
+
                     form.append(`<input type='hidden' name='JUM1' value='${JUM1}' >`)
                     form.append(`<input type='hidden' name='JUM2' value='${JUM2}' >`)
                     form.append(`<input type='hidden' name='JUM3' value='${JUM3}' >`)
                     form.append(`<input type='hidden' name='JUM4' value='${JUM4}' >`)
                     form.append(`<input type='hidden' name='JUM5' value='${JUM5}' >`)
 
+                    form.append(`<input type='hidden' name='tTotal1' value='${NB_RP_CALC}' >`)
+
                     form.append(`<input type='hidden' name='J_SUSUT' value='${result.xSUSUT}' >`)
+                    form.append(`<input type='hidden' name='nTipe_K' value='${result.nTipe_K}' >`)
                     form.append(`<input type='hidden' name='insert' value='true' >`)
+
+                    var c = confirm("Apakah Anda Yakin ?")
+
+                    if(c){
+                        bangunanForm.submit()
+                    }
                 })
 
             }else{

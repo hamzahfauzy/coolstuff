@@ -30,37 +30,37 @@
             <div class="flex justify-between">
                 <p>Subjek Pajak ID</p>
                 
-                <b><?=$data['SUBJEK_PAJAK_ID']?></b>
+                <b><?= $data['SUBJEK_PAJAK_ID'] ? $data['SUBJEK_PAJAK_ID'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>Kelurahan</p>
                 
-                <b><?=$data['KELURAHAN_WP']?></b>
+                <b><?= $data['KELURAHAN_WP'] ? $data['KELURAHAN_WP'] : "-"?></b>
             </div>
             
             <div class="flex justify-between">
                 <p>Blok</p>
                 
-                <b><?=$data['BLOK_KAV_NO_WP']?></b>
+                <b><?= $data['BLOK_KAV_NO_WP'] ? $data['BLOK_KAV_NO_WP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>Nama</p>
                 
-                <b><?=$data['NM_WP']?></b>
+                <b><?= $data['NM_WP'] ? $data['NM_WP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>Jalan</p>
                 
-                <b><?=$data['JALAN_WP']?></b>
+                <b><?= $data['JALAN_WP'] ? $data['JALAN_WP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>RW</p>
                 
-                <b><?=$data['RW_WP']?></b>
+                <b><?= $data['RW_WP'] ? $data['RW_WP'] : "-"?></b>
             </div>
         </div>
 
@@ -68,37 +68,37 @@
             <div class="flex justify-between">
                 <p>RT</p>
                 
-                <b><?=$data['RW_WP']?></b>
+                <b><?= $data['RT_WP'] ? $data['RT_WP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>Kota</p>
                 
-                <b><?=$data['KOTA_WP']?></b>
+                <b><?= $data['KOTA_WP'] ? $data['KOTA_WP'] : "-"?></b>
             </div>
             
             <div class="flex justify-between">
                 <p>Kode Pos</p>
                 
-                <b><?=$data['KD_POS_WP']?></b>
+                <b><?= $data['KD_POS_WP'] ? $data['KD_POS_WP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>Telepon</p>
                 
-                <b><?=$data['TELP_WP']?></b>
+                <b><?= $data['TELP_WP'] ? $data['TELP_WP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>NPWP</p>
                 
-                <b><?=$data['NPWP']?></b>
+                <b><?= $data['NPWP'] ? $data['NPWP'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
                 <p>Status Pekerjaan</p>
                 
-                <b><?=$data['STATUS_PEKERJAAN_WP']?></b>
+                <b><?= $data['STATUS_PEKERJAAN_WP'] ? $data['STATUS_PEKERJAAN_WP'] : "-"?></b>
             </div>
         </div>
     </div>
