@@ -6,7 +6,7 @@
                 <input type="hidden" name="page" value="cari">
                 <div class="hero-form field field-grouped" style="margin-left:auto;margin-right:auto;">
                     <div class="control control-expanded">
-                        <select name="type" id="">
+                        <select name="type" id="" class="input">
                             <option>Subjek Pajak</option>
                             <option>NOP</option>
                         </select>
