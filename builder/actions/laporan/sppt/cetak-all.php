@@ -46,7 +46,8 @@ $query = "
                 (QOBJEKPAJAK.KD_KELURAHAN = SPPT.KD_KELURAHAN) AND 
                 (QOBJEKPAJAK.KD_Kecamatan = SPPT.KD_KECAMATAN) 
             WHERE 
-                QOBJEKPAJAK.NOPQ='" .$NOP. "' AND 
+                SPPT.KD_KECAMATAN='" .$kecamatan. "' AND 
+                SPPT.KD_KELURAHAN='" .$kelurahan. "' AND 
                 (((SPPT.THN_PAJAK_SPPT)='" .$tahun_pajak. "'))
     ORDER BY 
     SPPT.KD_KECAMATAN, 
@@ -56,5 +57,5 @@ $query = "
     SPPT.KD_JNS_OP
 ";
 
-$data = $qb->rawQuery($query)->first();
+$datas = $qb->rawQuery($query)->get();
 

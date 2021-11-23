@@ -161,7 +161,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="laporan" style="top:40px">
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
+                            <a href="?page=builder/laporan/sppt/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
                         </div>
