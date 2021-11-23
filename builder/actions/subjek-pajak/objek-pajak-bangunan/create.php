@@ -1185,8 +1185,6 @@ if(request() == 'POST')
     
         extract($_POST);
 
-        print_r($_POST);
-
         $xxKec = substr($NOP,6,3);
         $xxKel = substr($NOP,10,3);
         $xxBlok = substr($NOP,14,3);
@@ -1427,85 +1425,85 @@ if(request() == 'POST')
             }elseif( $xJPB == "02" ){ 
                 $iSQL5 = "insert into DAT_JPB2(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB2) " & "Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','1')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "03" ){ 
 
                 $iSQL5 = "insert into DAT_JPB3(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TYPE_KONSTRUKSI,TING_KOLOM_JPB3,LBR_BENT_JPB3,LUAS_MEZZANINE_JPB3,KELILING_DINDING_JPB3,DAYA_DUKUNG_LANTAI_JPB3) " . "Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . $nTipe_K . "','" . round(0) . " ','" . round(0) . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "04" ){ 
 
                 $iSQL5 = "insert into DAT_JPB4(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB4) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "05" ){
 
                 $iSQL5 = "insert into DAT_JPB5(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB5,LUAS_KMR_JPB5_DGN_AC_SENT,LUAS_RNG_LAIN_JPB5_DGN_AC_SENT) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ','" . round(0) . " ','" . round(0) . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "06" ){ 
 
                 $iSQL5 = "insert into DAT_JPB6(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB6) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "07" ){ 
 
                 $iSQL5 = "insert into DAT_JPB7(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,JNS_JPB7,BINTANG_JPB7,JML_KMR_JPB7,LUAS_KMR_JPB7_DGN_AC_SENT,LUAS_KMR_LAIN_JPB7_DGN_AC_SENT)" . "Values ('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . 1 . "','" . 0 . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "08" ){ 
 
                 $iSQL5 = "insert into DAT_JPB8(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TYPE_KONSTRUKSI,TING_KOLOM_JPB8,LBR_BENT_JPB8,LUAS_MEZZANINE_JPB8,KELILING_DINDING_JPB8,DAYA_DUKUNG_LANTAI_JPB8) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . $nTipe_K . "','" . round(0) . " ','" . round(0) . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "09" ){
 
                 $iSQL5 = "insert into DAT_JPB9(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB9) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "12" ){
 
                 $iSQL5 = "insert into DAT_JPB12(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TYPE_JPB12) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "13" ){
 
                 $iSQL5 = "insert into DAT_JPB13(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB13,JML_JPB13,LUAS_JPB13_DGN_AC_SENT,LUAS_JPB13_LAIN_DGN_AC_SENT) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "','" . $_POST['NO_BNG'] . "','" . 1 . "','" . round(0) . "','" . round(0) . "','" . round(0) . "')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "14" ){
 
                 $iSQL5 = "insert into DAT_JPB14(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,LUAS_KANOPI_JPB14) " . "Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . round(xLK(1).Text, 0) . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "15" ){ 
 
                 $iSQL5 = "insert into DAT_JPB15(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,LETAK_TANGKI_JPB15,KAPASITAS_TANGKI_JPB15)  Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . " ', '" . round(0) . " ')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "16" ){
 
                 $iSQL5 = "insert into DAT_JPB16(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,KLS_JPB16) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . 1 . "')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }elseif( $xJPB == "17" ){ 
 
                 $iSQL5 = "insert into DAT_JPB17(KD_PROPINSI,KD_DATI2,KD_KECAMATAN,KD_KELURAHAN,KD_BLOK,NO_URUT,KD_JNS_OP,NO_BNG,TINGGI_BNG_JPB17) Values('12', '12', '" . $xxKec . "', '" . $xxKel . "', '" . $xxBlok . "', '" . $xxUrut . "', '" . $xxJenis . "', '" . $_POST['NO_BNG'] . "','" . round(0) . "')";
 
-                $qb->rawQuery($$iSQL5)->exec();
+                $qb->rawQuery($iSQL5)->exec();
 
             }
         }

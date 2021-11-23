@@ -23,7 +23,7 @@ $opBangunans = [];
 foreach ($qOPs as $qOP) {
 
     $opBangunans += $qb
-                ->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+                ->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN, $clause as NOP")
                 ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BANGUNAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
                 ->leftJoin('JPB_JPT as jpb','DAT_OP_BANGUNAN.KD_JPB','jpb.KD_JPB_JPT')
                 ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BANGUNAN.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
