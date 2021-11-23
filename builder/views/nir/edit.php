@@ -3,6 +3,17 @@
     <h2 class="text-4xl">Edit NIR : <?=$data["NO_DOKUMEN"]?> - <?=$data["NIR"]?></h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form id="login-form" action="index.php?page=<?=$_GET['page']?>&kecamatan=<?=$_GET['kecamatan']?>&kelurahan=<?=$_GET['kelurahan']?>&znt=<?=$_GET['znt']?>&nir=<?=$data['NIR']?>&no_dokumen=<?=$data['NO_DOKUMEN']?>&tahun=<?=$data['THN_NIR_ZNT']?>" method="post" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="">Tahun</label>
+                <select class="p-2 w-full border rounded" name="THN_NIR_ZNT">
+                    <option value="" selected readonly>- Pilih Tahun -</option>
+                    <?php foreach($years as $Y):?>
+                        <option <?= (isset($data) && $data['THN_NIR_ZNT'] == $Y) ? "selected" : ""?> value="<?=$Y?>"><?=$Y?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+
             <div class="form-group mb-2">
                 <label>Kecamatan</label>
                 <select name="KD_KECAMATAN" class="p-2 w-full border rounded" onchange="kecamatanChange(this)">

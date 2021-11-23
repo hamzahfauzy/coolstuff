@@ -3,7 +3,7 @@ require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
 
-$all_fields = $qb->columns("DAT_NIR","NO_DOKUMEN,NIR,THN_NIR_ZNT");
+$all_fields = $qb->columns("DAT_NIR","NO_DOKUMEN,NIR");
 $data = $qb->select('DAT_NIR')->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->where('KD_ZNT',$_GET['znt'])->where('THN_NIR_ZNT',$_GET['tahun'])->where('NIR',$_GET['nir'])->where('NO_DOKUMEN',$_GET['no_dokumen'])->first();
 $keys        = array_keys($data);
 $fields      = [];
@@ -12,6 +12,11 @@ $kecamatans = $qb->select('REF_KECAMATAN')->get();
 
 $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['kecamatan'])->get();
 $znts = $qb->select("DAT_PETA_ZNT")->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->get();
+
+$years = []; 
+for($i = 0 ; $i<100;$i++){
+    $years[] = date("Y",strtotime("-$i year"));
+}
 
 $i = 0;
 foreach($keys as $key => $val)
