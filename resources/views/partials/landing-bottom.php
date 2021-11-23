@@ -44,7 +44,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="footer-copyright">&copy; 2021 . Dinas Pendapatan Kab. Pakpak Bharat . All rights reserved</div>
+                    <div class="footer-copyright">&copy; 2021 . Badan Pengelolan Keuangan dan Aset Daerah Kabupaten Pakpak Bharat . All rights reserved</div>
                 </div>
             </div>
         </footer>

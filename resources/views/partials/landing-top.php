@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dinas Pendapatan Kab. Pakpak Bharat</title>
+    <title>Badan Pengelola Keuangan dan Aset Daerah Kab. Pakpak Bharat</title>
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,500,700|Fira+Sans:600" rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
 	<script src="https://unpkg.com/animejs@2.2.0/anime.min.js"></script>
@@ -51,7 +51,7 @@
                         <h1 class="m-0">
                             <a href="index.php" style='display:flex;align-items: center;'>
 								<img src="dist/images/logo.png" width="32" alt="">
-								<div style="font-size: 20px;margin-left: 10px;line-height: 19px;color: #000;">Dinas Pendapatan Kab. Pakpak Bharat</div>
+								<div style="font-size: 20px;margin-left: 10px;line-height: 19px;color: #000;">BPKAD Kabupaten Pakpak Bharat</div>
                             </a>
                         </h1>
                     </div>
