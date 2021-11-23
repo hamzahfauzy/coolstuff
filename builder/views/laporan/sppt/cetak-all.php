@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak SPPT - <?= $data['NM_WP_SPPT'] ?></title>
+    <title>Cetak SPPT Masal</title>
     <style>
     body {
         height:297mm;
@@ -22,6 +22,7 @@
     </style>
 </head>
 <body onload="window.print()">
+    <?php foreach($datas as $data): ?>
     <div class="report-page">
         <?php
         $bumiPerM2 = 0; 
@@ -167,5 +168,6 @@
             <div id="nm-wp"><?= $data['THN_PAJAK_SPPT'] ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= number_format($data['PBB_YG_HARUS_DIBAYAR_SPPT']) ?></div>
         </div>
     </div>
+    <?php endforeach ?>
 </body>
 </html>

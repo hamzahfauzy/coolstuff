@@ -36,6 +36,7 @@
 
                 <div class="form-group inline-block">
                     <button class="p-2 bg-green-500 text-white rounded" name="filter">Tampilkan</button>
+                    <button class="p-2 bg-green-500 text-white rounded" name="cetak">Cetak</button>
                 </div>
 
             </form>

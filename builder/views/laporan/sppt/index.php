@@ -3,8 +3,8 @@
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
     <h2 class="text-3xl">Cetak SPPT</h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
-        <form action="index.php">
-            <input type="hidden" name="page" value="builder/laporan/sppt/cetak">
+        <form action="index.php" onsubmit="doSubmit(this); return false;">
+            <input type="hidden" name="page" value="builder/laporan/sppt/results">
             <div class="form-group mb-2">
                 <?php 
                 $options = [];
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group mb-2">
                 <label>Tanggal Terbit</label>
-                <?= Form::input('date', 'tanggal_terbit', ['value'=>date('Y-m-d'),'disabled'=>'disabled','class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Terbit']) ?>
+                <?= Form::input('date', 'tanggal_terbit', ['value'=>date('Y-m-d'),'readonly'=>'readonly','class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Terbit']) ?>
             </div>
             <div class="form-group mb-2">
                 <label>Tanggal Cetak</label>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-group">
-                <button class="w-full p-2 bg-indigo-800 text-white rounded" name="cetak" value="cetak">Cetak</button>
+                <button class="w-full p-2 bg-indigo-800 text-white rounded" name="cetak" value="cetak">Tampilkan</button>
             </div>
         </form>
     </div>
@@ -106,9 +106,39 @@
         fetch("index.php?page=builder/laporan/sppt/index&get-jumlah-sppt=true&KD_KELURAHAN="+el.value+"&KD_KECAMATAN="+kecamatan.value).then(response => response.text()).then(data => {
 
                 document.querySelector('input[name=jumlah_sppt]').value = data
+                document.querySelector('input[name=total_pbb]').value = 0
 
         }); 
     }    
+
+    function doSubmit(form){
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+
+        fetch('index.php?'+params.toString()+'&mode=cek_cetak')
+        .then(res => res.json())
+        .then(res => {
+            if(res.status == 'fail')
+            {
+                alert(res.message)
+            }
+            else
+            {
+                document.querySelector('input[name=jumlah_sppt]').value = res.data.total_SPPT
+                document.querySelector('input[name=total_pbb]').value = res.data.jumlah.toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                })
+
+                setTimeout(() => {
+                    if(confirm('Apa anda yakin cetak SPPT secara Masal'))
+                    {
+                        form.submit()
+                    }
+                }, 1500);
+            }
+        })
+    }
 </script>
 
 <?php load('builder/partials/bottom');?>

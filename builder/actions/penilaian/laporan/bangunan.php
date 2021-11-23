@@ -50,4 +50,11 @@ if(isset($_GET['filter']))
     $kelurahans->where('KD_KECAMATAN',$_GET['kecamatan']);
 }
 
+if(isset($_GET['cetak']))
+{
+    header("location:index.php?page=builder/penilaian/laporan/cetak-bangunan&tahun=$_GET[tahun]&kecamatan=$_GET[kecamatan]&kelurahan=$_GET[kelurahan]");
+    die();
+}
+
+
 $kelurahans = $kelurahans->orderBy('KD_KELURAHAN')->get();
