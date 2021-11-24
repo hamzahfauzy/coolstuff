@@ -30,10 +30,15 @@ if(isset($_GET['limit']) && $_GET['limit']){
     $limit = $_GET['limit'];
 }
 
+$clauseBng = "DAT_OP_BANGUNAN.KD_PROPINSI + '.' + DAT_OP_BANGUNAN.KD_DATI2 + '.' + DAT_OP_BANGUNAN.KD_KECAMATAN + '.' + DAT_OP_BANGUNAN.KD_KELURAHAN + '.' + DAT_OP_BANGUNAN.KD_BLOK + '-' + DAT_OP_BANGUNAN.NO_URUT + '.' + DAT_OP_BANGUNAN.KD_JNS_OP";
+
+$clauseQop = "qop.KD_PROPINSI + '.' + qop.KD_DATI2 + '.' + qop.KD_KECAMATAN + '.' + qop.KD_KELURAHAN + '.' + qop.KD_BLOK + '-' + qop.NO_URUT + '.' + qop.KD_JNS_OP";
+
 $datas = $qb
-            ->select("DAT_OP_BANGUNAN","TOP $limit DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+            ->select("DAT_OP_BANGUNAN","TOP $limit DAT_OP_BANGUNAN.*, qop.NM_WP, qop.NOPQ as NOP, qop.SUBJEK_PAJAK_ID, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
             ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BANGUNAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
             ->leftJoin('JPB_JPT as jpb','DAT_OP_BANGUNAN.KD_JPB','jpb.KD_JPB_JPT')
+            ->leftJoin('QOBJEKPAJAK as qop',$clauseBng,$clauseQop)
             ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BANGUNAN.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
             ->andJoin('DAT_OP_BANGUNAN.KD_KELURAHAN','kelurahan.KD_KELURAHAN');
 
