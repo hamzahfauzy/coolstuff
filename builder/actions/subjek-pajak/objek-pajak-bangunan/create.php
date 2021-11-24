@@ -36,6 +36,8 @@ for($i = 0 ; $i<100;$i++){
     $years[] = date("Y",strtotime("-$i year"));
 }
 
+$nYear = date("Y");
+
 if(request() == 'POST')
 {   
 
@@ -1508,7 +1510,7 @@ if(request() == 'POST')
             }
         }
 
-        $sql = "INSERT_BANGUNAN '12','12','" . $xxKec . "','" . $xxKel . "','" . $xxBlok . "','" . $xxUrut . "','" . $xxJenis . "'," ."'" . $NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," ."'" . round($LUAS_BNG). "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($tTotal1) . "','" . $JNS_TRANSAKSI_BNG . "'," .
+        $sql = "INSERT_BANGUNAN '12','12','" . $xxKec . "','" . $xxKel . "','" . $xxBlok . "','" . $xxUrut . "','" . $xxJenis . "'," ."'" . $NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," ."'" . round($LUAS_BNG). "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($tTotal1) . "','1'," .
                 "'" . $TGL_PENDATAAN_BNG . "','" . $NIP_PENDATA_BNG . "','" . $TGL_PEMERIKSAAN_BNG . "','" . $NIP_PEMERIKSA_BNG . "'," .
                 "'" . $TGL_PEREKAM_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($JUM1) . "','" . round($JUM2) . "'," .
                 "'" . round($JUM3) . "','" . round($JUM4) . "','" . round($JUM5) . "','" . round($xSUSUT) . "','" . round($NILAI_INDIVIDU) . "','0'";

@@ -9,7 +9,7 @@
         
     </div>
 
-    <form id="bangunan" action="index.php?page=<?=$_GET['page']?>&id=<?=$_GET['id']?>" method="post" enctype="multipart/form-data">
+    <form id="bangunan" action="index.php?page=<?=$_GET['page']?>&id=<?=$_GET['id']?>&NOP=<?=$_GET['NOP']?>&NO_BNG=<?=$_GET['NO_BNG']?>" method="post" enctype="multipart/form-data">
 
         <div class="bg-white shadow-md rounded my-6 p-8">
 
@@ -18,7 +18,7 @@
             <div class="grid grid-cols-3 gap-4">
                 <div class="form-group mb-2">
                     <label>NOP</label>
-                    <input type="text" required class="p-2 mt-2 w-full border rounded" value="<?=$data["NOP"] ? $data["NOP"] : $data['NOP']?>" name="NOP">
+                    <input type="text" readonly required class="p-2 mt-2 w-full border rounded" value="<?=$data["NOP"] ? $data["NOP"] : $data['NOP']?>" name="NOP">
                 </div>
 
                 <div class="form-group mb-2">
@@ -31,7 +31,7 @@
                     <select required name="THN_PAJAK" class="p-2 mt-2 w-full border rounded">
                         <option value="" selected readonly>- Pilih Tahun -</option>
                         <?php foreach($years as $year):?>
-                            <option value="<?=$year?>"><?=$year?></option>
+                            <option <?=isset($old) && $old['THN_PAJAK'] && $old['THN_PAJAK'] == $year ? 'selected'  : $year == $nYear ? "selected" : ''?> value="<?=$year?>"><?=$year?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -69,29 +69,29 @@
                         <select required name="KD_JPB" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Jenis Pajak Bangunan -</option>
                             <?php foreach($jpbs as $jpb):?>
-                                <option <?=$data['KD_JPB'] && $data['KD_JPB'] == $jpb["KD_JPB"] ? 'selected'  : ''?> value="<?=$jpb['KD_JPB']?>"><?=$jpb['KD_JPB']." - ".$jpb['NM_JPB']?></option>
+                                <option <?=isset($data) && $data['KD_JPB'] && $data['KD_JPB'] == $jpb["KD_JPB"] ? 'selected'  : $jpb['KD_JPB'] == "01" ? "selected" : ''?> value="<?=$jpb['KD_JPB']?>"><?=$jpb['KD_JPB']." - ".$jpb['NM_JPB']?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-            
+
                         <div class="form-group mb-2">
                             <label>Tahun Dibangun</label>
                             <select required name="THN_DIBANGUN_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Tahun -</option>
                                 <?php foreach($years as $year):?>
-                                    <option <?=$data['THN_DIBANGUN_BNG'] && $data['THN_DIBANGUN_BNG'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
+                                    <option <?=isset($data) && $data['THN_DIBANGUN_BNG'] && $data['THN_DIBANGUN_BNG'] == $year ? 'selected'  : $year == $nYear ? "selected" : ''?> value="<?=$year?>"><?=$year?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
         
                         <div class="form-group mb-2">
                             <label>Tahun Renovasi</label>
-                            <select required name="THN_RENOVASI_BNG" class="p-2 mt-2 w-full border rounded">
+                            <select name="THN_RENOVASI_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Tahun -</option>
                                 <?php foreach($years as $year):?>
-                                    <option <?=$data['THN_RENOVASI_BNG'] && $data['THN_RENOVASI_BNG'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
+                                    <option <?=isset($data) && $data['THN_RENOVASI_BNG'] && $data['THN_RENOVASI_BNG'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -99,13 +99,13 @@
                     </div>  
 
                     <div class="grid grid-cols-2 gap-4">
-    
-                        <div class="form-group mb-2">
+
+                     <div class="form-group mb-2">
                             <label>Kondisi Bangunan</label>
                             <select required name="KONDISI_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Kondisi -</option>
                                 <?php foreach($kondisis as $kondisi):?>
-                                    <option <?=$data['KONDISI_BNG'] && $data['KONDISI_BNG'] == substr($kondisi,0,2) ? 'selected'  : ''?> value="<?=substr($kondisi,0,2)?>"><?=$kondisi?></option>
+                                    <option <?=isset($data) && $data['KONDISI_BNG'] && $data['KONDISI_BNG'] == substr($kondisi,0,2) ? 'selected'  : substr($kondisi,0,2) == "02" ? "selected" : ''?> value="<?=substr($kondisi,0,2)?>"><?=$kondisi?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -114,7 +114,7 @@
                             <select required name="JNS_KONSTRUKSI_BNG" class="p-2 mt-2 w-full border rounded">
                                 <option value="" selected readonly>- Pilih Jenis Konstruksi -</option>
                                 <?php foreach($konstruksis as $konstruksi):?>
-                                    <option <?=$data['JNS_KONSTRUKSI_BNG'] && $data['JNS_KONSTRUKSI_BNG'] == substr($konstruksi,0,2) ? 'selected'  : ''?> value="<?=substr($konstruksi,0,2)?>"><?=$konstruksi?></option>
+                                    <option <?=isset($data) && $data['JNS_KONSTRUKSI_BNG'] && $data['JNS_KONSTRUKSI_BNG'] == substr($konstruksi,0,2) ? 'selected'  : substr($konstruksi,0,2) == "02" ? "selected" : ''?> value="<?=substr($konstruksi,0,2)?>"><?=$konstruksi?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -124,13 +124,13 @@
                 </div>
 
                 <div>
-    
-                    <div class="form-group mb-2">
+
+                <div class="form-group mb-2">
                         <label>Jenis Atap</label>
                         <select required name="JNS_ATAP_BNG" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Jenis Atap -</option>
                             <?php foreach($ataps as $atap):?>
-                                <option <?=$data['JNS_ATAP_BNG'] && $data['JNS_ATAP_BNG'] == substr($atap,0,2) ? 'selected'  : ''?> value="<?=substr($atap,0,2)?>"><?=$atap?></option>
+                                <option <?=isset($data) && $data['JNS_ATAP_BNG'] && $data['JNS_ATAP_BNG'] == substr($atap,0,2) ? 'selected'  : substr($atap,0,2) == "05" ? "selected" : ''?> value="<?=substr($atap,0,2)?>"><?=$atap?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
@@ -139,7 +139,7 @@
                         <select required name="KD_DINDING" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Dinding -</option>
                             <?php foreach($dindings as $dinding):?>
-                                <option <?=$data['KD_DINDING'] && $data['KD_DINDING'] == substr($dinding,0,2) ? 'selected'  : ''?> value="<?=substr($dinding,0,2)?>"><?=$dinding?></option>
+                                <option <?=isset($data) && $data['KD_DINDING'] && $data['KD_DINDING'] == substr($dinding,0,2) ? 'selected'  : substr($dinding,0,2) == "02" ? "selected" : ''?> value="<?=substr($dinding,0,2)?>"><?=$dinding?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
@@ -148,7 +148,7 @@
                         <select required name="KD_LANTAI" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Lantai -</option>
                             <?php foreach($lantais as $lantai):?>
-                                <option <?=$data['KD_LANTAI'] && $data['KD_LANTAI'] == substr($lantai,0,2) ? 'selected'  : ''?> value="<?=substr($lantai,0,2)?>"><?=$lantai?></option>
+                                <option <?=isset($data) && $data['KD_LANTAI'] && $data['KD_LANTAI'] == substr($lantai,0,2) ? 'selected'  : substr($lantai,0,2) == "05" ? "selected" : ''?> value="<?=substr($lantai,0,2)?>"><?=$lantai?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
@@ -157,7 +157,7 @@
                         <select required name="KD_LANGIT_LANGIT" class="p-2 mt-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Langit - Langit -</option>
                             <?php foreach($langits as $langit):?>
-                                <option <?=$data['KD_LANGIT_LANGIT'] && $data['KD_LANGIT_LANGIT'] == substr($langit,0,2) ? 'selected'  : ''?> value="<?=substr($langit,0,2)?>"><?=$langit?></option>
+                                <option <?=isset($data) && $data['KD_LANGIT_LANGIT'] && $data['KD_LANGIT_LANGIT'] == substr($langit,0,2) ? 'selected'  : substr($langit,0,2) == "02" ? "selected" : ''?> value="<?=substr($langit,0,2)?>"><?=$langit?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
@@ -174,41 +174,98 @@
             <div class="grid grid-cols-3 gap-4">
 
                 <div class="form-group mb-2">
-                    <label>Listrik dan AC</label>
-                    <input type="text" required placeholder="Daya listrik (watt)" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tListrik']) ? $fasilitas['tListrik'] : ''?>" name="L_AC[DAYA_LISTRIK]">
-                    <input type="text" required placeholder="Jumlah AC Split" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tAC1']) ? $fasilitas['tAC1'] : ''?>" name="L_AC[AC_SPLIT]">
-                    <input type="text" required placeholder="Jumlah AC Window" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tAC2']) ? $fasilitas['tAC2'] : ''?>" name="L_AC[AC_WINDOW]">
+                    <label class="text-lg">Listrik dan AC</label>
 
-                    <select required name="L_AC[AC_CENTRAL]" class="p-2 mt-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih AC Central -</option>
-                        <option <?= isset($fasilitas['cbo_ac']) && $fasilitas['cbo_ac'] == "01" ?  : ''?> value="01-Ada">01-Ada</option>
-                        <option <?= isset($fasilitas['cbo_ac']) && $fasilitas['cbo_ac'] == "02" ?  : ''?>  value="02-Tidak Ada">02-Tidak Ada</option>
-                    </select>
+                    <div class="form-group my-2">
+                        <label for="">Daya listrik (watt)</label>
+                        <input type="text" required placeholder="Daya listrik (watt)" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tListrik']) ? $fasilitas['tListrik'] : '0'?>" name="L_AC[DAYA_LISTRIK]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Jumlah AC Split</label>
+                        <input type="text" placeholder="Jumlah AC Split" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tAC1']) ? $fasilitas['tAC1'] : '0' ?>"  name="L_AC[AC_SPLIT]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Jumlah AC Window</label>
+                        <input type="text" placeholder="Jumlah AC Window" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tAC2']) ? $fasilitas['tAC2'] : '0'?>" name="L_AC[AC_WINDOW]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">AC Central</label>
+                        <select name="L_AC[AC_CENTRAL]" class="p-2 mt-2 w-full border rounded">
+                            <option value="" selected readonly>- Pilih AC Central -</option>
+                            <option <?= isset($fasilitas['cbo_ac']) && $fasilitas['cbo_ac'] == "01" ? 'selected' : ''?> value="01-Ada">01-Ada</option>
+                            <option <?= isset($fasilitas['cbo_ac']) && $fasilitas['cbo_ac'] == "02" ? 'selected' : 'selected'?> value="02-Tidak Ada">02-Tidak Ada</option>
+                        </select>
+                    </div>
+
                 </div>
 
                 <div class="form-group mb-2">
-                    <label>Luas Perkerasan Halaman (M2)</label>
-                    <input required type="text" placeholder="Ringan" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal1']) ? $fasilitas['tHal1'] : ''?>" name="LPH[RINGAN]">
-                    <input required type="text" placeholder="Sedang" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal2']) ? $fasilitas['tHal2'] : ''?>"name="LPH[SEDANG]">
-                    <input required type="text" placeholder="Berat" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal3']) ? $fasilitas['tHal3'] : ''?>"name="LPH[BERAT]">
-                    <input required type="text" placeholder="Penutup Lantai" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal4']) ? $fasilitas['tHal4'] : ''?>" name="LPH[P_LANTAI]">
+                    <label class="text-lg">Luas Perkerasan Halaman (M2)</label>
+
+                    <div class="form-group my-2">
+                        <label for="">Ringan</label>
+                        <input type="text" placeholder="Ringan" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal1']) ? $fasilitas['tHal1'] : '0'?>" name="LPH[RINGAN]">
+                    </div>
+                    
+                    <div class="form-group my-2">
+                        <label for="">Sedang</label>
+                        <input type="text" placeholder="Sedang" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal2']) ? $fasilitas['tHal2'] : '0'?>" name="LPH[SEDANG]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Berat</label>
+                        <input type="text" placeholder="Berat" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal3']) ? $fasilitas['tHal3'] : '0'?>" name="LPH[BERAT]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Penutup Lantai</label>
+                        <input type="text" placeholder="Penutup Lantai" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tHal4']) ? $fasilitas['tHal4'] : '0'?>"  name="LPH[P_LANTAI]">
+                    </div>
+
                 </div>
 
                 <div class="form-group mb-2">
-                    <label>Jumlah Lapangan Tennis</label>
+                    <label class="text-lg">Jumlah Lapangan Tennis</label>
 
                     <div class="grid grid-cols-2 mt-6 gap-4">
                         <div class="form-group">
                             <label>Dengan Lampu</label>
-                            <input required type="text" placeholder="Beton" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Beton1']) ? $fasilitas['tLap_Beton1'] : ''?>"  name="JLT_DL[BETON]">
-                            <input required type="text" placeholder="Aspal" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Aspal1']) ? $fasilitas['tLap_Aspal1'] : ''?>"  name="JLT_DL[ASPAL]">
-                            <input required type="text" placeholder="Tanah/Rumput" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Tanah1']) ? $fasilitas['tLap_Tanah1'] : ''?>"  name="JLT_DL[TR]">
+
+                            <div class="form-group my-2">
+                                <label for="">Beton</label>
+                                <input type="text" placeholder="Beton" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Beton1']) ? $fasilitas['tLap_Beton1'] : '0'?>" name="JLT_DL[BETON]">
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label for="">Aspal</label>
+                                <input type="text" placeholder="Aspal" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Aspal1']) ? $fasilitas['tLap_Aspal1'] : '0'?>" name="JLT_DL[ASPAL]">
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label for="">Tanah/Rumput</label>
+                                <input type="text" placeholder="Tanah/Rumput" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Tanah1']) ? $fasilitas['tLap_Tanah1'] : '0'?>" name="JLT_DL[TR]">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Tanpa Lampu</label>
-                            <input required type="text" placeholder="Beton" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Beton2']) ? $fasilitas['tLap_Beton2'] : ''?>"  name="JLT_TL[BETON]">
-                            <input required type="text" placeholder="Aspal" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Aspal2']) ? $fasilitas['tLap_Aspal2'] : ''?>"  name="JLT_TL[ASPAL]">
-                            <input required type="text" placeholder="Tanah/Rumput" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Tanah2']) ? $fasilitas['tLap_Tanah2'] : ''?>"  name="JLT_TL[TR]">
+
+                            <div class="form-group my-2">
+                                <label for="">Beton</label>
+                                <input type="text" placeholder="Beton" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Beton2']) ? $fasilitas['tLap_Beton2'] : '0'?>" name="JLT_TL[BETON]">
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label for="">Aspal</label>
+                                <input type="text" placeholder="Aspal" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Aspal2']) ? $fasilitas['tLap_Aspal2'] : '0'?>" name="JLT_TL[ASPAL]">
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label for="">Tanah/Rumput</label>
+                                <input type="text" placeholder="Tanah/Rumput" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLap_Tanah2']) ? $fasilitas['tLap_Tanah2'] : '0'?>" name="JLT_TL[TR]">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -218,45 +275,78 @@
             <div class="grid grid-cols-3 gap-4 mt-4">
 
                 <div class="form-group mb-2">
-                    <label>Pagar</label>
+                    <label class="text-lg">Pagar</label>
 
-                    <select required name="PAGAR[BP]" class="p-2 mt-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih Bahan Pagar -</option>
-                        <option <?= isset($fasilitas['cbo_pagar']) && $fasilitas['cbo_pagar'] == "01" ?  : ''?> value="01-Baja/Besi">01-Baja/Besi</option>
-                        <option <?= isset($fasilitas['cbo_pagar']) && $fasilitas['cbo_pagar'] == "02" ?  : ''?>  value="02-Bata/Batako">02-Bata/Batako</option>
-                    </select>
+                    <div class="form-group my-2">
+                        <label for="">Bahan Pagar</label>
 
-                    <input required type="text" placeholder="Panjang Pagar (M)" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tPagar']) ? $fasilitas['tPagar'] : ''?>" name="PAGAR[PP]">
+                        <select name="PAGAR[BP]" class="p-2 mt-2 w-full border rounded">
+                            <option value="" readonly>- Pilih Bahan Pagar -</option>
+                            <option <?= isset($fasilitas['cbo_pagar']) && $fasilitas['cbo_pagar'] == "01" ? 'selected' : !isset($fasilitas['cbo_pagar']) ? 'selected' : ''?> value="01-Baja/Besi">01-Baja/Besi</option>
+                            <option <?= isset($fasilitas['cbo_pagar']) && $fasilitas['cbo_pagar'] == "02" ? 'selected' : ''?>  value="02-Bata/Batako">02-Bata/Batako</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Panjang Pagar (M)</label>
+                        <input type="text" placeholder="Panjang Pagar (M)" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tPagar']) ? $fasilitas['tPagar'] : '0'?>" name="PAGAR[PP]">
+                    </div>
+
                 </div>
 
                 <div class="form-group mb-2">
-                    <label>Lebar Tangga Berjalan</label>
-                    <input required type="text" placeholder="<= 0.80 M" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tTangga1']) ? $fasilitas['tTangga1'] : ''?>" name="LTB[LT]">
-                    <input required type="text" placeholder="> 0.80 M" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tTangga2']) ? $fasilitas['tTangga2'] : ''?>" name="LTB[MT]">
+                    <label class="text-lg">Lebar Tangga Berjalan</label>
+
+                     <div class="form-group my-2">
+                        <label for=""><= 0.80 M</label>
+                        <input type="text" placeholder="<= 0.80 M" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tTangga1']) ? $fasilitas['tTangga1'] : '0'?>" name="LTB[LT]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">> 0.80 M</label>
+                        <input type="text" placeholder="> 0.80 M" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tTangga2']) ? $fasilitas['tTangga2'] : '0'?>" name="LTB[MT]">
+                    </div>
                 </div>
 
                 <div class="form-group mb-2">
-                    <label>Pemadam Kebakaran</label>
+                    <label class="text-lg">Pemadam Kebakaran</label>
 
                     <!-- select -->
 
-                    <select required name="PK[HYDRAN]" class="p-2 mt-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih -</option>
-                        <option <?= isset($fasilitas['cbo_hydrant']) && $fasilitas['cbo_hydrant'] == "01" ?  : ''?> value="01">01-Ada</option>
-                        <option <?= isset($fasilitas['cbo_hydrant']) && $fasilitas['cbo_hydrant'] == "02" ?  : ''?>  value="02">02-Tidak Ada</option>
-                    </select>
+                    <div class="form-group my-2">
+                        <label for="">Hydrant</label>
 
-                    <select required name="PK[SPRINGKLER]" class="p-2 mt-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih -</option>
-                        <option <?= isset($fasilitas['cbo_springkler']) && $fasilitas['cbo_springkler'] == "01" ?  : ''?> value="01">01-Ada</option>
-                        <option <?= isset($fasilitas['cbo_springkler']) && $fasilitas['cbo_springkler'] == "02" ?  : ''?>  value="02">02-Tidak Ada</option>
-                    </select>
+                        <select name="PK[HYDRAN]" class="p-2 mt-2 w-full border rounded">
+                            <option value="" readonly>- Pilih -</option>
+                            <option <?= isset($fasilitas['cbo_hydrant']) && $fasilitas['cbo_hydrant'] == "01" ? 'selected' : ''?> value="01">01-Ada</option>
+                            <option <?= isset($fasilitas['cbo_hydrant']) && $fasilitas['cbo_hydrant'] == "02" ? 'selected' : !isset($fasilitas['cbo_hydrant']) ? 'selected'  : ''?>  value="02">02-Tidak Ada</option>
+                        </select>
 
-                    <select required name="PK[FIRE_ALARM]" class="p-2 mt-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih -</option>
-                        <option <?= isset($fasilitas['cbo_fa']) && $fasilitas['cbo_fa'] == "01" ?  : ''?> value="01">01-Ada</option>
-                        <option <?= isset($fasilitas['cbo_fa']) && $fasilitas['cbo_fa'] == "02" ?  : ''?>  value="02">02-Tidak Ada</option>
-                    </select>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Springkler</label>
+
+                        <select name="PK[SPRINGKLER]" class="p-2 mt-2 w-full border rounded">
+                            <option value="" readonly>- Pilih -</option>
+                            <option <?= isset($fasilitas['cbo_springkler']) && $fasilitas['cbo_springkler'] == "01" ? 'selected' : ''?> value="01">01-Ada</option>
+                            <option <?= isset($fasilitas['cbo_springkler']) && $fasilitas['cbo_springkler'] == "02" ? 'selected' : !isset($fasilitas['cbo_springkler']) ? 'selected'  : ''?>  value="02">02-Tidak Ada</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Fire Alarm</label>
+
+                        <select name="PK[FIRE_ALARM]" class="p-2 mt-2 w-full border rounded">
+                            <option value="" readonly>- Pilih -</option>
+                            <option <?= isset($fasilitas['cbo_fa']) && $fasilitas['cbo_fa'] == "01" ? 'selected' : ''?> value="01">01-Ada</option>
+                            <option <?= isset($fasilitas['cbo_fa']) && $fasilitas['cbo_fa'] == "02" ? 'selected' : !isset($fasilitas['cbo_fa']) ? 'selected' : ''?>  value="02">02-Tidak Ada</option>
+                        </select>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -265,30 +355,66 @@
             <div class="grid grid-cols-3 gap-4 mt-4">
 
                 <div class="form-group mb-2">
-                    <label>Jumlah Lift</label>
-                    <input required type="text" placeholder="Penumpang" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLift1']) ? $fasilitas['tLift1'] : ''?>" name="J_LIFT[PENUMPANG]">
-                    <input required type="text" placeholder="Kapsul" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLift2']) ? $fasilitas['tLift2'] : ''?>" name="J_LIFT[KAPSUL]">
-                    <input required type="text" placeholder="Barang" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLift3']) ? $fasilitas['tLift3'] : ''?>" name="J_LIFT[BARANG]">
+                    <label class="text-lg">Jumlah Lift</label>
+
+                    <div class="form-group my-2">
+                        <label for="">Penumpang</label>
+                        <input type="text" placeholder="Penumpang" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLift1']) ? $fasilitas['tLift1'] : '0'?>" name="J_LIFT[PENUMPANG]">
+                    </div>
+                    
+                    <div class="form-group my-2">
+                        <label for="">Kapsul</label>
+                        <input type="text" placeholder="Kapsul" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLift2']) ? $fasilitas['tLift2'] : '0'?>" name="J_LIFT[KAPSUL]">
+                    </div>
+                    
+                    <div class="form-group my-2">
+                        <label for="">Barang</label>
+                        <input type="text" placeholder="Barang" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tLift3']) ? $fasilitas['tLift3'] : '0'?>" name="J_LIFT[BARANG]">
+                    </div>
+
                 </div>
 
                 <div class="form-group mb-2">
-                    <label>&nbsp;</label>
-                    <input required type="text"  placeholder="Jumlah Saluran PABX" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tPABX']) ? $fasilitas['tPABX'] : ''?>"  name="OTHERS[JLH_S_PABX]">
-                    <input required type="text" placeholder="Dalam Sumur Artesis" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tSumur']) ? $fasilitas['tSumur'] : ''?>"  name="OTHERS[DLM_SUMUR_A]">
-                    <input required type="text"  placeholder="Kapasitas Genset" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tGenset']) ? $fasilitas['tGenset'] : ''?>"  name="OTHERS[K_GENSET]">
+                    <label class="text-lg">Others</label>
+
+                    <div class="form-group my-2">
+                        <label for="">Jumlah Saluran PABX</label>
+                        <input type="text"  placeholder="Jumlah Saluran PABX" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tPABX']) ? $fasilitas['tPABX'] : '0'?>" name="OTHERS[JLH_S_PABX]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Dalam Sumur Artesis</label>
+                        <input type="text" placeholder="Dalam Sumur Artesis" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tSumur']) ? $fasilitas['tSumur'] : '0'?>" name="OTHERS[DLM_SUMUR_A]">
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Kapasitas Genset</label>
+                        <input type="text"  placeholder="Kapasitas Genset" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tGenset']) ? $fasilitas['tGenset'] : '0'?>" name="OTHERS[K_GENSET]">
+                    </div>
+
                 </div>
 
                 <div class="form-group mb-2">
-                    <label>Kolam Renang</label>
+                    <label class="text-lg">Kolam Renang</label>
 
                     <!-- select -->
-                    <select required name="KOLAM_RENANG[F_KOLAM]" class="p-2 mt-2 w-full border rounded">
-                        <option value="" selected readonly>- Pilih -</option>
-                        <option <?= isset($fasilitas['cbo_kolam']) && $fasilitas['cbo_kolam'] == "01" ?  : ''?> value="01">01-Displester</option>
-                        <option <?= isset($fasilitas['cbo_kolam']) && $fasilitas['cbo_kolam'] == "02" ?  : ''?>  value="02">02-Dengan Pelapis</option>
-                    </select>
                     
-                    <input required type="text"  placeholder="Luas (M2)" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tKolam']) ? $fasilitas['tKolam'] : ''?>" name="KOLAM_RENANG[LUAS]">
+                    <div class="form-group my-2">
+                        <label for="">Finishing Kolam</label>
+
+                        <select name="KOLAM_RENANG[F_KOLAM]" class="p-2 mt-2 w-full border rounded">
+                            <option value="" selected readonly>- Pilih -</option>
+                            <option <?= isset($fasilitas['cbo_kolam']) && $fasilitas['cbo_kolam'] == "01" ? 'selected' : ''?> value="01">01-Displester</option>
+                            <option <?= isset($fasilitas['cbo_kolam']) && $fasilitas['cbo_kolam'] == "02" ? 'selected'  : ''?>  value="02">02-Dengan Pelapis</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group my-2">
+                        <label for="">Luas (M2)</label>
+                        <input type="text"  placeholder="Luas (M2)" class="p-2 mt-2 w-full border rounded" value="<?=isset($fasilitas['tKolam']) ? $fasilitas['tKolam'] : '0'?>" name="KOLAM_RENANG[LUAS]">
+                    </div>
+                    
                 </div>
 
             </div>
@@ -360,7 +486,9 @@
 
     var mask = "<?=$_GET['NOP']?>"
 
-    nop.inputmask({mask:mask})
+    // nop.inputmask({mask:mask})
+
+    nop.val(mask)
 
     $("#btn-login").on('click',async function(){
 
@@ -380,14 +508,14 @@
             alert("No Bangunan Tidak boleh Kosong")
         }
         
-        var response = await fetch("index.php?page=<?=$_GET['page']?>&check=true&NOP="+data['NOP']+"&NO_BNG="+data['NO_BNG'])
-        var result = await response.json()
+        // var response = await fetch("index.php?page=<?=$_GET['page']?>&check=true&NOP="+data['NOP']+"&NO_BNG="+data['NO_BNG'])
+        // var result = await response.json()
 
-        if(result){
+        // if(result){
 
-            alert("NOP Sudah Digunakan")
+        //     alert("NOP Sudah Digunakan")
 
-        }else{
+        // }else{
 
             var bangunanForm = document.forms.bangunan
             
@@ -396,7 +524,7 @@
                 var formData = new FormData(document.forms.bangunan)
                 formData.append('hitung',true)
 
-                var request = await fetch("index.php?page=<?=$_GET['page']?>&id=<?=$_GET['id']?>",{
+                var request = await fetch("index.php?page=<?=$_GET['page']?>&id=<?=$_GET['id']?>&NOP=<?=$_GET['NOP']?>&NO_BNG=<?=$_GET['NO_BNG']?>",{
                     method:"POST",
                     body:formData
                 })
@@ -1154,9 +1282,9 @@
 
                     form.append(`<input type='hidden' name='tTotal1' value='${NB_RP_CALC}' >`)
 
-                    form.append(`<input type='hidden' name='J_SUSUT' value='${result.xSUSUT}' >`)
+                    form.append(`<input type='hidden' name='xSUSUT' value='${result.xSUSUT}' >`)
                     form.append(`<input type='hidden' name='nTipe_K' value='${result.nTipe_K}' >`)
-                    form.append(`<input type='hidden' name='insert' value='true' >`)
+                    form.append(`<input type='hidden' name='update' value='true' >`)
 
                     var c = confirm("Apakah Anda Yakin ?")
 
@@ -1169,7 +1297,7 @@
                 bangunanForm.reportValidity();
             }
 
-        }
+        // }
 
 
     })

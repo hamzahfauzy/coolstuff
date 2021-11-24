@@ -70,7 +70,14 @@ if(request() == 'POST')
 
             $newPost['NIR'] = $value;
 
-            $qb->create('DAT_NIR',$newPost)->exec();
+            $data = $qb->select('DAT_NIR')->where('KD_KECAMATAN',$newPost['KD_KECAMATAN'])->where('KD_KELURAHAN',$newPost['KD_KELURAHAN'])->where('KD_ZNT',$newPost['KD_ZNT'])->where('THN_NIR_ZNT',$newPost['THN_NIR_ZNT'])->where('NO_DOKUMEN',$newPost['NO_DOKUMEN'])->first();
+
+            if($data){
+                $qb->update('DAT_NIR',$newPost)->where('KD_KECAMATAN',$newPost['KD_KECAMATAN'])->where('KD_KELURAHAN',$newPost['KD_KELURAHAN'])->where('KD_ZNT',$newPost['KD_ZNT'])->where('THN_NIR_ZNT',$newPost['THN_NIR_ZNT'])->where('NO_DOKUMEN',$newPost['NO_DOKUMEN'])->exec();
+            }else{
+                $qb->create('DAT_NIR',$newPost)->exec();
+            }
+
             
         }
     }

@@ -68,6 +68,71 @@
 
             </form>
         </div>
+
+        <div class="bg-white shadow-md rounded my-3 overflow-x-auto">
+            <table class="min-w-max w-full table-auto">
+                <tbody class="text-gray-600 text-sm font-light">
+                    <?php if(empty($datas)): ?>
+                    <tr>
+                        <td colspan="6" class="py-3 px-6 text-center font-semibold"><i>Empty</i></td>
+                    </tr>
+                    <?php else: ?>
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">No</th>
+                            <th class="py-3 px-6 text-left">No SK</th>
+                            <th class="py-3 px-6 text-left">Tahun</th>
+                            <th class="py-3 px-6 text-left">Nilai</th>
+                            <th class="py-3 px-6 text-left">NIP Perekam</th>
+                            <th class="py-3 px-6 text-left">Tanggal SK</th>
+                            <th class="py-3 px-6 text-left">Tanggal Rekam</th>
+                        </tr>
+                    </thead>
+                    <?php foreach($datas as $key => $data): ?>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$key+1?></span>
+                            </div>
+                        </td>
+                        
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_SK_PBB_MINIMAL']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['THN_PBB_MINIMAL']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NILAI_PBB_MINIMAL']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NIP_PEREKAM_PBB_MINIMAL']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['TGL_SK_PBB_MINIMAL'] ? $data['TGL_SK_PBB_MINIMAL']->format("Y-m-d") : '-'?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['TGL_REKAM_PBB_MINIMAL'] ? $data['TGL_REKAM_PBB_MINIMAL']->format("Y-m-d") : '-'?></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach ?>
+                    <?php endif ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

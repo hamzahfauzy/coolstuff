@@ -321,6 +321,8 @@ for($i = 0 ; $i<100;$i++){
     $years[] = date("Y",strtotime("-$i year"));
 }
 
+$nYear = date("Y");
+
 if(request() == 'POST')
 {   
 
@@ -1701,7 +1703,7 @@ if(request() == 'POST')
 
             extract($_POST);
 
-            $$xJPB == $_POST['KD_JPB'];
+            $xJPB = $_POST['KD_JPB'];
 
             if( ($xJPB == 1 || $xJPB == 10 || $xJPB == 11) || (($xJPB == 2 || $xJPB == 4 || $xJPB == 5 || $xJPB == 7 || $xJPB == 9) && $_POST['JML_LANTAI_BNG'] <= 4) ){
 
@@ -1878,7 +1880,7 @@ if(request() == 'POST')
             CALL_TAMBAHAN();
         }
 
-        $sql = "UPDATE_BANGUNAN '12','12','" . $xxKec . "','" . $xxKel . "','" . $xxBlok . "','" . $xxUrut . "','" . $xxJenis . "'," . "'" .$NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," . "'" . round($LUAS_BNG) . "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($tTotal1) . "','" . $JNS_TRANSAKSI_BNG . "'," . "'" . $TGL_PENDATAAN_BNG . "','" . $NIP_PENDATA_BNG . "','" . $TGL_PEMERIKSAAN_BNG . "','" . $NIP_PEMERIKSA_BNG . "'," . "'" . $TGL_PEREKAM_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($JUM1) . "','" . round($JUM2) . "'," . "'" . round($JUM3) . "','" . round($JUM4) . "','" . round($JUM5) . "','" . round($xSUSUT) . "','" . round($NILAI_INDIVIDU) . "','0'";
+        $sql = "UPDATE_BANGUNAN '12','12','" . $xxKec . "','" . $xxKel . "','" . $xxBlok . "','" . $xxUrut . "','" . $xxJenis . "'," . "'" .$NO_BNG . "','" . $KD_JPB . "','" . $NO_FORMULIR_LSPOP . "','" . $THN_DIBANGUN_BNG . "','" . $THN_RENOVASI_BNG . "'," . "'" . round($LUAS_BNG) . "','" . $JML_LANTAI_BNG . "','" . $KONDISI_BNG . "','" . $JNS_KONSTRUKSI_BNG . "'," . "'" . $JNS_ATAP_BNG . "','" . $KD_DINDING . "','" . $KD_LANTAI . "','" . $KD_LANGIT_LANGIT . "','" . round($tTotal1) . "','1'," . "'" . $TGL_PENDATAAN_BNG . "','" . $NIP_PENDATA_BNG . "','" . $TGL_PEMERIKSAAN_BNG . "','" . $NIP_PEMERIKSA_BNG . "'," . "'" . $TGL_PEREKAM_BNG . "','" . $NIP_PEREKAM_BNG . "','" . round($JUM1) . "','" . round($JUM2) . "'," . "'" . round($JUM3) . "','" . round($JUM4) . "','" . round($JUM5) . "','" . round($xSUSUT) . "','" . round($NILAI_INDIVIDU) . "','0'";
 
         $update = $qb->rawQuery($sql)->exec();
         

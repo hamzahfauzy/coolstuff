@@ -15,6 +15,8 @@ if(isset($_GET['check'])){
     die;
 }
 
+$datas = $qb->select("PBB_MINIMAL")->orderBy('THN_PBB_MINIMAL','desc')->get();
+
 if(request() == 'POST'){
 
     $_POST['KD_PROPINSI'] = 12;
@@ -40,6 +42,13 @@ if(request() == 'POST'){
                 return;
             }
         }else{
+
+            if(!$_POST['NO_SK_PBB_MINIMAL']) unset($_POST['NO_SK_PBB_MINIMAL']);
+            if(!$_POST['TGL_SK_PBB_MINIMAL']) unset($_POST['TGL_SK_PBB_MINIMAL']);
+            if(!$_POST['NILAI_PBB_MINIMAL']) unset($_POST['NILAI_PBB_MINIMAL']);
+            if(!$_POST['NIP_PEREKAM_PBB_MINIMAL']) unset($_POST['NIP_PEREKAM_PBB_MINIMAL']);
+            if(!$_POST['TGL_REKAM_PBB_MINIMAL']) unset($_POST['TGL_REKAM_PBB_MINIMAL']);
+
             $upd = $qb->update('PBB_MINIMAL',$_POST)->where('THN_PBB_MINIMAL',trim($_POST['THN_PBB_MINIMAL']))->exec();
     
             if($upd){
