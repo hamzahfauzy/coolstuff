@@ -15,6 +15,49 @@
             </div>
             <?php endforeach ?>
 
+            <div class="form-group mb-2">
+                <label class="capitalize">Modul</label>
+                <?php foreach (getModules() as $key => $value) {
+                        
+                    echo "<div class='form-group my-2'>";
+                    echo "<label class='capitalize font-bold'>$key</label>";
+                    echo "<br>";
+
+                    foreach ($value as $key2 => $value2) {
+                        if(is_array($value2)){
+
+                            echo "<div class='form-group my-2 ml-2'>";
+                            echo "<label class='capitalize font-bold'>$key2</label>";
+                            echo "<br>";
+
+                            foreach ($value2 as $key3 => $value3) {
+                                $checked = isset($module[$value3]) && $module[$value3] == 1 ? 'checked' : '';
+                                echo "<div class='form-group inline-block mr-2'>";
+                                echo "<input type='checkbox' class='mr-3' name='$value3' $checked id='$key3-checkbox'>";
+                                echo "<label class='capitalize' for='$key3-checkbox'>$key3</label>";
+                                echo "</div>";
+                            }
+
+                            echo "</div>";
+
+                        }else{
+
+                            $checked = isset($module[$value2]) && $module[$value2] == 1 ? 'checked' : '';
+
+                            echo "<div class='form-group inline-block mr-2'>";
+                            echo "<input type='checkbox' class='mr-3' name='$value2' $checked id='$key2-checkbox'>";
+                            echo "<label class='capitalize' for='$key2-checkbox'>$key2</label>";
+                            echo "</div>";
+
+                        }
+                    }
+
+                    echo "</div>";
+
+
+                }?>
+            </div>
+
             <div class="form-group">
                 <button class="w-full p-2 bg-indigo-800 text-white rounded" id="btn-login">Update</button>
             </div>

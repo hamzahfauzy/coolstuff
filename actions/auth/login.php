@@ -24,8 +24,7 @@ if(request() == 'POST')
         $auth_data = [
             // 'token'    => $data['token'],
             'username' => $_POST['username'],
-            'id' => 1,
-            'role' => $user->role
+            'role' => $user['WEWENANG']
         ];
 
         $_SESSION['auth'] = $auth_data;

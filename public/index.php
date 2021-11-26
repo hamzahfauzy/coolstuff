@@ -3,6 +3,8 @@ ini_set('session.save_path','../session');
 session_start();
 require '../functions.php';
 
+require '../before-actions/index.php';
+
 if(isset($_GET['action']) && !empty($_GET['action']))
 {
     load_action($_GET['action']);

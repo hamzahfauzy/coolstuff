@@ -10,9 +10,19 @@ function conn(){
     return $conn;
 }
 
+function getModules(){
+    return require '../config/modules.php';
+}
+
 function stringContains($string,$val){
-    if (strpos($string, $val) !== false) {
-        return true;
+    if(!is_array($val)){
+        if (strpos($string, $val) !== false) {
+            return true;
+        }
+    }else{
+        if (arrStringContains($string, $val) !== false) {
+            return true;
+        }
     }
 
     return false;
@@ -22,8 +32,12 @@ function arrStringContains($string,$arr){
 
     $result = [];
 
-    for($i = 0; $i < count($arr);$i++){
-       $result[] = stringContains($string,$arr[$i]);
+    foreach ($arr as $key => $value) {
+        if(!is_array($arr[$key])){
+            $result[] = stringContains($string,$arr[$key]);
+        }else{
+            $result[] = arrStringContains($string,$arr[$key]);
+        }
     }
 
     return in_array(true,$result);
@@ -277,4 +291,10 @@ function tanggal_indo($tanggal)
 			);
 	$split = explode('-', $tanggal);
 	return $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+}
+
+
+function startWith($str, $cmp)
+{
+    return substr($str, 0, strlen($cmp)) === $cmp;
 }

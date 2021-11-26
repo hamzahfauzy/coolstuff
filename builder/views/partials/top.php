@@ -4,16 +4,59 @@ $installation = $builder->get_installation();
 
 $nav_class_active = 'bg-purple-700 text-white';
 
-$pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],['dbkb-utama','dbkb-material','dbkb-fasilitas','dbkb-utama-material','objek-pajak-bumi','objek-pajak-bangunan','subjek-pajak','nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
-$penilaian = (isset($_GET['page']) && arrStringContains($_GET['page'],['penilaian-massal']) ? $nav_class_active : '');
-$penetapan = (isset($_GET['page']) && arrStringContains($_GET['page'],['pbb-minimal','penetapan-njoptkp','penetapan-sppt','pelunasan']) ? $nav_class_active : '');
-$referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],['tempat-pembayaran','kecamatan','kelurahan','kayu-ulin']) ? $nav_class_active : '');
-$utility = (isset($_GET['page']) && arrStringContains($_GET['page'],['roles','users','pejabat']) ? $nav_class_active : '');
+$modules = getModules();
 
-$dbkb = (isset($_GET['page']) && arrStringContains($_GET['page'],['dbkb-utama','dbkb-material','dbkb-fasilitas','dbkb-utama-material']) ? $nav_class_active : '');
-$znt = (isset($_GET['page']) && arrStringContains($_GET['page'],['nir','nama-jalan','znt','blok']) ? $nav_class_active : '');
-$objek_pajak = (isset($_GET['page']) && arrStringContains($_GET['page'],['objek-pajak-bumi','objek-pajak-bangunan'])) ? $nav_class_active : '';
-$wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','kelurahan']) ? $nav_class_active : '' : '';
+$pendataan_data = $modules['pendataan'];
+
+$penilaian_data = $modules['penilaian'];
+
+$penetapan_data = $modules['penetapan'];
+
+$referensi_data = $modules['referensi'];
+
+$utility_data = $modules['utility'];
+
+$laporan_data = $modules['laporan'];
+
+$user = $_SESSION['auth'];
+
+$builder = new Builder;
+$json_modules = $builder->get_content('modules');
+
+$data_key = null;
+
+$module = [];
+
+foreach ($json_modules as $key => $value) {
+
+    $value = (array) $value;
+
+    if($value['code'] == $user['role']){
+        $data_key = $key;
+        $module = $value;
+        break;
+    }
+}
+
+unset($module['code']);
+
+$module = json_encode(array_keys($module));
+
+$pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendataan_data) ? $nav_class_active : '');
+$penilaian = (isset($_GET['page']) && arrStringContains($_GET['page'],$penilaian_data) ? $nav_class_active : '');
+$penetapan = (isset($_GET['page']) && arrStringContains($_GET['page'],$penetapan_data) ? $nav_class_active : '');
+
+$referensi = (isset($_GET['page']) && arrStringContains($_GET['page'],$referensi_data) ? $nav_class_active : '');
+$utility = (isset($_GET['page']) && arrStringContains($_GET['page'],$utility_data) ? $nav_class_active : '');
+$laporan = (isset($_GET['page']) && arrStringContains($_GET['page'],$laporan_data) ? $nav_class_active : '');
+
+$dbkb = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendataan_data['dbkb']) ? $nav_class_active : '');
+
+$znt = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendataan_data['znt']) ? $nav_class_active : '');
+
+$objek_pajak = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendataan_data['objek-pajak'])) ? $nav_class_active : '';
+
+$wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_data['wilayah']) ? $nav_class_active : '' : '';
 
 ?>
 <!DOCTYPE html>
@@ -156,7 +199,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
                         </div>
                     </li>
                     <li class="relative">
-                        <a href="#" onclick="toggleNav('#laporan')" class="cursor-pointer dropdown text-white hover:bg-purple-700 p-2 px-4 inline-block">
+                        <a href="#" onclick="toggleNav('#laporan')" class="cursor-pointer dropdown text-white hover:bg-purple-700 <?=$laporan?> p-2 px-4 inline-block">
                             <span class=" capitalize">laporan</span>
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
@@ -196,3 +239,17 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],['kecamatan','
         </div>
     </div>
     <div class="main bg-gray-100" style="min-height:calc(100vh - 58px);height:auto;">
+
+    <script>
+
+        var mdl = <?= $module ?>
+
+        var anchors = document.querySelectorAll(".nav .nav-container a:not(.dropdown)")
+
+        anchors.forEach(item=>{
+            if(!mdl.includes(item.href.split('?page=')[1])){
+                item.classList.add('hidden')
+            }
+        })
+
+    </script>
