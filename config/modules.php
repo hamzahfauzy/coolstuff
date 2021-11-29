@@ -25,6 +25,11 @@ return [
     ],
     'penilaian'=>[
         'penilaian-massal'=>'builder/penilaian-massal/index',
+        'laporan-penilaian'=>[
+            'perbandingan'=>'builder/penilaian/laporan/perbandingan',
+            'bumi'=>'builder/penilaian/laporan/bumi',
+            'bangunan'=>'builder/penilaian/laporan/bangunan'
+        ]
     ],
     'penetapan'=>[
         'pbb-minimal'=>'builder/pbb-minimal/index',
