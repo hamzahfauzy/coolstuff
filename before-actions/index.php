@@ -36,7 +36,7 @@ if(isset($_GET['page']) && isset($_SESSION['auth']) && !in_array($_GET['page'],$
         }
     }
 
-    if(!$allowed)
+    if(!$allowed && $user['username'] != "admin")
     {
         echo "Error 403. Forbidden. <a href='$_SERVER[HTTP_REFERER]'>Kembali</a>";
         exit;
