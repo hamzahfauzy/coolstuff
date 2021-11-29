@@ -48,6 +48,10 @@
                 </div>
 
                 <div class="form-group inline-block">
+                    <input type="text" class="p-2 w-full border rounded" placeholder="Cari.." name="nama" value="<?=isset($_GET['nama']) && $_GET['nama'] ? $_GET['nama'] : '' ?>">
+                </div>
+
+                <div class="form-group inline-block">
                     <button class="p-2 bg-green-500 text-white rounded" name="filter">Filter</button>
                 </div>
 

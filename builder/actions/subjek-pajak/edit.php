@@ -3,15 +3,19 @@ require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
 
-$all_fields = $qb->columns("DAT_SUBJEK_PAJAK","SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,RW_WP,RT_WP,KOTA_WP,KD_POS_WP,TELP_WP,NPWP,STATUS_PEKERJAAN_WP");
+$all_fields = $qb->columns("DAT_SUBJEK_PAJAK","KELURAHAN_WP,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,RW_WP,RT_WP,KOTA_WP,KD_POS_WP,TELP_WP,NPWP,BLOK_KAV_NO_WP");
 
 $data = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$_GET['id'])->first();
 $keys        = array_keys($data);
 $fields      = [];
 
-$kelurahans = $qb->select('REF_KELURAHAN')->get();
-
-$bloks = $qb->select("DAT_PETA_BLOK","KD_BLOK")->leftJoin("REF_KELURAHAN","DAT_PETA_BLOK.KD_KELURAHAN","REF_KELURAHAN.KD_KELURAHAN")->where('REF_KELURAHAN.NM_KELURAHAN',$data["KELURAHAN_WP"])->groupBy("KD_BLOK")->get();
+$pekerjaans = [
+    '1' => 'PNS',
+    '2' => 'TNI/Polri',
+    '3' => 'Pensiunan',
+    '4' => 'Badan',
+    '5' => 'Lainnya'
+];
 
 $i = 0;
 foreach($keys as $key => $val)
@@ -34,9 +38,9 @@ foreach($keys as $key => $val)
 if(request() == 'POST')
 {   
 
-    $kels = explode("-",$_POST['KELURAHAN_WP']);
+    // $kels = explode("-",$_POST['KELURAHAN_WP']);
 
-    $_POST['KELURAHAN_WP'] = trim($kels[1]);
+    // $_POST['KELURAHAN_WP'] = trim($kels[1]);
 
     $update = $qb->update('DAT_SUBJEK_PAJAK',$_POST)->where("SUBJEK_PAJAK_ID",$_GET['id'])->exec();
 

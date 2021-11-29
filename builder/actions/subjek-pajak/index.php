@@ -45,6 +45,11 @@ if(isset($_GET['filter'])){
         $datas->where('DAT_SUBJEK_PAJAK.BLOK_KAV_NO_WP',$_GET['blok']);
     }
 
+    if($_GET['nama']){
+        $datas->where('NM_WP',"%".$_GET['nama']."%",'like');
+        $limits->where('NM_WP',"%".$_GET['nama']."%",'like');
+    }
+
 }
 
 $datas = $datas->orderBy('NM_WP')->get();
