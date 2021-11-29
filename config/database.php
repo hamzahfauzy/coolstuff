@@ -17,6 +17,6 @@ if (in_array($server_name,$stagging_name)) {
 
 if (in_array($server_name,$live_name)) {
      $serverName = "127.0.0.1"; //serverName\instanceName, portNumber (default is 1433)
-     $connectionInfo = array( "Database"=>"dbpajak", "UID"=>"SA", "PWD"=>"bappeda@4321");
+     $connectionInfo = array( "Database"=>"new_dbpajak", "UID"=>"SA", "PWD"=>"bappeda@4321");
 }
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
