@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="login flex h-screen">
-        <div class="shadow p-8 m-auto lg:w-2/6 rounded-md max-w-screen-sm">
+        <div class="shadow p-8 m-auto lg:w-2/6 rounded-md max-w-screen-sm" style="max-width:450px">
             <img src="<?=get_file_storage('installation/'.$installation->logo)?>" width="70px" alt="" class="mx-auto">
             <div class="text-center my-4">
                 <h3 class="font-semibold text-3xl"><?= $installation->app_name ?></h3>
