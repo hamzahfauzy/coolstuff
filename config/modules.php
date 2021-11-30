@@ -35,7 +35,8 @@ return [
         'pbb-minimal'=>'builder/pbb-minimal/index',
         'penetapan-njoptkp'=>'builder/penetapan-njoptkp/index',
         'penetapan-sppt'=>'builder/penetapan-sppt/index',
-        'pelunasan'=>'builder/pelunasan/index',
+        'pelunasan-massal'=>'builder/pelunasan-massal/index',
+        'pelunasan-tunggal'=>'builder/pelunasan-tunggal/index',
     ],
     'referensi'=>[
         'wilayah'=>[

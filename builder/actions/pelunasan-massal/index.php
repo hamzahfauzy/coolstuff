@@ -56,11 +56,11 @@ if(request() == 'POST'){
 
     if($massal){
         set_flash_msg(['success'=>'Pelunasan: Sukses!']);
-        header("location:index.php?page=builder/pelunasan/index");
+        header("location:index.php?page=builder/pelunasan-massal/index");
         return;
     }else{
         set_flash_msg(['failed'=>'Pelunasan: Gagal!']);
-        header("location:index.php?page=builder/pelunasan/index");
+        header("location:index.php?page=builder/pelunasan-massal/index");
         return;
     }
 
