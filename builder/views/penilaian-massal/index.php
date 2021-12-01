@@ -55,7 +55,9 @@
 <script>
 
     function kecamatanChange(el){
-        fetch("index.php?page=builder/penilaian-massal/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
+        var year = $("[name='YEAR']")
+
+        fetch("index.php?page=builder/penilaian-massal/index&filter-kecamatan="+el.value+"&YEAR="+year.val()).then(response => response.json()).then(data => {
 
                 var html = `
                         <label>Kelurahan</label>
@@ -63,7 +65,7 @@
                             <option value="" selected readonly>- Pilih Kelurahan -</option>`
 
                 data.map(dt=>{
-                    html += `<option value="${dt.KD_KELURAHAN}">${dt.KD_KELURAHAN} - ${dt.NM_KELURAHAN}</option>`
+                    html += `<option value="${dt.KD_KELURAHAN}">${dt.KD_KELURAHAN} - ${dt.NM_KELURAHAN} ${dt.sppt ? '(Sudah Dinilai)' : ''}</option>`
                 })
 
                 html += `</select>`

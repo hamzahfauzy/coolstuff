@@ -1,7 +1,10 @@
 <?php load('builder/partials/top');
+
+load('builder/partials/modals/list-objek-pajak');
 ?>
+
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Pelunasan</h2>
+    <h2 class="text-3xl">Pelunasan Tunggal</h2>
     <div class="my-6">
         <?php if($msg): ?>
         <div class="bg-green-100 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md my-6" role="alert">
@@ -23,8 +26,8 @@
             </div>
         </div>
         <?php endif ?>
-        <div class="bg-white shadow-md rounded my-6 p-8">
-            <form id="pelunasan" method="post">
+        <form id="pelunasan-tunggal" method="post">
+            <div class="bg-white shadow-md rounded my-6 p-8">
 
                 <div class="form-group mb-2">
                     <label>Tahun</label>
@@ -35,18 +38,35 @@
                         <?php endforeach ?>
                     </select>
                 </div>
+                
+                <div class="form-group mb-2">
+                    <label for="NOP">NOP</label>
+                    <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded">
+                </div>
+                
+                <div class="form-group mb-2">
+                    <button type="button" class="p-2 mb-2 bg-green-800 text-white rounded" onclick="onSelectQOP()">Pilih</button>
+                    <button type="button" class="p-2 mb-2 bg-indigo-800 text-white rounded" onclick="onCheck()">Cek</button>
+                </div>
+            
+            </div>
+
+            <div class="bg-white shadow-md hidden rounded my-6 p-8" id="form-box">
 
                 <div class="form-group mb-2">
-                    <label>Kecamatan</label>
-                    <select name="KD_KECAMATAN" class="p-2 w-full border rounded" onchange="kecamatanChange(this)" required>
-                        <option value="" selected readonly>- Pilih Kecamatan -</option>
-                        <?php foreach($kecamatans as $kecamatan):?>
-                            <option value="<?=$kecamatan['KD_KECAMATAN']?>"><?=$kecamatan['KD_KECAMATAN']." - ".$kecamatan['NM_KECAMATAN']?></option>
-                        <?php endforeach ?>
-                    </select>
+                    <label for="SPPT_KE">SPPT Ke</label>
+                    <input type="number" id="SPPT_KE" name="SPPT_KE" class="p-2 w-full border rounded">
+                </div>
+                
+                <div class="form-group mb-2">
+                    <label for="DENDA">Denda</label>
+                    <input type="number" id="DENDA" name="DENDA" class="p-2 w-full border rounded">
                 </div>
 
-                <div class="form-group mb-2 hidden" id="kelurahan"></div>
+                <div class="form-group mb-2">
+                    <label for="JLH_DIBAYARKAN">Jumlah Dibayarkan</label>
+                    <input type="number" id="JLH_DIBAYARKAN" name="JLH_DIBAYARKAN" class="p-2 w-full border rounded">
+                </div>
 
                 <div class="form-group mb-2">
                     <label>Tempat Bayar</label>
@@ -63,14 +83,9 @@
                     <input type="date" id="TGL_PEMBAYARAN" name="TGL_PEMBAYARAN" class="p-2 w-full border rounded">
                 </div>
                 
-                <div class="form-group mb-2">
-                    <label for="DENDA">Denda</label>
-                    <input type="number" id="DENDA" name="DENDA" class="p-2 w-full border rounded">
-                </div>
-                
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group mb-2">
-                        <label for="TGL_PEREKAM">Tanggal Perekam</label>
+                        <label for="TGL_PEREKAM">Tanggal Perekaman</label>
                         <input type="date" id="TGL_PEREKAM" name="TGL_PEREKAM" class="p-2 w-full border rounded">
                     </div>
                     
@@ -89,34 +104,38 @@
                     <button type="button" class="p-2 bg-indigo-800 text-white rounded" onclick="onProcess(this)" id="btn-login">Proses</button>
                 </div>
 
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 
 <script>
-    function kecamatanChange(el){
-        fetch("index.php?page=builder/penetapan-sppt/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
 
-                var html = `
-                        <label>Kelurahan</label>
-                        <select name="KD_KELURAHAN" class="p-2 w-full border rounded" required>
-                            <option value="" selected readonly>- Pilih Kelurahan -</option>`
+    var modal = $("#modal-list-objek-pajak")
 
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_KELURAHAN}">${dt.KD_KELURAHAN} - ${dt.NM_KELURAHAN}</option>`
-                })
+    var nop = $("input[name='NOP']");
 
-                html += `</select>`
+    nop.inputmask({mask:"12.12.999.999.999-9999.9"})
 
-                var kelurahan = document.querySelector("#kelurahan")
+    function onSelectQOP(){
+        modal.removeClass("hidden")
+    }
 
-                kelurahan.innerHTML = html
+    async function onCheck(){
+        var year = document.querySelector("select[name='YEAR']")
 
-                kelurahan.classList.remove("hidden")
+        var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value+"&NOP="+nop.val())
 
-        }); 
-    }    
+        var data = await res.json()
+
+        if(data.length){
+            alert("Data ditemukan")
+
+            $("#form-box").removeClass('hidden')
+        }else{
+            alert("Data tidak ditemukan")
+        }
+    }
 
     async function onProcess(el){
 
@@ -124,10 +143,8 @@
 
         if(pelunasanForm.checkValidity()){
             var year = document.querySelector("select[name='YEAR']")
-            var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
-            var kelurahan = document.querySelector("select[name='KD_KELURAHAN']")
 
-            var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value+"&kecamatan="+kecamatan.value+"&kelurahan="+kelurahan.value)
+            var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value+"&NOP="+nop.val())
 
             var data = await res.json()
 
