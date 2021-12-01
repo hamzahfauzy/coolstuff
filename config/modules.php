@@ -45,9 +45,13 @@ return [
         ],
         'tempat-pembayaran'=>'builder/tempat-pembayaran/index',
         'kayu-ulin'=>'builder/kayu-ulin/index',
+        'update-resources'=>'builder/update-resources/index',
+        'posting-sppt-lama'=>'builder/posting-sppt-lama/index',
     ],
     'laporan'=>[
         'sppt'=>'builder/laporan/sppt/index',
+        'sspd'=>'builder/laporan/sspd/index',
+        'dhkp'=>'builder/laporan/dhkp/index',
     ],
     'utility'=>[
         'roles'=>'builder/roles/index',

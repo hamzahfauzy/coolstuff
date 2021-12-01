@@ -33,7 +33,12 @@ if(request() == 'POST'){
     $xTT = $xTTs['THN_AWAL_KLS_TANAH'];
     $xTB = $xTBs['THN_AWAL_KLS_BNG'];
 
-    $sql = "Select * From SPPT where (KD_KECAMATAN='" . trim($_POST['KD_KECAMATAN']) . "' AND KD_KELURAHAN='" . trim($_POST['KD_KELURAHAN']) . "') and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "' ";
+    if(isset($_POST['KD_KELURAHAN']) && $_POST['KD_KELURAHAN']){
+        $sql = "Select * From SPPT where (KD_KECAMATAN='" . trim($_POST['KD_KECAMATAN']) . "' AND KD_KELURAHAN='" . trim($_POST['KD_KELURAHAN']) . "') and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "' ";
+    }else{
+        $sql = "Select * From SPPT where (KD_KECAMATAN='" . trim($_POST['KD_KECAMATAN']) . "') and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "' ";
+    }
+
     
     // $Pesan1 = "KEC: " . $_POST['KD_KECAMATAN'] . ", KEL: " . $_POST['KD_KELURAHAN'] . ", sudah ditetapkan Anda ingin membuat ulang?";
 

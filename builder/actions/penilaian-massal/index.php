@@ -9,6 +9,14 @@ $qb = new QueryBuilder();
 if(isset($_GET['filter-kecamatan'])){
     $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->get();
 
+    foreach ($kelurahans as $key => $value) {
+        $T_SQL = "select * from SPPT WHERE KD_KECAMATAN='" . $_GET['filter-kecamatan'] . "' AND KD_KELURAHAN='" . $value['KD_KELURAHAN'] . "' and THN_PAJAK_SPPT='" . $_GET['YEAR'] . "'";
+
+        $sppt = $qb->rawQuery($T_SQL)->first();
+
+        $kelurahans[$key]['sppt'] = $sppt ? 1 : 0;
+    }
+
     echo json_encode($kelurahans);
     die;
 }

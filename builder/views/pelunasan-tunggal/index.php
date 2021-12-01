@@ -1,5 +1,8 @@
 <?php load('builder/partials/top');
+
+load('builder/partials/modals/list-objek-pajak');
 ?>
+
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
     <h2 class="text-3xl">Pelunasan Tunggal</h2>
     <div class="my-6">
@@ -41,11 +44,14 @@
                     <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded">
                 </div>
                 
-                <button type="button" class="p-2 mb-2 bg-indigo-800 text-white rounded" onclick="onCheck()">Cek</button>
+                <div class="form-group mb-2">
+                    <button type="button" class="p-2 mb-2 bg-green-800 text-white rounded" onclick="onSelectQOP()">Pilih</button>
+                    <button type="button" class="p-2 mb-2 bg-indigo-800 text-white rounded" onclick="onCheck()">Cek</button>
+                </div>
             
             </div>
 
-            <div class="bg-white shadow-md rounded my-6 p-8" id="form-box">
+            <div class="bg-white shadow-md hidden rounded my-6 p-8" id="form-box">
 
                 <div class="form-group mb-2">
                     <label for="SPPT_KE">SPPT Ke</label>
@@ -105,9 +111,15 @@
 
 <script>
 
+    var modal = $("#modal-list-objek-pajak")
+
     var nop = $("input[name='NOP']");
 
     nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+
+    function onSelectQOP(){
+        modal.removeClass("hidden")
+    }
 
     async function onCheck(){
         var year = document.querySelector("select[name='YEAR']")
@@ -115,8 +127,6 @@
         var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value+"&NOP="+nop.val())
 
         var data = await res.json()
-
-        console.log(data)
 
         if(data.length){
             alert("Data ditemukan")
@@ -133,10 +143,8 @@
 
         if(pelunasanForm.checkValidity()){
             var year = document.querySelector("select[name='YEAR']")
-            var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
-            var kelurahan = document.querySelector("select[name='KD_KELURAHAN']")
 
-            var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value+"&kecamatan="+kecamatan.value+"&kelurahan="+kelurahan.value)
+            var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value+"&NOP="+nop.val())
 
             var data = await res.json()
 

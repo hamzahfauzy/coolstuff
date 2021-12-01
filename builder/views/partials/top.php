@@ -195,8 +195,8 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                             <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Klasifikasi Tarif/Rumah/Bangunan</a>
                             <a href="?page=builder/tempat-pembayaran/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('tempat-pembayaran') ?> hover:text-white">Tempat Pembayaran</a>
                             <a href="?page=builder/kayu-ulin/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('kayu-ulin') ?> hover:text-white">Status Penggunaan Kayu Ulin</a>
-                            <!-- <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Update Resources</a> -->
-                            <!-- <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Posting SPPT Lama</a> -->
+                            <a href="?page=builder/update-resources/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white <?= getCurrentPageDataNav('update-resources') ?>">Update Resources</a>
+                            <a href="?page=builder/posting-sppt-lama/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white <?= getCurrentPageDataNav('posting-sppt-lama') ?>">Posting SPPT Lama</a>
                         </div>
                     </li>
                     <li class="relative">
@@ -206,8 +206,8 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="laporan" style="top:40px">
                             <a href="?page=builder/laporan/sppt/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
-                            <a href="#" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
+                            <a href="?page=builder/laporan/sspd/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
+                            <a href="?page=builder/laporan/dhkp/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
                         </div>
                     </li>
                     <li class="relative">
