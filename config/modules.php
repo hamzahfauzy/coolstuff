@@ -28,7 +28,8 @@ return [
         'laporan-penilaian'=>[
             'perbandingan'=>'builder/penilaian/laporan/perbandingan',
             'bumi'=>'builder/penilaian/laporan/bumi',
-            'bangunan'=>'builder/penilaian/laporan/bangunan'
+            'bangunan'=>'builder/penilaian/laporan/bangunan',
+            'perbandingan-penilaian-bumi-dan-bangunan'=>'builder/penilaian/laporan/perbandingan-penilaian-bumi-dan-bangunan/index'
         ]
     ],
     'penetapan'=>[

@@ -155,7 +155,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                                     <i class="fa fa-caret-right text-right ml-2"></i>
                                 </a>
                                 <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left left-full top-0" id="laporan-penilaian">
-                                    <a href="?page=builder/penilaian/laporan/perbandingan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('perbandingan') ?> hover:text-white">Perbandingan dengan Tahun Sebelumnya</a>
+                                    <a href="?page=builder/penilaian/laporan/perbandingan-penilaian-bumi-dan-bangunan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('perbandingan-penilaian-bumi-dan-bangunan') ?> hover:text-white">Perbandingan dengan Tahun Sebelumnya</a>
                                     <a href="?page=builder/penilaian/laporan/bumi" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('bumi-masal') ?> hover:text-white">Bumi</a>
                                     <a href="?page=builder/penilaian/laporan/bangunan" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('bangunan-individu') ?> hover:text-white">Bangunan</a>
                                 </div>
