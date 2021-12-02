@@ -208,6 +208,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                             <a href="?page=builder/laporan/sppt/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
                             <a href="?page=builder/laporan/sspd/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
                             <a href="?page=builder/laporan/dhkp/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
+                            <a href="?page=builder/laporan/klasifikasi-dan-besaran-njop-bumi/index" class="block px-4 py-3 hover:bg-purple-700 capitalize hover:text-white">klasifikasi dan besaran njop bumi</a>
                         </div>
                     </li>
                     <li class="relative">
