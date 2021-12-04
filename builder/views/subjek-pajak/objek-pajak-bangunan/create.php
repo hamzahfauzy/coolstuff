@@ -483,6 +483,7 @@
 
             <div class="form-group">
                 <button type="button" class="w-full p-2 bg-indigo-800 text-white rounded" id="btn-login">Proses</button>
+                <a href="#" onclick="history.go(-1)" class="w-full p-2 bg-yellow-500 text-white rounded block text-center mt-2">Kembali</a>
             </div>
 
         </div>

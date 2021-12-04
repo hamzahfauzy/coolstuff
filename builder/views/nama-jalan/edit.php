@@ -53,6 +53,7 @@
 
             <div class="form-group">
                 <button class="w-full p-2 bg-indigo-800 text-white rounded" id="btn-login">Update</button>
+                <a href="index.php?page=builder/nama-jalan/index" class="w-full p-2 bg-yellow-500 text-white rounded block text-center mt-2">Kembali</a>
             </div>
         </form>
     </div>
