@@ -10,7 +10,7 @@ $qb2 = new QueryBuilder();
 $msg = get_flash_msg('success');
 
 if(isset($_GET['filter-kecamatan'])){
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->get();
+    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->orderby('KD_KELURAHAN')->get();
 
     echo json_encode($kelurahans);
     die;

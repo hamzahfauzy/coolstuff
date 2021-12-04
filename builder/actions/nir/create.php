@@ -38,7 +38,7 @@ if(isset($_GET['check'])){
 
 }
 
-$kecamatans = $qb->select('REF_KECAMATAN')->get();
+$kecamatans = $qb->select('REF_KECAMATAN')->orderby('KD_KECAMATAN')->get();
 
 $years = []; 
 for($i = 0 ; $i<100;$i++){

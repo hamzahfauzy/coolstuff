@@ -74,8 +74,8 @@ class QueryBuilder{
 
         if( $query === false ) {
 
-            die(print_r( sqlsrv_errors(),true));
-            return sqlsrv_errors();
+            // die(print_r( sqlsrv_errors(),true));
+            return ['error'=>true,'message'=>sqlsrv_errors()];
         }
 
         return $query;
