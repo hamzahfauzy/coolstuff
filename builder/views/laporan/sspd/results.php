@@ -4,10 +4,11 @@
     <h2 class="text-3xl">Cetak SSPD</h2>
     <div class="my-6">
         <?php if(!empty($datas)): ?>
-        <div class="flex justify-between items-center">
+        <div class="flex items-center">
             <a href="index.php?page=builder/laporan/sspd/cetak-all&kecamatan=<?=$kecamatan['KD_KECAMATAN']?>&kelurahan=<?=$kelurahan['KD_KELURAHAN']?>&tahun_pajak=<?=$_GET['tahun_pajak']?>&tanggal_terbit=<?=$_GET['tanggal_terbit']?>&tanggal_cetak=<?=$_GET['tanggal_cetak']?>&nip_pencetak=<?=$_GET['nip_pencetak']?>" target="_blank" class="p-2 bg-green-500 text-white rounded">
                 Cetak Semua
             </a>
+            <a href="index.php?page=builder/laporan/sppt/index" class="p-2 bg-yellow-500 text-white rounded block text-center">Kembali</a>
         </div>
         <div class="bg-white shadow-md rounded my-3 py-3 px-6">
             <?php if($kecamatan): ?>

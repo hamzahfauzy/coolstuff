@@ -5,7 +5,9 @@ $qb = new QueryBuilder();
 
 $fields = $qb->columns("DAT_PETA_ZNT","KD_ZNT");
 
-$kecamatans = $qb->select('REF_KECAMATAN')->get();
+$msg = get_flash_msg('error');
+
+$kecamatans = $qb->select('REF_KECAMATAN')->orderby('KD_KECAMATAN')->get();
 
 if(request() == 'POST')
 {   
@@ -14,8 +16,11 @@ if(request() == 'POST')
 
     $insert = $qb->create('DAT_PETA_ZNT',$_POST)->exec();
 
-    if( $insert === false ) {
-        die( print_r( sqlsrv_errors(), true));
+    if(isset($insert['error']))
+    {
+        set_flash_msg(['error'=>'Data Sudah Ada']);
+        header('location:index.php?page=builder/znt/create');
+        return;
     }
 
     if($insert)
