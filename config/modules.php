@@ -54,6 +54,7 @@ return [
         'sspd'=>'builder/laporan/sspd/index',
         'dhkp'=>'builder/laporan/dhkp/index',
         'klasifikasi-dan-besaran-njop-bumi'=>'builder/laporan/klasifikasi-dan-besaran-njop-bumi/index',
+        'dbkb'=>'builder/laporan/dbkb/index',
     ],
     'utility'=>[
         'roles'=>'builder/roles/index',

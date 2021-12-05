@@ -25,7 +25,7 @@ if(isset($_GET['filter-kelurahan']) && isset($_GET['filter-kecamatan'])){
 }
 
 if(isset($_GET['filter-kecamatan'])){
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->get();
+    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->orderby('KD_KELURAHAN')->get();
 
     echo json_encode($kelurahans);
     die;
@@ -83,7 +83,7 @@ if(isset($_GET['filter'])){
 
 $datas = $datas->orderBy("NO_URUT","DESC")->get();
 
-$kecamatans = $qb->select("REF_KECAMATAN")->get();
+$kecamatans = $qb->select("REF_KECAMATAN")->orderby('KD_KECAMATAN')->get();
 $kelurahans = $kelurahans->get();
 $bloks = $bloks->get();
 $znts = $znts->get();

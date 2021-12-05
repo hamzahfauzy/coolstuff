@@ -1,6 +1,6 @@
 <?php load('builder/partials/top'); ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Laporan Penilaian Objek Pajak Bumi</h2>
+    <h2 class="text-3xl">Laporan Penilaian Objek Pajak Bangunan</h2>
     <div class="my-6">
         <div class="mt-5">
             <form action="" method="get">

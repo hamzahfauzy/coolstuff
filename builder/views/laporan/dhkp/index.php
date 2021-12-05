@@ -1,7 +1,7 @@
 <?php load('builder/partials/top');?>
 
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Cetak SSPD</h2>
+    <h2 class="text-3xl">Cetak DHKP</h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form action="index.php" onsubmit="doSubmit(this); return false;">
             <input type="hidden" name="page" value="builder/laporan/dhkp/results">

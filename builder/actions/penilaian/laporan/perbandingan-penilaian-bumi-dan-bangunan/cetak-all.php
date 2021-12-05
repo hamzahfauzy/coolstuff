@@ -355,7 +355,7 @@ foreach ($datas as $key => $value) {
         ];
     }
 
-    if($value['TAHUN'] == $tahun_pajak){
+    // if($value['TAHUN'] == $tahun_pajak){
 
         if(array_key_exists('KECAMATANS',$datas_new[$value['TAHUN']])){
 
@@ -443,5 +443,5 @@ foreach ($datas as $key => $value) {
             ];
         }
     
-    }
+    // }
 }
