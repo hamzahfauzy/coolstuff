@@ -56,7 +56,7 @@
         }
         else
         {
-            fetch("index.php?page=builder/laporan/perbandingan-penilaian-bumi-dan-bangunan/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
+            fetch("index.php?page=builder/penilaian/laporan/perbandingan-penilaian-bumi-dan-bangunan/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
 
                     var html = `
                             <label>Kelurahan</label>

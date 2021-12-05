@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak DHKP</title>
+    <title>LAPORAN PERBANDINGAN PENILAIAN OBJEK PAJAK<br>TAHUN <?=$_GET['tahun_pajak']?> DENGAN TAHUN <?=$_GET['tahun_pajak']-1?></title>
     <style>
     body {
         margin:10mm;
@@ -31,7 +31,9 @@
         </tr>
         <?php 
             
-         foreach($datas_new[$_GET['tahun_pajak']]['KECAMATANS'] as $key => $data): ?>
+         foreach($datas_new as $thn => $data_new):
+            foreach($data_new['KECAMATANS'] as $key => $data):
+         ?>
             <tr style="font-weight:bold">
                 <td style="padding:12px" colspan="8">Kec. <?=$key?></td>
             </tr>
@@ -67,16 +69,18 @@
         <?php endforeach ?>
 
         <tr style="font-weight:bold;">
-            <td style="padding:8px" colspan="2" align="center">Total (TAHUN <?=$_GET['tahun_pajak']?>)</td>
+            <td style="padding:8px" colspan="2" align="center">Total (TAHUN <?=$thn?>)</td>
             
-            <td style="padding:8px" align="center"><?=number_format($datas_new[$_GET['tahun_pajak']]['TOTAL']['JLH_BUMI'])?></td>
-            <td style="padding:8px" align="center"><?=number_format($datas_new[$_GET['tahun_pajak']]['TOTAL']['LUAS_BUMI'])?></td>
-            <td style="padding:8px" align="center"><?=number_format($datas_new[$_GET['tahun_pajak']]['TOTAL']['NILAI_SISTEM_BUMI'])?></td>
+            <td style="padding:8px" align="center"><?=number_format($datas_new[$thn]['TOTAL']['JLH_BUMI'])?></td>
+            <td style="padding:8px" align="center"><?=number_format($datas_new[$thn]['TOTAL']['LUAS_BUMI'])?></td>
+            <td style="padding:8px" align="center"><?=number_format($datas_new[$thn]['TOTAL']['NILAI_SISTEM_BUMI'])?></td>
 
-            <td style="padding:8px" align="center"><?=number_format($datas_new[$_GET['tahun_pajak']]['TOTAL']['JLH_BNG'])?></td>
-            <td style="padding:8px" align="center"><?=number_format($datas_new[$_GET['tahun_pajak']]['TOTAL']['LUAS_BNG'])?></td>
-            <td style="padding:8px" align="center"><?=number_format($datas_new[$_GET['tahun_pajak']]['TOTAL']['NILAI_SISTEM_BNG'])?></td>
+            <td style="padding:8px" align="center"><?=number_format($datas_new[$thn]['TOTAL']['JLH_BNG'])?></td>
+            <td style="padding:8px" align="center"><?=number_format($datas_new[$thn]['TOTAL']['LUAS_BNG'])?></td>
+            <td style="padding:8px" align="center"><?=number_format($datas_new[$thn]['TOTAL']['NILAI_SISTEM_BNG'])?></td>
         </tr>
+
+        <?php endforeach ?>
     </table>
 
     <h2 align="center">TABEL PERBANDINGAN</h2>
