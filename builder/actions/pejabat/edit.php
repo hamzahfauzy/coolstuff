@@ -30,7 +30,7 @@ if(request() == 'POST')
 
     $update = $qb->update('PEJABAT',$_POST)->where('NIP',$_GET['pejabat'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/pejabat/index');

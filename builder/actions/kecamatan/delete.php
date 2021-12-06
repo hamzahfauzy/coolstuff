@@ -8,7 +8,7 @@ if(isset($_GET['kecamatan']))
 {   
     $delete = $qb->delete('REF_KECAMATAN')->where('KD_KECAMATAN',$_GET['kecamatan'])->exec();
 
-    if($delete)
+    if(!isset($delete['error']))
     {
         set_flash_msg(['success'=>'Data Deleted']);
         header('location:index.php?page=builder/kecamatan/index');

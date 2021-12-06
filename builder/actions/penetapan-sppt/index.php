@@ -16,14 +16,14 @@ if(isset($_GET['check'])){
 }
 
 if(isset($_GET['filter-kecamatan'])){
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->get();
+    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->orderby('KD_KELURAHAN')->get();
 
     echo json_encode($kelurahans);
     die;
 }
 
 $tBayars = $qb->select("TEMPAT_BAYAR")->orderBy('KD_TP')->get();
-$kecamatans = $qb->select("REF_KECAMATAN")->get();
+$kecamatans = $qb->select("REF_KECAMATAN")->orderby('KD_KECAMATAN')->get();
 
 if(request() == 'POST'){
 
@@ -52,7 +52,7 @@ if(request() == 'POST'){
         return;
     }
 
-    $C_STR = "iSPPT_MASSAL '" . $_POST['KD_KECATAMAN'] . "','" . $_POST['KD_KELURAHAN'] . "','" . $_POST['YEAR'] . "','" . $xTT . "','" . $xTB . "','" . $_POST['TGL_TEMPO'] . "', '" . $_POST['PENGURANG'] . "'," . "'0', '0', '0','" . $_POST['TGL_TERBIT'] . "','" . $_POST['TGL_TERBIT'] . "', '000000',1, '01', '16', '04', '01','" . $_POST['KD_BAYAR'] . "', 'M','3'";
+    $C_STR = "iSPPT_MASSAL '" . $_POST['KD_KECAMATAN'] . "','" . $_POST['KD_KELURAHAN'] . "','" . $_POST['YEAR'] . "','" . $xTT . "','" . $xTB . "','" . $_POST['TGL_TEMPO'] . "', '" . $_POST['PENGURANG'] . "'," . "'0', '0', '0','" . $_POST['TGL_TERBIT'] . "','" . $_POST['TGL_TERBIT'] . "', '000000',1, '01', '16', '04', '01','" . $_POST['KD_BAYAR'] . "', 'M','3'";
 
     $qb->rawQuery($C_STR)->exec();
 

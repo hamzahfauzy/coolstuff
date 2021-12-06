@@ -87,7 +87,7 @@ if(request() == 'POST')
 
     $update = $qb->update('WEWENANG',$_POST)->where('KD_WEWENANG',$_GET['roles'])->exec();
 
-    if($update && $builder->set_content('modules',$datas))
+    if(!isset($update['error']) && $builder->set_content('modules',$datas))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/roles/index');

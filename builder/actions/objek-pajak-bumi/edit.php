@@ -36,7 +36,7 @@ if(request() == 'POST')
 {   
     $update = $qb->update('JALAN',$_POST)->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->where('KD_BLOK',$_GET['blok'])->where('KD_ZNT',$_GET['znt'])->where('NM_JLN',$_GET['nama-jalan'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/nama-jalan/index');

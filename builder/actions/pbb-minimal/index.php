@@ -51,7 +51,7 @@ if(request() == 'POST'){
 
             $upd = $qb->update('PBB_MINIMAL',$_POST)->where('THN_PBB_MINIMAL',trim($_POST['THN_PBB_MINIMAL']))->exec();
     
-            if($upd){
+            if(!isset($upd['error'])){
                 set_flash_msg(['success'=>'Data Updated']);
                 header("location:index.php?page=builder/pbb-minimal/index");
                 return;
@@ -72,7 +72,7 @@ if(request() == 'POST'){
         }else{
             $create = $qb->create('PBB_MINIMAL',$_POST)->exec();
     
-            if($create){
+            if(!isset($create['error'])){
                 set_flash_msg(['success'=>'Data Saved']);
                 header("location:index.php?page=builder/pbb-minimal/index");
                 return;

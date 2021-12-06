@@ -7,7 +7,7 @@ $qb = new QueryBuilder();
 
 
 if(isset($_GET['filter-kecamatan'])){
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->get();
+    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->orderby('KD_KELURAHAN')->get();
 
     foreach ($kelurahans as $key => $value) {
         $T_SQL = "select * from SPPT WHERE KD_KECAMATAN='" . $_GET['filter-kecamatan'] . "' AND KD_KELURAHAN='" . $value['KD_KELURAHAN'] . "' and THN_PAJAK_SPPT='" . $_GET['YEAR'] . "'";
@@ -76,4 +76,4 @@ for($i = 0 ; $i<100;$i++){
 
 $year = date("Y");
 
-$kecamatans = $qb->select("REF_KECAMATAN")->get();
+$kecamatans = $qb->select("REF_KECAMATAN")->orderby('KD_KECAMATAN')->get();

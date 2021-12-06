@@ -16,7 +16,7 @@ if(isset($_GET['dbkb']))
         $delete = $qb->delete("FAS_NON_DEP")->where('THN_NON_DEP',$_GET['year'])->where('KD_FASILITAS',$_GET['dbkb'])->exec();
     }
 
-    if($delete)
+    if(!isset($delete['error']))
     {
         set_flash_msg(['success'=>'Data Deleted']);
         header("location:index.php?page=builder/dbkb-fasilitas/index&year=$_GET[year]&fasilitas=$_GET[fasilitas]");

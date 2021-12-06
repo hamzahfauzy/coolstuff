@@ -55,13 +55,13 @@
         var data = await res.json()
 
         if(data){
-            var c = confirm("Data ditemukan! Apakah Ingin Dilanjutkan ?")
+            var c = confirm("NJOPTKP Tahun "+year.value+" sudah ada. Ingin diulang kembali ?")
 
             if(c){
                 document.forms.pbbMinimal.submit()
             }
         }else{
-            alert("Data tidak ditemukan!")
+            document.forms.pbbMinimal.submit()
         }
 
     }

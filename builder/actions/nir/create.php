@@ -82,9 +82,8 @@ if(request() == 'POST')
         }
     }
 
-    if($newPost == false){
-        print_r(sqlsrv_errors());
-
+    if(isset($newPost['error'])){
+        print_r($newPost);
         die;
     }
 

@@ -31,7 +31,7 @@ if(request() == 'POST')
 
     $update = $qb->update('REF_KECAMATAN',$_POST)->where('KD_KECAMATAN',$_GET['kecamatan'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/kecamatan/index');

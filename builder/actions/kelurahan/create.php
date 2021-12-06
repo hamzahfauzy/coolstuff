@@ -15,7 +15,7 @@ if(request() == 'POST')
 
     $insert = $qb->create('REF_KELURAHAN',$_POST)->exec();
 
-    if($insert)
+    if(!isset($insert['error']))
     {
         set_flash_msg(['success'=>'Data Saved']);
         header('location:index.php?page=builder/kelurahan/index');

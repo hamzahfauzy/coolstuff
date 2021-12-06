@@ -97,7 +97,7 @@ if(request() == 'POST'){
                 
                 $s_SQL = "Insert Into DAT_SUBJEK_PAJAK_NJOPTKP values ('" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "'," . "'" . $value[6] . "','" . $value[7] . "','" . $value[8] . "','" . $value[9] . "')";
                 
-                $qb->rawQuery($s_SQL)->exec();
+                $insert = $qb->rawQuery($s_SQL)->exec();
                 
             }
         }
