@@ -30,7 +30,7 @@ if(request() == 'POST')
 
     $update = $qb->update('TEMPAT_BAYAR',$_POST)->where('KD_TP',$_GET['tempat-pembayaran'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/tempat-pembayaran/index');

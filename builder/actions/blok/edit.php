@@ -34,7 +34,7 @@ if(request() == 'POST')
 {   
     $update = $qb->update('DAT_PETA_BLOK',$_POST)->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->where('KD_BLOK',$_GET['blok'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/blok/index');

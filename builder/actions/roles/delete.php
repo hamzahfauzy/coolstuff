@@ -28,7 +28,7 @@ if(isset($_GET['roles']))
     }
     $datas = json_encode($modules);
 
-    if($delete && $builder->set_content('modules',$datas))
+    if(!isset($delete['error']) && $builder->set_content('modules',$datas))
     {
         set_flash_msg(['success'=>'Data Deleted']);
         header('location:index.php?page=builder/roles/index');

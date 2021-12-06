@@ -45,7 +45,7 @@ if(request() == 'POST')
 
     $insert = $qb->create('WEWENANG',$_POST)->exec();
 
-    if($insert && $builder->set_content('modules',$datas))
+    if(!isset($insert['error']) && $builder->set_content('modules',$datas))
     {
         set_flash_msg(['success'=>'Data Saved']);
         header('location:index.php?page=builder/roles/index');

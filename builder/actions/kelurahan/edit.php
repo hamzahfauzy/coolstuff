@@ -33,7 +33,7 @@ if(request() == 'POST')
 
     $update = $qb->update('REF_KELURAHAN',$_POST)->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/kelurahan/index');

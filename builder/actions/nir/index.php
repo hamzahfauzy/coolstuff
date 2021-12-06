@@ -75,7 +75,7 @@ if(isset($_GET['filter'])){
 
 $datas = $datas->get();
 
-$kecamatans = $qb->select("REF_KECAMATAN")->get();
+$kecamatans = $qb->select("REF_KECAMATAN")->orderby('KD_KECAMATAN')->get();
 $kelurahans = $kelurahans->get();
 $znts = $znts->get();
 

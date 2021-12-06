@@ -32,7 +32,7 @@ if(request() == 'POST')
 
     $update = $qb->update('USERS',$_POST)->where('NIP',$_GET['users'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/users/index');

@@ -1375,6 +1375,21 @@
             // $sv_objek = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
             
             $qb->rawQuery($b_sv_objek)->exec();
+
+            if($ccProses == "1")
+            {
+                $O_SQl = "Select * From DAT_OBJEK_PAJAK ";
+            }
+            elseif($ccProses == "2")
+            {
+                $O_SQl = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "'";
+            }
+            else
+            {
+                $O_SQl = "Select * From DAT_OBJEK_PAJAK WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
+            }
+
+            $qb->rawQuery($O_SQl);
             // return;
             
             // $data = $qb->rawQuery($sv_objek)->get();
@@ -1496,7 +1511,13 @@
                     $new_data['KD_TP'] = "93";
                     $new_data['PROSES'] = "N";
 
-                    $qb->create("SPPT",$new_data)->exec();
+                    
+                    $insert = $qb->create("SPPT",$new_data)->exec();
+                    // if(isset($insert['error']))
+                    // {
+                    //     print_r($insert);
+                    //     die();
+                    // }
 
                 }
             }

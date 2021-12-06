@@ -10,7 +10,7 @@ if(request() == 'POST')
 
     $update = $qb->update('KAYU_ULIN',$_POST)->where('THN_STATUS_KAYU_ULIN',$_GET['kayu-ulin'])->exec();
 
-    if($update)
+    if(!isset($update['error']))
     {
         set_flash_msg(['success'=>'Data Updated']);
         header('location:index.php?page=builder/kayu-ulin/index');

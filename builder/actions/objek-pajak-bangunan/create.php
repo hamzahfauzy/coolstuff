@@ -16,7 +16,7 @@ if(request() == 'POST')
 
     $insert = $qb->create('DAT_OP_BUMI',$_POST)->exec();
 
-    if($insert)
+    if(!isset($insert['error']))
     {
         set_flash_msg(['success'=>'Data Saved']);
         header('location:index.php?page=builder/objek-pajak-bumi/index');

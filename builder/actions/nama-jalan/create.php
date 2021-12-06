@@ -14,7 +14,7 @@ if(request() == 'POST')
 
     $insert = $qb->create('JALAN',$_POST)->exec();
 
-    if($insert)
+    if(!isset($insert['error']))
     {
         set_flash_msg(['success'=>'Data Saved']);
         header('location:index.php?page=builder/nama-jalan/index');
