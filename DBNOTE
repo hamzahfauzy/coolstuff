@@ -1,0 +1,3 @@
+6 Desember 2021
+Issue : penetapan NJOPTKP error dikarenakan unique key pada tabel DAT_SUBJEK_PAJAK_NJOPTKP hanya pada field SUBJEK_PAJAK_ID
+Solusi : tambah field THN_NJOPTKP sebagai index di PK_D33 (dabel klik)
