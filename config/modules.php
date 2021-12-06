@@ -55,6 +55,7 @@ return [
         'dhkp'=>'builder/laporan/dhkp/index',
         'klasifikasi-dan-besaran-njop-bumi'=>'builder/laporan/klasifikasi-dan-besaran-njop-bumi/index',
         'dbkb'=>'builder/laporan/dbkb/index',
+        'simulasi-penetapan-sppt'=>'builder/laporan/simulasi-penetapan-sppt/index',
     ],
     'utility'=>[
         'roles'=>'builder/roles/index',
