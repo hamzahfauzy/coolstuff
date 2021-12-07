@@ -58,9 +58,6 @@ if(request() == 'POST'){
         return;
     }
 
-    $xSQL = "DELETE From SPPT where KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "' ";
-    $qb->rawQuery($xSQL)->exec();
-
     $C_STR = "iSPPT_MASSAL '" . $_POST['KD_KECAMATAN'] . "','" . $_POST['KD_KELURAHAN'] . "','" . $_POST['YEAR'] . "','" . $xTT . "','" . $xTB . "','" . $_POST['TGL_TEMPO'] . "', '" . $_POST['PENGURANG'] . "'," . "'0', '0', '0','" . $_POST['TGL_TERBIT'] . "','" . $_POST['TGL_TERBIT'] . "', '000000',1, '01', '16', '04', '01','" . $_POST['KD_BAYAR'] . "', 'M','3'";
 
     $qb->rawQuery($C_STR)->exec();
