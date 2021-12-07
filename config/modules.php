@@ -57,6 +57,14 @@ return [
         'dbkb'=>'builder/laporan/dbkb/index',
         'simulasi-penetapan-sppt'=>'builder/laporan/simulasi-penetapan-sppt/index',
     ],
+    'penatausahaan'=>[
+        'laporan-realisasi'=>'builder/penatausahaan/laporan-realisasi/index',
+        'laporan-piutang'=>'builder/penatausahaan/laporan-piutang/index',
+        'surat-tagihan'=>'builder/penatausahaan/surat-tagihan/index',
+        'status-wajib-pajak'=>'builder/penatausahaan/status-wajib-pajak/index',
+        'log-perubahan-objek'=>'builder/penatausahaan/log-perubahan-objek/index',
+        'log-objek-baru'=>'builder/penatausahaan/log-objek-baru/index',
+    ],
     'utility'=>[
         'roles'=>'builder/roles/index',
         'users'=>'builder/users/index',

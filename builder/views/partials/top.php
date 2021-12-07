@@ -4,6 +4,8 @@ $installation = $builder->get_installation();
 
 $nav_class_active = 'bg-purple-700 text-white';
 
+$hidden = 'hidden';
+
 $modules = getModules();
 
 $pendataan_data = $modules['pendataan'];
@@ -17,6 +19,8 @@ $referensi_data = $modules['referensi'];
 $utility_data = $modules['utility'];
 
 $laporan_data = $modules['laporan'];
+
+$penatausahaan_data = $modules['penatausahaan'];
 
 $user = $_SESSION['auth'];
 
@@ -42,6 +46,7 @@ unset($module['code']);
 
 $module = json_encode(array_keys($module));
 
+$penatausahaan = (isset($_GET['page']) && arrStringContains($_GET['page'],$penatausahaan_data) ? $nav_class_active : '');
 $pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendataan_data) ? $nav_class_active : '');
 $penilaian = (isset($_GET['page']) && arrStringContains($_GET['page'],$penilaian_data) ? $nav_class_active : '');
 $penetapan = (isset($_GET['page']) && arrStringContains($_GET['page'],$penetapan_data) ? $nav_class_active : '');
@@ -79,6 +84,37 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
         .nav-box a:not(.nav-box a:last-child){
             border-bottom:1px solid #E5E7EB;
         }
+        .nav-container li{
+            width:100%;
+        }
+
+        .dropdown{
+            display:flex;
+            /* justify-content:center; */
+            align-items:center;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
@@ -94,7 +130,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
     </div>
     <div class="nav bg-green-500 shadow w-full">
         <div class="lg:max-w-screen-lg lg:mx-auto mx-6 flex justify-between">
-            <div class="nav-container w-full mr-2">
+            <div class="nav-container w-full mr-1 overflow-x-auto">
                 <ul class="flex">
                     <li>
                         <a class="text-white hover:bg-purple-700 <?=$_GET['page'] == 'builder/home/dashboard' ? $nav_class_active : ''?> p-2 px-4 inline-block" href="index.php?page=builder/home/dashboard">Home</a>
@@ -205,12 +241,12 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="laporan" style="top:40px">
-                            <a href="?page=builder/laporan/sppt/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SPPT</a>
-                            <a href="?page=builder/laporan/sspd/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">SSPD</a>
-                            <a href="?page=builder/laporan/dhkp/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DHKP</a>
-                            <a href="?page=builder/laporan/klasifikasi-dan-besaran-njop-bumi/index" class="block px-4 py-3 hover:bg-purple-700 capitalize hover:text-white">klasifikasi dan besaran njop bumi</a>
-                            <a href="?page=builder/laporan/dbkb/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">DBKB</a>
-                            <a href="?page=builder/laporan/simulasi-penetapan-sppt/index" class="block px-4 py-3 hover:bg-purple-700 hover:text-white">Simulasi Perbandingan SPPT</a>
+                            <a href="?page=builder/laporan/sppt/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('laporan/sppt') ?> hover:text-white">SPPT</a>
+                            <a href="?page=builder/laporan/sspd/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('laporan/sspd') ?> hover:text-white">SSPD</a>
+                            <a href="?page=builder/laporan/dhkp/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('laporan/dhkp') ?> hover:text-white">DHKP</a>
+                            <a href="?page=builder/laporan/klasifikasi-dan-besaran-njop-bumi/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('laporan/klasifikasi-dan-besaran-njop-bumi') ?> capitalize hover:text-white">klasifikasi dan besaran njop bumi</a>
+                            <a href="?page=builder/laporan/dbkb/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('laporan/dbkb') ?> hover:text-white">DBKB</a>
+                            <a href="?page=builder/laporan/simulasi-penetapan-sppt/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('laporan/simulasi-penetapan-sppt') ?> hover:text-white">Simulasi Perbandingan SPPT</a>
                         </div>
                     </li>
                     <li class="relative">
@@ -222,6 +258,20 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                             <a href="?page=builder/roles/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('roles') ?> hover:text-white">Roles</a>
                             <a href="?page=builder/users/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('users') ?> hover:text-white">Users</a>
                             <a href="?page=builder/pejabat/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pejabat') ?> hover:text-white">Pejabat</a>
+                        </div>
+                    </li>
+                    <li class="relative">
+                        <a href="#" onclick="toggleNav('#penatausahaan')" class="cursor-pointer text-left dropdown text-white hover:bg-purple-700 <?=$penatausahaan?> p-2 px-4 inline-block">
+                            <span class=" capitalize">Penatausahaan</span>
+                            <i class="fa fa-caret-down  ml-2"></i>
+                        </a>
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penatausahaan" style="top:40px">
+                            <a href="?page=builder/penatausahaan/laporan-realistis/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('laporan-realistis') ?> hover:text-white">Laporan Realistis</a>
+                            <a href="?page=builder/penatausahaan/laporan-piutang/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('laporan-piutang') ?> hover:text-white">Laporan Piutang</a>
+                            <a href="?page=builder/penatausahaan/surat-tagihan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('surat-tagihan') ?> hover:text-white">Surat Tagihan</a>
+                            <a href="?page=builder/penatausahaan/status-wajib-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('status-wajib-pajak') ?> hover:text-white">Status Wajib Pajak</a>
+                            <a href="?page=builder/penatausahaan/log-perubahan-objek/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('log-perubahan-objek') ?> hover:text-white">Log Perubahan Objek</a>
+                            <a href="?page=builder/penatausahaan/log-objek-baru/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('log-objek-baru') ?> hover:text-white">Log Objek Baru</a>
                         </div>
                     </li>
                 </ul>
