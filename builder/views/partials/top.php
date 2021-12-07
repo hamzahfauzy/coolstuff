@@ -275,10 +275,10 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div>  
             <div class="text-right leading-none flex items-center flex-row-reverse w-1/5">
                 <div class="relative w-full">
-                    <a href="#" onclick="toggleNav('#setting')" class="cursor-pointer dropdown leading-none text-white">
+                    <a href="#" onclick="toggleNav('#setting')" class="cursor-pointer dropdown float-right leading-none text-white">
                         <span class="align-text-top"><?=strlen($_SESSION['auth']['username']) > 7 ? substr($_SESSION['auth']['username'],0,7).'..' : $_SESSION['auth']['username']?></span>
                         <i class="fa fa-user-circle text-purple-700 text-2xl ml-2"></i> 
                         <i class="fa fa-caret-down align-text-top ml-2"></i>
