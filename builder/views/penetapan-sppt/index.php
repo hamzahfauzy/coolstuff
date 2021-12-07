@@ -50,17 +50,17 @@
 
                 <div class="form-group mb-2">
                     <label for="TGL_TEMPO">Tanggal Jatuh Tempo</label>
-                    <input type="date" id="TGL_TEMPO" name="TGL_TEMPO" class="p-2 w-full border rounded">
+                    <input type="date" id="TGL_TEMPO" name="TGL_TEMPO" class="p-2 w-full border rounded" value="<?=date('Y-m-d')?>">
                 </div>
 
                 <div class="form-group mb-2">
                     <label for="TGL_TERBIT">Tanggal Terbit</label>
-                    <input type="date" id="TGL_TERBIT" name="TGL_TERBIT" class="p-2 w-full border rounded">
+                    <input type="date" id="TGL_TERBIT" name="TGL_TERBIT" class="p-2 w-full border rounded" value="<?=date('Y-m-d')?>">
                 </div>
                 
                 <div class="form-group mb-2">
                     <label for="PENGURANG">Pengurang</label>
-                    <input type="number" id="PENGURANG" name="PENGURANG" class="p-2 w-full border rounded">
+                    <input type="number" id="PENGURANG" name="PENGURANG" class="p-2 w-full border rounded" value="0">
                 </div>
 
                 <div class="form-group mb-2">

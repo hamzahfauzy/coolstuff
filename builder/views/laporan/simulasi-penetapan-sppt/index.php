@@ -1,10 +1,10 @@
 <?php load('builder/partials/top');?>
 
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Cetak SPPT</h2>
+    <h2 class="text-3xl">Cetak Simulasi Laporan Penetapan SPPT</h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form action="index.php" onsubmit="doSubmit(this); return false;">
-            <input type="hidden" name="page" value="builder/laporan/sppt/results">
+            <input type="hidden" name="page" value="builder/laporan/simulasi-penetapan-sppt/results">
             <div class="form-group mb-2">
                 <?php 
                 $options = [];
@@ -31,27 +31,6 @@
                     <option value="" selected readonly>- Pilih Kelurahan -</option>
                 </select>
             </div>
-            <div class="form-group mb-2">
-                <label>Jumlah SPPT</label>
-                <?= Form::input('text', 'jumlah_sppt', ['readonly'=>'readonly','class'=>"p-2 w-full border rounded","placeholder"=>'Jumlah SPPT']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>Total PBB</label>
-                <?= Form::input('text', 'total_pbb', ['readonly'=>'readonly','value'=>0,'class'=>"p-2 w-full border rounded","placeholder"=>'Total PBB']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>Tanggal Terbit</label>
-                <?= Form::input('date', 'tanggal_terbit', ['value'=>date('Y-m-d'),'readonly'=>'readonly','class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Terbit']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>Tanggal Cetak</label>
-                <?= Form::input('date', 'tanggal_cetak', ['value'=>date('Y-m-d'),'class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Cetak']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>NIP Pencetak</label>
-                <?= Form::input('number', 'nip_pencetak', ['class'=>"p-2 w-full border rounded","placeholder"=>'NIP Pencetak','value'=>0]) ?>
-            </div>
-
             <div class="form-group">
                 <button class="w-full p-2 bg-indigo-800 text-white rounded" name="cetak" value="cetak">Tampilkan</button>
             </div>
@@ -77,11 +56,11 @@
         }
         else
         {
-            fetch("index.php?page=builder/laporan/sppt/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
+            fetch("index.php?page=builder/laporan/simulasi-penetapan-sppt/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
 
                     var html = `
                             <label>Kelurahan</label>
-                            <select name="KD_KELURAHAN" class="p-2 w-full border rounded" onchange="kelurahanChange(this)">
+                            <select name="KD_KELURAHAN" class="p-2 w-full border rounded">
                                 <option value="Semua" selected>Semua</option>`
 
                     data.map(dt=>{
@@ -98,20 +77,11 @@
 
             }); 
         }
-    }    
-
-    function kelurahanChange(el){
-        var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
-
-        fetch("index.php?page=builder/laporan/sppt/index&get-jumlah-sppt=true&KD_KELURAHAN="+el.value+"&KD_KECAMATAN="+kecamatan.value).then(response => response.text()).then(data => {
-
-                document.querySelector('input[name=jumlah_sppt]').value = data
-                document.querySelector('input[name=total_pbb]').value = 0
-
-        }); 
-    }    
+    }
 
     function doSubmit(form){
+        document.querySelector('button[name=cetak]').disabled = true
+        document.querySelector('button[name=cetak]').innerHTML = "Memproses"
         const formData = new FormData(form);
         const params = new URLSearchParams(formData);
 
@@ -121,21 +91,12 @@
             if(res.status == 'fail')
             {
                 alert(res.message)
+                document.querySelector('button[name=cetak]').disabled = false
             }
             else
             {
-                document.querySelector('input[name=jumlah_sppt]').value = res.data.total_SPPT
-                document.querySelector('input[name=total_pbb]').value = res.data.jumlah.toLocaleString('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                })
-
-                setTimeout(() => {
-                    if(confirm('Apa anda yakin cetak SPPT secara Masal'))
-                    {
-                        form.submit()
-                    }
-                }, 1500);
+                location.href='index.php?page=builder/laporan/simulasi-penetapan-sppt/cetak-all&tahun_pajak='+document.querySelector("select[name=tahun_pajak]").value
+                document.querySelector('button[name=cetak]').disabled = false
             }
         })
     }
