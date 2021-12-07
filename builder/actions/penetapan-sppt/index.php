@@ -46,7 +46,6 @@ if(request() == 'POST'){
         $sql = "Select * From SPPT where (KD_KECAMATAN='" . trim($_POST['KD_KECAMATAN']) . "') and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "' ";
     }
 
-    
     // $Pesan1 = "KEC: " . $_POST['KD_KECAMATAN'] . ", KEL: " . $_POST['KD_KELURAHAN'] . ", sudah ditetapkan Anda ingin membuat ulang?";
 
     $data = $qb->rawQuery($sql)->first();

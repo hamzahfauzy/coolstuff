@@ -1269,27 +1269,32 @@
 
         $datas = $qb->rawQuery($sv_bumi)->get();
 
+        $i = 0;
         foreach ($datas as $key => $data) {
 
-            if($data && $vBangunan){
+            // if($data && $vBangunan){
                 
                 // foreach ($vBangunan as $key => $value) {
     
-                    $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
-    
-                    if($data['NO_BUMI'] == $vBangunan[0][8] && $xNOP == $vBangunan[0][16]){
-    
-                        $new_data = [];
-    
-                        $new_data['LUAS_BUMI'] = $vBangunan[0][11];
-                        $new_data['JNS_BUMI'] = $vBangunan[0][12];
-                        $new_data['NILAI_SISTEM_BUMI'] = $vBangunan[0][13];
-    
-                        $upd = $qb->update("DAT_OP_BUMI",$new_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
-    
-                    }
-                // }
+            $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
+
+            if($data['NO_BUMI'] == $vBangunan[$i][8] && $xNOP == $vBangunan[$i][16]){
+
+                $new_data = [];
+
+                $new_data['LUAS_BUMI'] = $vBangunan[$i][11];
+                $new_data['JNS_BUMI'] = $vBangunan[$i][12];
+                $new_data['NILAI_SISTEM_BUMI'] = $vBangunan[$i][13];
+
+                $upd = $qb->update("DAT_OP_BUMI",$new_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
+
             }
+
+            $i++;
+
+            if($i > count($vBangunan)) $i = $i-1; 
+                // }
+            // }
 
         }
 
@@ -1304,27 +1309,24 @@
 
         $datas = $qb->rawQuery($sv_bangunan)->get();
 
+        $i = 0;
+
         foreach ($datas as $key => $data) {
-            
-            if($data && $vBng){
-                // foreach ($vBng as $key => $value) {
-                    $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
-    
-                    if($vBng[0][63] == $xNOP && $data['NO_BNG'] == $vBng[0][8] && $data['KD_JPB'] == $vBng[0][9]){
-                        $new_data = [];
-                        $new_data['K_UTAMA'] = $vBng[0][80];
-                        $new_data['K_MATERIAL'] = $vBng[0][81];
-                        $new_data['K_FASILITAS'] = $vBng[0][82];
-                        $new_data['J_SUSUT'] = $vBng[0][83];
-                        $new_data['K_SUSUT'] = $vBng[0][84];
-                        $new_data['K_NON_SUSUT'] = $vBng[0][85];
-                        $new_data['NILAI_SISTEM_BNG'] = $vBng[0][62];
-    
-                        $upd = $qb->update("DAT_OP_BANGUNAN",$new_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
-                    }
-                // }
+            $xNOP = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
+
+            if($vBng[$i][63] == $xNOP && $data['NO_BNG'] == $vBng[$i][8] && $data['KD_JPB'] == $vBng[$i][9]){
+                $new_data = [];
+                $new_data['K_UTAMA'] = $vBng[$i][80];
+                $new_data['K_MATERIAL'] = $vBng[$i][81];
+                $new_data['K_FASILITAS'] = $vBng[$i][82];
+                $new_data['J_SUSUT'] = $vBng[$i][83];
+                $new_data['K_SUSUT'] = $vBng[$i][84];
+                $new_data['K_NON_SUSUT'] = $vBng[$i][85];
+                $new_data['NILAI_SISTEM_BNG'] = $vBng[$i][62];
+
+                $upd = $qb->update("DAT_OP_BANGUNAN",$new_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->where('NO_URUT',$data['NO_URUT'])->where('KD_JNS_OP',$data['KD_JNS_OP'])->exec();
             }
-            
+            $i++;
         }
 
     }
@@ -1337,17 +1339,19 @@
         $sv_individu = "Select * From DAT_NILAI_INDIVIDU WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
         
         $data = $qb->rawQuery($sv_individu)->get();
-
+        $i = 0;
         foreach($data as $_data){
             // foreach ($vBng as $key => $value) {
 
                 $xNOP = trim($_data['KD_PROPINSI']) . "." . trim($_data['KD_DATI2']) . "." . trim($_data['KD_KECAMATAN']) . "." . trim($_data['KD_KELURAHAN']) . "." . trim($_data['KD_BLOK']) . "-" . trim($_data['NO_URUT']) . "." . trim($_data['KD_JNS_OP']);
 
-                if($vBng[0][64] == $xNOP && $_data['NO_BNG'] == $vBng[0][9]){
-                    $_data['NILAI_INDIVIDU'] = $vBng[0][80];
+                if($vBng[$i][64] == $xNOP && $_data['NO_BNG'] == $vBng[$i][9]){
+                    $_data['NILAI_INDIVIDU'] = $vBng[$i][80];
 
                     $upd = $qb->update("DAT_NILAI_INDIVIDU",$_data)->where("KD_KECAMATAN",$_POST['KD_KECAMATAN'])->where("KD_KELURAHAN",$_POST['KD_KELURAHAN'])->where('KD_BLOK',$_data['KD_BLOK'])->where('NO_URUT',$_data['NO_URUT'])->where('KD_JNS_OP',$_data['KD_JNS_OP'])->exec();
                 }
+
+                $i++;
             // }
         }
     
