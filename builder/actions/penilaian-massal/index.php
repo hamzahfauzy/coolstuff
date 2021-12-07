@@ -39,9 +39,9 @@ if(request() == 'POST' && $_POST['KD_KECAMATAN'] && $_POST['KD_KELURAHAN'] && $_
 
     if($sppt){
 
-        $sppt_del = "DELETE FROM SPPT WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KECAMATAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR']. "'";
+        $sppt_del = "DELETE FROM SPPT WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR']. "'";
         
-        $pembayaran_del = "DELETE FROM PEMBAYARAN_SPPT WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KECAMATAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "'";
+        $pembayaran_del = "DELETE FROM PEMBAYARAN_SPPT WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "'";
 
         $qb->rawQuery($sppt_del)->exec();
         $qb->rawQuery($pembayaran_del)->exec();

@@ -1,5 +1,15 @@
 <?php
 
+    global $vBangunan;
+    global $vBng;
+    global $vFAS;
+    global $vOP;
+
+    global $ccMin;
+    global $ccMax;
+    global $ccTarif;
+    global $ccTKP;
+
     $vBangunan = [];
     $vBng = [];
     $vFAS = [];
@@ -16,10 +26,10 @@
 
     if($tarif){
         foreach($tarif as $key => $value){
-            $ccMin[$key][] = $value['NJOP_MIN'];
-            $ccMax[$key][]= $value['NJOP_MAX'];
-            $ccTarif[$key][] = $value['NILAI_TARIF'];
-            $ccTKP[$key][] = $value['NJOPTKP'];
+            $ccMin[$key] = $value['NJOP_MIN'];
+            $ccMax[$key]= $value['NJOP_MAX'];
+            $ccTarif[$key] = $value['NILAI_TARIF'];
+            $ccTKP[$key] = $value['NJOPTKP'];
         }
     }
 
@@ -34,17 +44,23 @@
 
     $bng = $qb->rawQuery($tb)->first();
 
+    global $PBBMin;
     $PBBMin = $PMin['NILAI_PBB_MINIMAL'] ?? 0;
 
+    global $xTB;
     $xTB = $bng['THN_AWAL_KLS_BNG'] ?? 0;
 
+    global $xTT;
     $xTT = $t_kls['THN_AWAL_KLS_TANAH'] ?? 0;
 
+    global $ccProses;
     $ccProses = 3;
 
     $mz = "SELECT * FROM DBKB_MEZANIN WHERE THN_DBKB_MEZANIN='". $_POST['YEAR'] . "'";
 
     $nMz = $qb->rawQuery($mz)->get();
+
+    global $nMezanin;
 
     foreach($nMz as $_nMz)
         $nMezanin = $_nMz['NILAI_DBKB_MEZANIN'];
@@ -53,6 +69,7 @@
 
     $ulin = $qb->rawQuery($Qulin)->first();
 
+    global $ck_Ulin;
     $ck_Ulin = $ulin['STATUS_KAYU_ULIN'] ?? 0;
 
     function qb(){
@@ -71,14 +88,15 @@
         foreach($kt as $kelas_tanah)
         {
             foreach ($vBangunan as $key => $value) {
-                
                 if($value[10] >= $kelas_tanah['NILAI_MIN_TANAH'] && $value[10] <= $kelas_tanah['NILAI_MAX_TANAH']){
-                    $vBangunan[$key][14] = $value['KD_KLS_TANAH'];
+                    $vBangunan[$key][14] = $kelas_tanah['KD_KLS_TANAH'] ?? '000';
                     $vBangunan[$key][15] = $kelas_tanah['NILAI_PER_M2_TANAH'] * $value[11] * 1000;
                 }
     
             }
         }
+
+        // print_r($vBangunan);
 
 
     }
@@ -95,8 +113,8 @@
         foreach($dbkb as $_dbkb){
             foreach ($vBng as $key => $value) {
                 $JPB = trim($value[9]);
-                $LUAS = $value[12];
-                $JLANTAI = $value[13];
+                $LUAS = $value[12]; // $value[12];
+                $JLANTAI = $value[13]; // $value[13];
                 $xJPB = $_dbkb['KD_JPB'];
                 $XJLANTAI = trim($_dbkb['KD_BNG_LANTAI']);
                 $XBAGI = $_dbkb['FAKTOR_PEMBAGI_TIPE_BNG'];
@@ -118,11 +136,10 @@
 
                 if( ($JPB == "01" || $JPB == "10" || $JPB == "11") && $JL <= 2 ) $JPB = "01";
 
-                if($JPB == "05" && $JL <= 2 ){ $JPB = "05"; }
+                if($JPB == "05" && $JL <= 2 ) $JPB = "05";
 
-                if(($JPB == "02" || $JPB == "04" || $JPB == "07" || $JPB == "09") && $JL <= 2 ){
+                if(($JPB == "02" || $JPB == "04" || $JPB == "07" || $JPB == "09") && $JL <= 2 )
                     $JPB = "02";
-                }
 
                 if($JL <= 2 ){
                     if($_dbkb['KD_JPB'] == $JPB && ($LUAS >= $_dbkb['LUAS_MIN_TIPE_BNG'] && $LUAS <= $_dbkb['LUAS_MAX_TIPE_BNG']) && trim($_dbkb['KD_BNG_LANTAI']) == $JLANTAI ){ 
@@ -240,7 +257,9 @@
         foreach($dbkb as $_dbkb){
             foreach ($vBng as $key => $value) {
                 if( $value[9] == "03" ){
-                    if( ($value[48]  >= $_dbkb['LBR_BENT_MIN_DBKB_JPB3'] && $value[48]  <= $_dbkb['LBR_BENT_MAX_DBKB_JPB3'] )&& ($value[49]  >= $_dbkb['TING_KOLOM_MIN_DBKB_JPB3'] && $value[49]  <= $_dbkb['TING_KOLOM_MAX_DBKB_JPB3'] ) ){
+                    if( ($value[48] >= $_dbkb['LBR_BENT_MIN_DBKB_JPB3'] && $value[48]  <= $_dbkb['LBR_BENT_MAX_DBKB_JPB3'] )
+                            && 
+                        ($value[49] >= $_dbkb['TING_KOLOM_MIN_DBKB_JPB3'] && $value[49]  <= $_dbkb['TING_KOLOM_MAX_DBKB_JPB3'] ) ){
 
                         $nDBKB = $_dbkb['NILAI_DBKB_JPB3'];
                         $vBng[$key][29] = $_dbkb['NILAI_DBKB_JPB3'];
@@ -257,6 +276,8 @@
         
         $qb = qb();
 
+        CALL_JPB2();
+
         $sql = "SELECT * FROM DBKB_JPB2 WHERE THN_DBKB_JPB2='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB2 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -265,7 +286,7 @@
                 if( $value[9] == "02" ){
                     if($value[50] == $_dbkb['KLS_DBKB_JPB2'] && ($value[13] >= $_dbkb['LANTAI_MIN_JPB2'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB2']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][28] = $_dbkb['NILAI_DBKB_JPB2'];
                     }
@@ -274,11 +295,33 @@
 
         }
     }
+    
+
+    function CALL_JPB2()
+    {
+        global $vBng;
+        
+        $qb = qb();
+        $StrQ  = "SELECT * FROM DAT_JPB2";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+        {
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = trim($data['KD_PROPINSI']) . "." . trim($data['KD_DATI2']) . "." . trim($data['KD_KECAMATAN']) . "." . trim($data['KD_KELURAHAN']) . "." . trim($data['KD_BLOK']) . "-" . trim($data['NO_URUT']) . "." . trim($data['KD_JNS_OP']);
+                $NOP2 = $_vBng[2] . "." . $_vBng[3] . "." . $_vBng[4] . "." . $_vBng[5] . "." . $_vBng[6] . "-" . $_vBng[7] . "." . $_vBng[8];
+                if($NOP1 == $NOP2)
+                    $vBng[$key][51] = $data['KLS_JPB2'];
+            }
+        }
+    }
 
     function CALL_DBKB_JPB4(){
         global $vBng,$nMezanin;
         
         $qb = qb();
+
+        CALL_JPB4();
 
         $sql = "SELECT * FROM DBKB_JPB4 WHERE THN_DBKB_JPB4='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB4 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
@@ -288,11 +331,32 @@
                 if( $value[9] == "04" ){
                     if($value[50] == $_dbkb['KLS_DBKB_JPB4'] && ($value[13] >= $_dbkb['LANTAI_MIN_JPB4'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB4']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][30] = $_dbkb['NILAI_DBKB_JPB4'];
                     }
                 }
+            }
+
+        }
+    }
+
+    function CALL_JPB4()
+    {
+        global $vBng;
+        
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB4";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+        {
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] . "-" . $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $_vBng['2'] . "." . $_vBng['3'] . "." . $_vBng['4'] . "." . $_vBng['5'] . "." . $_vBng['6'] . "-" . $_vBng['7'] . "." . $_vBng['8'];
+                if($NOP1 == $NOP2)
+                    $vBng[$key][51] = $data['KLS_JPB4'];
             }
 
         }
@@ -303,6 +367,8 @@
         
         $qb = qb();
 
+        CALL_JPB5();
+
         $sql = "SELECT * FROM DBKB_JPB5 WHERE THN_DBKB_JPB5='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB5 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -311,7 +377,7 @@
                 if( $value[9] == "05" ){
                     if($value[50] == $_dbkb['KLS_DBKB_JPB5'] && ($value[13] >= $_dbkb['LANTAI_MIN_JPB5'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB5']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][31] = $_dbkb['NILAI_DBKB_JPB5'];
                     }
@@ -326,6 +392,8 @@
         
         $qb = qb();
 
+        CALL_JPB6();
+
         $sql = "SELECT * FROM DBKB_JPB6 WHERE THN_DBKB_JPB6='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB6 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -334,7 +402,7 @@
                 if( $value[9] == "06" ){
                     if($value[50] == $_dbkb['KLS_DBKB_JPB6']){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][32] = $_dbkb['NILAI_DBKB_JPB6'];
                     }
@@ -349,6 +417,8 @@
         
         $qb = qb();
 
+        CALL_JPB7();
+
         $sql = "SELECT * FROM DBKB_JPB7 WHERE THN_DBKB_JPB7='" . $_POST['YEAR'] . "' ORDER BY JNS_DBKB_JPB7 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -357,7 +427,7 @@
                 if( $value[9] == "07" ){
                     if($value[50] == $_dbkb['JNS_DBKB_JPB7'] && $value[51] == $_dbkb['BINTANG_DBKB_JPB7'] && ($value[13] >= $_dbkb['BINTANG_DBKB_JPB7'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB7']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][33] = $_dbkb['NILAI_DBKB_JPB7'];
                     }
@@ -372,6 +442,8 @@
         
         $qb = qb();
 
+        CALL_DAYA_DKUNG_JPB3();
+
         $sql = "SELECT * FROM DBKB_JPB8 WHERE THN_DBKB_JPB8='" . $_POST['YEAR'] . "' ORDER BY LBR_BENT_MIN_DBKB_JPB8 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -381,7 +453,7 @@
 
                     if( ($value[48] >= $_dbkb['LBR_BENT_MIN_DBKB_JPB8'] && $value[48] <= $_dbkb['LBR_BENT_MAX_DBKB_JPB8']) && ($value[49] >= $_dbkb['TING_KOLOM_MIN_DBKB_JPB8'] && $value[49] <= $_dbkb['TING_KOLOM_MAX_DBKB_JPB8'])){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][34] = $_dbkb['NILAI_DBKB_JPB8'];
                     }
@@ -396,6 +468,8 @@
         
         $qb = qb();
 
+        CALL_JPB9();
+
         $sql = "SELECT * FROM DBKB_JPB9 WHERE THN_DBKB_JPB9='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB9 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -404,7 +478,7 @@
                 if( $value[9] == "09" ){
                     if($value[50] == $_dbkb['KLS_DBKB_JPB9'] && ($value[13] >= $_dbkb['LANTAI_MIN_JPB9'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB9']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(29).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][29] = vbRed
 
                         $vBng[$key][35] = $_dbkb['NILAI_DBKB_JPB9'];
                     }
@@ -419,6 +493,8 @@
         
         $qb = qb();
 
+        CALL_JPB12();
+
         $sql = "SELECT * FROM DBKB_JPB12 WHERE THN_DBKB_JPB12='" . $_POST['YEAR'] . "' ORDER BY TYPE_DBKB_JPB12 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -427,7 +503,7 @@
                 if( $value[9] == "12" ){
                     if($value[50] == $_dbkb['TYPE_DBKB_JPB12'] ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(212).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][212] = vbRed
 
                         $vBng[$key][38] = $_dbkb['NILAI_DBKB_JPB12'];
                     }
@@ -442,6 +518,8 @@
         
         $qb = qb();
 
+        CALL_JPB13();
+
         $sql = "SELECT * FROM DBKB_JPB13 WHERE THN_DBKB_JPB13='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB13 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -450,7 +528,7 @@
                 if( $value[9] == "13" ){
                     if($value[50] == $_dbkb['KLS_DBKB_JPB13'] && ($value[13] >= $_dbkb['LANTAI_MIN_JPB13'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB13']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(213).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][213] = vbRed
 
                         $vBng[$key][39] = $_dbkb['NILAI_DBKB_JPB13'];
                     }
@@ -464,6 +542,8 @@
         global $vBng,$nMezanin;
         
         $qb = qb();
+
+        CALL_JPB14();
 
         $sql = "SELECT * FROM DBKB_JPB14 WHERE THN_DBKB_JPB14='" . $_POST['YEAR'] . "'";
         $dbkb = $qb->rawQuery($sql)->get();
@@ -482,6 +562,8 @@
         global $vBng,$nMezanin;
         
         $qb = qb();
+
+        CALL_JPB15();
 
         $sql = "SELECT * FROM DBKB_JPB15 WHERE THN_DBKB_JPB15='" . $_POST['YEAR'] . "'";
         $dbkb = $qb->rawQuery($sql)->get();
@@ -503,6 +585,8 @@
         
         $qb = qb();
 
+        CALL_JPB16();
+
         $sql = "SELECT * FROM DBKB_JPB16 WHERE THN_DBKB_JPB16='" . $_POST['YEAR'] . "' ORDER BY KLS_DBKB_JPB16 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -512,7 +596,7 @@
 
                     if(($value[13] >= $_dbkb['LANTAI_MIN_JPB16'] && $value[13] <= $_dbkb['LANTAI_MAX_JPB16']) ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(216).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][216] = vbRed
 
                         $vBng[$key][42] = $_dbkb['NILAI_DBKB_JPB16'];
                     }
@@ -527,6 +611,8 @@
         
         $qb = qb();
 
+        CALL_JPB17();
+
         $sql = "SELECT * FROM DBKB_JPB17 WHERE THN_DBKB_JPB17='" . $_POST['YEAR'] . "' ORDER BY TINGGI_MIN_JPB17,TINGGI_MAX_JPB17 ASC";
         $dbkb = $qb->rawQuery($sql)->get();
 
@@ -536,7 +622,7 @@
 
                     if($value[50] >= $_dbkb['TINGGI_MIN_JPB17'] && $value[14] <= $_dbkb['TINGGI_MAX_JPB17'] ){
 
-                        // If vBng.ListItems.Item(J).ListSubItems(26).Text > 0 Then vBng.ListItems.Item(J).ListSubItems(217).ForeColor = vbRed
+                        // If $vBng[$key][26] > 0 Then $vBng[$key][217] = vbRed
 
                         $vBng[$key][43] = $_dbkb['NILAI_DBKB_JPB17'];
                     }
@@ -544,6 +630,188 @@
             }
 
         }
+    }
+
+    function CALL_JPB5()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB5";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][53] = $data['LUAS_KMR_JPB5_DGN_AC_SENT'];
+                    $vBng[$key][54] = $data['LUAS_RNG_LAIN_JPB5_DGN_AC_SENT'];
+                    $vBng[$key][50] = $data['KLS_JPB5'];
+                }
+        }
+    }
+    function CALL_JPB6()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB6";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['KLS_JPB6'];
+                }
+            }
+    }
+    function CALL_JPB7()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB7";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['JNS_JPB7'];
+                    $vBng[$key][51] = $data['BINTANG_JPB7'];
+                    $vBng[$key][52] = $data['JML_KMR_JPB7'];
+                    $vBng[$key][53] = $data['LUAS_KMR_JPB7_DGN_AC_SENT'];
+                    $vBng[$key][54] = $data['LUAS_KMR_LAIN_JPB7_DGN_AC_SENT'];
+                
+                }
+        }
+    }
+    function CALL_JPB9()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB9";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['KLS_JPB9'];
+                }
+            }
+    }
+    function CALL_JPB12()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB12";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['TYPE_JPB12'];
+                }
+            }
+    }
+    function CALL_JPB13()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB13";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['KLS_JPB13'];
+                    $vBng[$key][52] = $data['JML_JPB13'];
+                    $vBng[$key][53] = $data['LUAS_JPB13_DGN_AC_SENT'];
+                    $vBng[$key][54] = $data['LUAS_JPB13_LAIN_DGN_AC_SENT'];
+                }
+        }
+    }
+    function CALL_JPB14()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB14";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][43] = $data['LUAS_KANOPI_JPB14'];
+                }
+            }
+    }
+    function CALL_JPB15()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB15";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][44] = $data['LETAK_TANGKI_JPB15'];
+                    $vBng[$key][45] = $data['KAPASITAS_TANGKI_JPB15'];
+                }
+        }
+    }
+    function CALL_JPB16()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB16";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['KLS_JPB16'];
+                }
+            }
+    }
+    function CALL_JPB17()
+    {
+        global $vBng;
+        $qb = qb();
+        $StrQ = "SELECT * FROM DAT_JPB17";
+        $datas = $qb->rawQuery($StrQ)->get();
+        foreach($datas as $data)
+            foreach($vBng as $key => $_vBng)
+            {
+                $NOP1 = $data['KD_PROPINSI'] . "." . $data['KD_DATI2'] . "." . $data['KD_KECAMATAN'] . "." . $data['KD_KELURAHAN'] . "." . $data['KD_BLOK'] & "-" & $data['NO_URUT'] . "." . $data['KD_JNS_OP'];
+                $NOP2 = $vBng[$key][1] . "." . $vBng[$key][2] . "." . $vBng[$key][3] . "." . $vBng[$key][4] . "." . $vBng[$key][5] & "-" & $vBng[$key][6] . "." . $vBng[$key][7];
+                if($NOP1 == $NOP2)
+                {
+                    $vBng[$key][50] = $data['TINGGI_BNG_JPB17'];
+                }
+            }
     }
 
     function MATERIAL(){
@@ -578,7 +846,7 @@
                 if( $_material['KD_PEKERJAAN'] == "23" && $vBng[$key][16] == $_material['KD_KEGIATAN'] ){
                     $jumLT = $vBng[$key][13];
 
-                    if( $jumLT = "" || $jumLT = 0 ){
+                    if( $jumLT == "" || $jumLT == 0 ){
                         $jumLT = 1;
                     }
                     
@@ -599,7 +867,7 @@
 
         $qb = qb();
 
-        $bumi = "SELECT DAT_OP_BUMI.KD_PROPINSI, DAT_OP_BUMI.KD_DATI2, DAT_OP_BUMI.KD_KECAMATAN, DAT_OP_BUMI.KD_KELURAHAN, DAT_OP_BUMI.KD_BLOK, DAT_OP_BUMI.NO_URUT, DAT_OP_BUMI.KD_JNS_OP, DAT_OP_BUMI.NO_BUMI, DAT_OP_BUMI.KD_ZNT, DAT_NIR.NIR, DAT_OP_BUMI.LUAS_BUMI, DAT_OP_BUMI.JNS_BUMI, DAT_OP_BUMI.NILAI_SISTEM_BUMI, DAT_NIR.[THN_NIR_ZNT]" . "FROM DAT_NIR INNER JOIN DAT_OP_BUMI ON (DAT_NIR.KD_ZNT = DAT_OP_BUMI.KD_ZNT) AND (DAT_NIR.KD_KELURAHAN = DAT_OP_BUMI.KD_KELURAHAN) AND (DAT_NIR.KD_KECAMATAN = DAT_OP_BUMI.KD_KECAMATAN) WHERE DAT_NIR.[THN_NIR_ZNT]='" . $_POST['YEAR'] . "' AND DAT_OP_BUMI.KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND DAT_OP_BUMI.KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
+        $bumi = "SELECT DAT_OP_BUMI.KD_PROPINSI, DAT_OP_BUMI.KD_DATI2, DAT_OP_BUMI.KD_KECAMATAN, DAT_OP_BUMI.KD_KELURAHAN, DAT_OP_BUMI.KD_BLOK, DAT_OP_BUMI.NO_URUT, DAT_OP_BUMI.KD_JNS_OP, DAT_OP_BUMI.NO_BUMI, DAT_OP_BUMI.KD_ZNT, DAT_NIR.NIR, DAT_OP_BUMI.LUAS_BUMI, DAT_OP_BUMI.JNS_BUMI, DAT_OP_BUMI.NILAI_SISTEM_BUMI, DAT_NIR.[THN_NIR_ZNT] FROM DAT_NIR INNER JOIN DAT_OP_BUMI ON (DAT_NIR.KD_ZNT = DAT_OP_BUMI.KD_ZNT) AND (DAT_NIR.KD_KELURAHAN = DAT_OP_BUMI.KD_KELURAHAN) AND (DAT_NIR.KD_KECAMATAN = DAT_OP_BUMI.KD_KECAMATAN) WHERE DAT_NIR.[THN_NIR_ZNT]='" . $_POST['YEAR'] . "' AND DAT_OP_BUMI.KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND DAT_OP_BUMI.KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "'";
 
         $results = $qb->rawQuery($bumi)->get();
 
@@ -766,9 +1034,9 @@
             $vBng[$key][] = $data['NO_FORMULIR_LSPOP'];
             $vBng[$key][] = $data['JNS_TRANSAKSI_BNG'];
 
-            if(is_null($data['NIP_PENDATA_BNG']) || $data['NIP_PENDATA_BNG'] = "" ) $data['NIP_PENDATA_BNG'] = "-";
-            if(is_null($data['NIP_PEMERIKSA_BNG']) || $data['NIP_PEMERIKSA_BNG'] = "" ) $data['NIP_PEMERIKSA_BNG'] = "-";
-            if(is_null($data['NIP_PEREKAM_BNG']) || $data['NIP_PEREKAM_BNG'] = "" ) $data['NIP_PEREKAM_BNG'] = "-";
+            if(is_null($data['NIP_PENDATA_BNG']) || $data['NIP_PENDATA_BNG'] == "" ) $data['NIP_PENDATA_BNG'] = "-";
+            if(is_null($data['NIP_PEMERIKSA_BNG']) || $data['NIP_PEMERIKSA_BNG'] == "" ) $data['NIP_PEMERIKSA_BNG'] = "-";
+            if(is_null($data['NIP_PEREKAM_BNG']) || $data['NIP_PEREKAM_BNG'] == "" ) $data['NIP_PEREKAM_BNG'] = "-";
 
 
             $vBng[$key][] = $data['TGL_PENDATAAN_BNG'];
@@ -1005,7 +1273,7 @@
 
     function call_op(){
 
-        global $vBangunan,$vBng,$vOP,$xTB;
+        global $vBangunan,$vBng,$vOP,$xTB,$ccMax,$ccMin,$ccTarif,$ccTKP,$PBBMin;
 
         $qb = qb();
 
@@ -1075,15 +1343,15 @@
             foreach ($vBng as $k => $v) {
                 if($vOP[$key][8] == $v[63]){
                     
-                    $QJum1 = $QJum1 + $v[12];
+                    $QJum1 = $QJum1 + ($v[12]*1);
 
-                    if($v[68] = "INDIVIDU" ){
-                        $QJum2 = $QJum2 + $v[79];
+                    if($v[68] == "INDIVIDU" ){
+                        $QJum2 = $QJum2 + ($v[79]*1);
                     }else{
-                        $QJum2 = $QJum2 + $v[62];
+                        $QJum2 = $QJum2 + ($v[62]*1);
                     }
 
-                    $QJum3 = $QJum3 + $v[23];
+                    $QJum3 = $QJum3 + ($v[23]*1);
 
                     $xKet = $v[68];
                     $vOP[$key][18] = $v[9];
@@ -1091,7 +1359,7 @@
             }
 
             $vOP[$key][12] = $QJum1;
-            $vOP[$key][13] = number_format($QJum2, 2);
+            $vOP[$key][13] = $QJum2;
             $vOP[$key][17] = $xKet;
         }
 
@@ -1100,12 +1368,12 @@
 
         foreach($kb_single as $_kb_single){
             foreach ($vOP as $key => $value) {
-                if($vOP[$key][13] != 0 || $vOP[$key][12] != 0){
-                    if($vOP[$key][13] / $vOP[$key][12] >= $_kb_single['NILAI_MIN_BNG'] && $vOP[$key][13] / $vOP[$key][12] >= $_kb_single['NILAI_MAX_BNG']){
+                if(($value[13]*1) != 0 || $value[12] != 0){
+                    if(($value[13]*1) / $value[12] >= $_kb_single['NILAI_MIN_BNG'] && $value[13] / $value[12] >= $_kb_single['NILAI_MAX_BNG']){
                         $vOP[$key][14] = $_kb_single['KD_KLS_BNG'];
                         $vOP[$key][15] = $_kb_single['NILAI_PER_M2_BNG'];
 
-                        $vOP[$key][16] = $_kb_single['NILAI_PER_M2_BNG'] * $vOP[$key][12] * 1000;
+                        $vOP[$key][16] = $_kb_single['NILAI_PER_M2_BNG'] * $value[12] * 1000;
                         
                     }
                 }
@@ -1114,7 +1382,7 @@
                     $vOP[$key][16] = 0;
                 }
 
-                $vOP[$key][30] = $vOP[$key][11]+ $vOP[$key][16];
+                $vOP[$key][30] = $value[11]+ $value[16];
 
                 if($vOP[$key][30] * 1 >= $ccMin[0] And $vOP[$key][30] * 1 <= $ccMax[0] ){
                     $vOP[$key][31] = $ccTarif[0];
@@ -1136,124 +1404,122 @@
 
         $SPPTs = $qb->rawQuery($Q_SPPT)->get();
 
-        foreach ($SPPTs as $key => $SPPT) {
-            if($SPPT && $vOP){
-                foreach ($vOP as $key => $value) {
-                    if($SPPT['NOPQ'] == $vOP[$key][8]){
-                        if(is_null($SPPT['NM_WP'])){
-                            $vOP[$key][20] = "";
-                        }else{
-                            $vOP[$key][20] = $SPPT['NM_WP'];
-                        }
-    
-                        if(is_null($SPPT['JALAN_WP'])){
-                            $vOP[$key][21] = "-";
-                        }else{
-                            $vOP[$key][21] = $SPPT['JALAN_WP'];
-                        }
-    
-                        if(is_null($SPPT['BLOK_KAV_NO_WP'])){
-                            $vOP[$key][22] = "00";
-                        }else{
-                            $vOP[$key][22] = $SPPT['BLOK_KAV_NO_WP'];
-                        }
-    
-                        if(is_null($SPPT['RW_WP'])){
-                            $vOP[$key][23] = "00";
-                        }else{
-                            $vOP[$key][23] = $SPPT['RW_WP'];
-                        }
-    
-                        if(is_null($SPPT['RT_WP'])){
-                            $vOP[$key][24] = "00";
-                        }else{
-                            $vOP[$key][24] = $SPPT['RT_WP'];
-                        }
-    
-                        if(is_null($SPPT['KELURAHAN_WP'])){
-                            $vOP[$key][25] = "-";
-                        }else{
-                            $vOP[$key][25] = $SPPT['KELURAHAN_WP'];
-                        }
-    
-                        if(is_null($SPPT['KOTA_WP'])){
-                            $vOP[$key][26] = "-";
-                        }else{
-                            $vOP[$key][26] = $SPPT['KOTA_WP'];
-                        }
-    
-                        if(is_null($SPPT['KD_POS_WP'])){
-                            $vOP[$key][27] = "00000";
-                        }else{
-                            $vOP[$key][27] = $SPPT['KD_POS_WP'];
-                        }
-    
-                        if(is_null($SPPT['NPWP'])){
-                            $vOP[$key][28] = "-";
-                        }else{
-                            $vOP[$key][28] = $SPPT['NPWP'];
-                        }
-    
-                        if(is_null($SPPT['NO_PERSIL'])){
-                            $vOP[$key][29] = "00";
-                        }else{
-                            $vOP[$key][29] = $SPPT['NO_PERSIL'];
-                        }
-    
-                        if(is_null($SPPT['SUBJEK_PAJAK_ID'])){
-                            $vOP[$key][35] = "";
-                        }else{
-                            $vOP[$key][35] = $SPPT['SUBJEK_PAJAK_ID'];
-                        }
-    
-                        $vOP[$key][36] = $SPPT['NO_FORMULIR_SPOP'];
-                        $vOP[$key][37] = $SPPT['KD_STATUS_WP'];
-                        $vOP[$key][38] = $SPPT['JNS_TRANSAKSI_OP'];
-    
-                        if(is_null($SPPT['NIP_PENDATA']) || $SPPT['NIP_PENDATA'] == "" ){
-                            $SPPT['NIP_PENDATA'] = "-";
-                        }
-    
-                        if(is_null($SPPT['NIP_PEMERIKSA_OP']) || $SPPT['NIP_PEMERIKSA_OP'] == "" ){
-                            $SPPT['NIP_PEMERIKSA_OP'] = "-";
-                        }
-    
-                        if(is_null($SPPT['NIP_PEREKAM_OP']) || $SPPT['NIP_PEREKAM_OP'] == "" ){
-                            $SPPT['NIP_PEREKAM_OP'] = "-";
-                        }
-    
-                        $vOP[$key][39] = $SPPT['TGL_PENDATAAN_OP'];
-                        $vOP[$key][40] = $SPPT['NIP_PENDATA'];
-                        $vOP[$key][41] = $SPPT['TGL_PEMERIKSAAN_OP'];
-                        $vOP[$key][42] = $SPPT['NIP_PEMERIKSA_OP'];
-                        $vOP[$key][43] = $SPPT['TGL_PEREKAMAN_OP'];
-                        $vOP[$key][44] = $SPPT['NIP_PEREKAM_OP'];
-    
-                        if(is_null($SPPT['JALAN_OP'])){
-                            $vOP[$key][45] = "-";
-                        }else{
-                            $vOP[$key][45] = $SPPT['JALAN_OP'];
-                        }
-    
-                        if(is_null($SPPT['BLOK_KAV_NO_OP'])){
-                            $vOP[$key][46] = "00";
-                        }else{
-                            $vOP[$key][46] = $SPPT['BLOK_KAV_NO_OP'];
-                        }
-    
-                        if(is_null($SPPT['RW_OP'])){
-                            $vOP[$key][47] = "00";
-                        }else{
-                            $vOP[$key][47] = $SPPT['RW_OP'];
-                        }
-    
-                        if(is_null($SPPT['RT_OP'])){
-                            $vOP[$key][48] = "00";
-                        }else{
-                            $vOP[$key][48] = $SPPT['RT_OP'];
-                        }
-    
-                   }
+        foreach ($SPPTs as $k => $SPPT) {
+            foreach ($vOP as $key => $value) {
+                if($SPPT['NOPQ'] == $vOP[$key][8]){
+                    if(is_null($SPPT['NM_WP'])){
+                        $vOP[$key][20] = "";
+                    }else{
+                        $vOP[$key][20] = $SPPT['NM_WP'];
+                    }
+
+                    if(is_null($SPPT['JALAN_WP'])){
+                        $vOP[$key][21] = "-";
+                    }else{
+                        $vOP[$key][21] = $SPPT['JALAN_WP'];
+                    }
+
+                    if(is_null($SPPT['BLOK_KAV_NO_WP'])){
+                        $vOP[$key][22] = "00";
+                    }else{
+                        $vOP[$key][22] = $SPPT['BLOK_KAV_NO_WP'];
+                    }
+
+                    if(is_null($SPPT['RW_WP'])){
+                        $vOP[$key][23] = "00";
+                    }else{
+                        $vOP[$key][23] = $SPPT['RW_WP'];
+                    }
+
+                    if(is_null($SPPT['RT_WP'])){
+                        $vOP[$key][24] = "00";
+                    }else{
+                        $vOP[$key][24] = $SPPT['RT_WP'];
+                    }
+
+                    if(is_null($SPPT['KELURAHAN_WP'])){
+                        $vOP[$key][25] = "-";
+                    }else{
+                        $vOP[$key][25] = $SPPT['KELURAHAN_WP'];
+                    }
+
+                    if(is_null($SPPT['KOTA_WP'])){
+                        $vOP[$key][26] = "-";
+                    }else{
+                        $vOP[$key][26] = $SPPT['KOTA_WP'];
+                    }
+
+                    if(is_null($SPPT['KD_POS_WP'])){
+                        $vOP[$key][27] = "00000";
+                    }else{
+                        $vOP[$key][27] = $SPPT['KD_POS_WP'];
+                    }
+
+                    if(is_null($SPPT['NPWP'])){
+                        $vOP[$key][28] = "-";
+                    }else{
+                        $vOP[$key][28] = $SPPT['NPWP'];
+                    }
+
+                    if(is_null($SPPT['NO_PERSIL'])){
+                        $vOP[$key][29] = "00";
+                    }else{
+                        $vOP[$key][29] = $SPPT['NO_PERSIL'];
+                    }
+
+                    if(is_null($SPPT['SUBJEK_PAJAK_ID'])){
+                        $vOP[$key][35] = "";
+                    }else{
+                        $vOP[$key][35] = $SPPT['SUBJEK_PAJAK_ID'];
+                    }
+
+                    $vOP[$key][36] = $SPPT['NO_FORMULIR_SPOP'];
+                    $vOP[$key][37] = $SPPT['KD_STATUS_WP'];
+                    $vOP[$key][38] = $SPPT['JNS_TRANSAKSI_OP'];
+
+                    if(is_null($SPPT['NIP_PENDATA']) || $SPPT['NIP_PENDATA'] == "" ){
+                        $SPPT['NIP_PENDATA'] = "-";
+                    }
+
+                    if(is_null($SPPT['NIP_PEMERIKSA_OP']) || $SPPT['NIP_PEMERIKSA_OP'] == "" ){
+                        $SPPT['NIP_PEMERIKSA_OP'] = "-";
+                    }
+
+                    if(is_null($SPPT['NIP_PEREKAM_OP']) || $SPPT['NIP_PEREKAM_OP'] == "" ){
+                        $SPPT['NIP_PEREKAM_OP'] = "-";
+                    }
+
+                    $vOP[$key][39] = $SPPT['TGL_PENDATAAN_OP'];
+                    $vOP[$key][40] = $SPPT['NIP_PENDATA'];
+                    $vOP[$key][41] = $SPPT['TGL_PEMERIKSAAN_OP'];
+                    $vOP[$key][42] = $SPPT['NIP_PEMERIKSA_OP'];
+                    $vOP[$key][43] = $SPPT['TGL_PEREKAMAN_OP'];
+                    $vOP[$key][44] = $SPPT['NIP_PEREKAM_OP'];
+
+                    if(is_null($SPPT['JALAN_OP'])){
+                        $vOP[$key][45] = "-";
+                    }else{
+                        $vOP[$key][45] = $SPPT['JALAN_OP'];
+                    }
+
+                    if(is_null($SPPT['BLOK_KAV_NO_OP'])){
+                        $vOP[$key][46] = "00";
+                    }else{
+                        $vOP[$key][46] = $SPPT['BLOK_KAV_NO_OP'];
+                    }
+
+                    if(is_null($SPPT['RW_OP'])){
+                        $vOP[$key][47] = "00";
+                    }else{
+                        $vOP[$key][47] = $SPPT['RW_OP'];
+                    }
+
+                    if(is_null($SPPT['RT_OP'])){
+                        $vOP[$key][48] = "00";
+                    }else{
+                        $vOP[$key][48] = $SPPT['RT_OP'];
+                    }
+
                 }
             }
         }
@@ -1481,7 +1747,6 @@
                 $new_data['KD_TP'] = "93";
                 $new_data['PROSES'] = "N";
 
-                
                 $qb->create("SPPT",$new_data)->exec();
 
             }
@@ -1493,7 +1758,8 @@
         global $vBng,$ck_Ulin;
 
         $qb = qb();
-        
+        global $vBng;
+        $qb = qb();
         $StrQ = "SELECT PENYUSUTAN.KD_RANGE_PENYUSUTAN, PENYUSUTAN.UMUR_EFEKTIF, PENYUSUTAN.KONDISI_BNG_SUSUT, RANGE_PENYUSUTAN.NILAI_MIN_PENYUSUTAN, RANGE_PENYUSUTAN.NILAI_MAX_PENYUSUTAN, PENYUSUTAN.NILAI_PENYUSUTAN FROM PENYUSUTAN INNER JOIN RANGE_PENYUSUTAN ON PENYUSUTAN.KD_RANGE_PENYUSUTAN = RANGE_PENYUSUTAN.KD_RANGE_PENYUSUTAN ORDER BY PENYUSUTAN.UMUR_EFEKTIF";
         
         $data = $qb->rawQuery($StrQ)->get();
@@ -1621,7 +1887,7 @@
                 $nBaru = (($nMaterial + $xxDD + $nSistem_B4_Susut) / $vBng[$key][12]) + $xxMez + $s_Fas2;
                 
                 if( $nBaru * 1000 >= $_data['NILAI_MIN_PENYUSUTAN'] && $nBaru * 1000 <= $_data['NILAI_MAX_PENYUSUTAN'] ){
-                    if( ($vBng[$key][14] = $_data['KONDISI_BNG_SUSUT']) && ($umur_EFF = $_data['UMUR_EFEKTIF']) ){   
+                    if( ($vBng[$key][14] == $_data['KONDISI_BNG_SUSUT']) && ($umur_EFF == $_data['UMUR_EFEKTIF']) ){   
                         $vBng[$key][61] = $_data['NILAI_PENYUSUTAN'];
                     }
                 }
