@@ -49,7 +49,7 @@
             </div>
             <div class="form-group mb-2">
                 <label>NIP Pencetak</label>
-                <?= Form::input('number', 'nip_pencetak', ['class'=>"p-2 w-full border rounded","placeholder"=>'NIP Pencetak']) ?>
+                <?= Form::input('number', 'nip_pencetak', ['class'=>"p-2 w-full border rounded","placeholder"=>'NIP Pencetak','value'=>'0']) ?>
             </div>
 
             <div class="form-group">
