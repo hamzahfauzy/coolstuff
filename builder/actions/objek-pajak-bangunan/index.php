@@ -35,7 +35,7 @@ $clauseBng = "DAT_OP_BANGUNAN.KD_PROPINSI + '.' + DAT_OP_BANGUNAN.KD_DATI2 + '.'
 $clauseQop = "qop.KD_PROPINSI + '.' + qop.KD_DATI2 + '.' + qop.KD_KECAMATAN + '.' + qop.KD_KELURAHAN + '.' + qop.KD_BLOK + '-' + qop.NO_URUT + '.' + qop.KD_JNS_OP";
 
 $datas = $qb
-            ->select("DAT_OP_BANGUNAN","TOP $limit DAT_OP_BANGUNAN.*, qop.NM_WP, qop.NOPQ as NOP, qop.SUBJEK_PAJAK_ID, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+            ->select("DAT_OP_BANGUNAN","TOP $limit DAT_OP_BANGUNAN.*, qop.NM_WP, qop.NOPQ, qop.SUBJEK_PAJAK_ID, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
             ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BANGUNAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
             ->leftJoin('JPB_JPT as jpb','DAT_OP_BANGUNAN.KD_JPB','jpb.KD_JPB_JPT')
             ->leftJoin('QOBJEKPAJAK as qop',$clauseBng,$clauseQop)
@@ -44,7 +44,7 @@ $datas = $qb
 
 $kelurahans = $qb1->select("REF_KELURAHAN");   
 $bloks = $qb2->select("DAT_PETA_BLOK"); 
-$limits = $qb4->select("DAT_OP_BANGUNAN","count(*) as count");
+$limits = $qb4->select("DAT_OP_BANGUNAN","count(*) as count")->leftJoin('QOBJEKPAJAK as qop',$clauseBng,$clauseQop);
 
 $kondisi = ["01-Sangat Baik","02-Baik","03-Sedang","04-Jelek"];
 $konstruksi = ["01-Baja","02-Beton","03-Batu Bata","04-Kayu"];
@@ -72,6 +72,16 @@ if(isset($_GET['filter'])){
     if($_GET['blok']){
         $datas->where('DAT_OP_BANGUNAN.KD_BLOK',$_GET['blok']);
         $limits->where('KD_BLOK',$_GET['blok']);
+    }
+
+    if($_GET['nama']){
+        $datas->where('NM_WP',"%".$_GET['nama']."%",'like');
+        $limits->where('NM_WP',"%".$_GET['nama']."%",'like');
+    }
+
+    if($_GET['NOP']){
+        $datas->where('NOPQ',"%".$_GET['NOP']."%",'like');
+        $limits->where('NOPQ',"%".$_GET['NOP']."%",'like');
     }
 }
 

@@ -65,7 +65,11 @@
                 </div>
 
                 <div class="form-group inline-block">
-                    <input type="text" class="p-2 w-full border rounded" placeholder="Cari.." name="nama" value="<?=isset($_GET['nama']) && $_GET['nama'] ? $_GET['nama'] : '' ?>">
+                    <input type="text" class="p-2 w-full border rounded" placeholder="Cari Nama.." name="nama" value="<?=isset($_GET['nama']) && $_GET['nama'] ? $_GET['nama'] : '' ?>">
+                </div>
+
+                <div class="form-group inline-block">
+                    <input type="text" class="p-2 w-full border rounded" placeholder="Cari NOP.." name="NOP" value="<?=isset($_GET['NOP']) && $_GET['NOP'] ? $_GET['NOP'] : '' ?>">
                 </div>
 
                 <div class="form-group inline-block">
@@ -85,6 +89,7 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">No</th>
+                            <th class="py-3 px-6 text-left">NOP</th>
                             <th class="py-3 px-6 text-left">Nama</th>
                             <th class="py-3 px-6 text-left">Kecamatan</th>
                             <th class="py-3 px-6 text-left">Kelurahan</th>
@@ -107,6 +112,11 @@
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
                                 <span class="font-medium"><?=$key+1?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NOPQ']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">

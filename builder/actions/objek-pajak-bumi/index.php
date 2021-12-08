@@ -38,16 +38,16 @@ if(isset($_GET['limit']) && $_GET['limit']){
 }
 
 $datas = $qb
-            ->select("DAT_OP_BUMI","TOP $limit DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN, subjek_pajak.NM_WP")
+            ->select("DAT_OP_BUMI","TOP $limit DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN, qop.NM_WP, qop.NOPQ")
             ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
-            ->leftJoin('DAT_SUBJEK_PAJAK as subjek_pajak','DAT_OP_BUMI.SUBJEK_PAJAK_ID','subjek_pajak.SUBJEK_PAJAK_ID')
+            ->leftJoin('QOBJEKPAJAK as qop','DAT_OP_BUMI.SUBJEK_PAJAK_ID','qop.SUBJEK_PAJAK_ID')
             ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
             ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN');
 
 $kelurahans = $qb1->select("REF_KELURAHAN");   
 $bloks = $qb2->select("DAT_PETA_BLOK"); 
 $znts = $qb3->select("DAT_PETA_ZNT"); 
-$limits = $qb4->select("DAT_OP_BUMI","count(*) as count")->leftJoin('DAT_SUBJEK_PAJAK as subjek_pajak','DAT_OP_BUMI.SUBJEK_PAJAK_ID','subjek_pajak.SUBJEK_PAJAK_ID');
+$limits = $qb4->select("DAT_OP_BUMI","count(*) as count")->leftJoin('QOBJEKPAJAK as qop','DAT_OP_BUMI.SUBJEK_PAJAK_ID','qop.SUBJEK_PAJAK_ID');
 
 $jenisBumi = ["01-TANAH DAN BANGUNAN","02-KAVLING SIAP BANGUN","03-TANAH KOSONG","04-FASILITAS UMUM"];
 
@@ -83,6 +83,11 @@ if(isset($_GET['filter'])){
     if($_GET['nama']){
         $datas->where('NM_WP',"%".$_GET['nama']."%",'like');
         $limits->where('NM_WP',"%".$_GET['nama']."%",'like');
+    }
+
+    if($_GET['NOP']){
+        $datas->where('NOPQ',"%".$_GET['NOP']."%",'like');
+        $limits->where('NOPQ',"%".$_GET['NOP']."%",'like');
     }
 }
 
