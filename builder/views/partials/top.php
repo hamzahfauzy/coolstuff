@@ -129,7 +129,11 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
         </div>
     </div>
     <div class="nav bg-green-500 shadow w-full">
+<<<<<<< HEAD
         <div class="lg:max-w-screen-lg lg:mx-auto mx-6 flex justify-between">
+=======
+        <div class="mx-6 flex justify-between">
+>>>>>>> 96f6a62dbf39494ceb50810cc7cfc2f44ca866df
             <div class="nav-container w-full mr-1">
                 <ul class="flex">
                     <li>
