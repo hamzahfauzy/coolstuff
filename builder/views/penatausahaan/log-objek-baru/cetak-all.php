@@ -13,7 +13,7 @@
 </head>
 <body onload="window.print()">
     <h2 align="center">Log Objek Baru<br>TAHUN <?=$_GET['tahun_pajak']?></h2>
-    <table border="1" width="100%">
+    <table border="1" width="100%" cellspacing="0" cellpadding="10">
         <tr>
             <th rowspan="2">NO</th>
             <th rowspan="2">NOP</th>
@@ -50,21 +50,21 @@
             <td rowspan="2" align="center"><?=$key+1?></td>
             <td rowspan="2" align="center"><?=$data['NOP1']?></td>
             <td rowspan="2"><?=$data['NM_WP1']?></td>
-            <td rowspan="2" align="center"><?=$data['LOKASI1']?></td>
-            <td align="center"><?=$data['TOTAL_LUAS_BUMI1']?></td>
-            <td align="center"><?=$data['NJOP_BUMI1']?></td>
-            <td align="center"><?=$data['NJOPTKP']?></td>
+            <td rowspan="2"><?=$data['LOKASI1']?></td>
+            <td align="right"><?= number_format($data['TOTAL_LUAS_BUMI1'],2)?></td>
+            <td align="right"><?=number_format($data['NJOP_BUMI1'],2)?></td>
+            <td align="right"><?=number_format($data['NJOPTKP'],2)?></td>
             <td align="center"><?=$data['KD_KLS_TANAH']?></td>
-            <td align="center"><?=$PBB1?></td>
+            <td align="right"><?=number_format($PBB1)?></td>
             <td rowspan="2" align="center"><?=$data['TGL_PEREKAMAN_OP']->format("Y-m-d H:i:s")?></td>
         </tr>
 
         <tr>
-            <td align="center"><?=$data['TOTAL_LUAS_BNG1']?></td>
-            <td align="center"><?=$data['NJOP_BNG1']?></td>
-            <td align="center"><?=$data['NJOPTKP1']?></td>
+            <td align="right"><?=number_format($data['TOTAL_LUAS_BNG1'],2)?></td>
+            <td align="right"><?=number_format($data['NJOP_BNG1'],2)?></td>
+            <td align="right"><?=number_format($data['NJOPTKP1'],2)?></td>
             <td align="center"><?=$data['KD_KLS_BNG']?></td>
-            <td align="center"><?=$PBB2?></td>
+            <td align="right"><?=number_format($PBB2,2)?></td>
         </tr>
         <?php endforeach ?>
     </table>

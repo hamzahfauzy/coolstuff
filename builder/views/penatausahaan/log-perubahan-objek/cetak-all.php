@@ -13,7 +13,7 @@
 </head>
 <body onload="window.print()">
     <h2 align="center">Log Perubahan Objek<br>TAHUN <?=$_GET['tahun_pajak']?></h2>
-    <table border="1" width="100%">
+    <table border="1" width="100%" cellspacing="0" cellpadding="10">
         <tr>
             <th>NO</th>
             <th>NOP</th>
@@ -28,7 +28,7 @@
         </tr>
         <?php foreach($datas as $key => $data):
 
-        $KET = "Log: " . $data['TGL_PEREKAMAN_OP']->format("Y-m-d") . ", " . $data['NIP_PEREKAM_OP'] . " | " .$data['KET'];
+        $KET = "[Log: " . $data['TGL_PEREKAMAN_OP']->format("Y-m-d") . ", " . $data['NIP_PEREKAM_OP'] . " | " .$data['KET'] . "]";
 
         $NopB = $data['NOP'] == $data['NOP1'] || $data['NOP1'] == "-" || $data['NOP1'] == "" ? "-" : $data['NOP1'];
 
@@ -49,27 +49,27 @@
         ?>
         
         <tr>
-            <td rowspan="2" align="center"><?=$key+1?></td>
-            <td align="center"><?=$data['NOP']?></td>
-            <td><?=$data['NM_WP']?></td>
-            <td align="center"><?=$data['LOKASI']?></td>
-            <td align="center"><?=$data['TOTAL_LUAS_BUMI']?></td>
-            <td align="center"><?=$data['TOTAL_LUAS_BNG']?></td>
-            <td align="center"><?=$data['NJOP_BUMI']?></td>
-            <td align="center"><?=$data['NJOP_BNG']?></td>
-            <td align="center"><?=$data['NJOPTKP']?></td>
-            <td rowspan="2" align="center"><?=$KET?></td>
+            <td style="border:0; border-top:1px solid #000; border-left:1px solid #000" rowspan="2" align="center"><?=$key+1?></td>
+            <td style="border:0; border-top:1px solid #000; " align="left"><?=$data['NOP']?></td>
+            <td style="border:0; border-top:1px solid #000; "><?=$data['NM_WP']?></td>
+            <td style="border:0; border-top:1px solid #000; " align="left"><?=$data['LOKASI']?></td>
+            <td style="border:0; border-top:1px solid #000; " align="right"><?=number_format($data['TOTAL_LUAS_BUMI'],2)?></td>
+            <td style="border:0; border-top:1px solid #000; " align="right"><?=number_format($data['TOTAL_LUAS_BNG'],2)?></td>
+            <td style="border:0; border-top:1px solid #000; " align="right"><?=number_format($data['NJOP_BUMI'],2)?></td>
+            <td style="border:0; border-top:1px solid #000; " align="right"><?=number_format($data['NJOP_BNG'],2)?></td>
+            <td style="border:0; border-top:1px solid #000; " align="right"><?=number_format($data['NJOPTKP'],2)?></td>
+            <td style="border:0; border-top:1px solid #000; border-right:1px solid #000; font-weight:bold;" rowspan="2" align="left"><?=$KET?></td>
         </tr>
 
         <tr>
-            <td align="center"><?=$NopB?></td>
-            <td><?=$NamaB?></td>
-            <td align="center"><?=$LokasiB?></td>
-            <td align="center"><?=$Luas1?></td>
-            <td align="center"><?=$Luas2?></td>
-            <td align="center"><?=$NJOP1?></td>
-            <td align="center"><?=$NJOP2?></td>
-            <td align="center"><?=$PBB?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="left"><?=$NopB?></td>
+            <td style="border:0; border-top:1px dashed #000;"><?=$NamaB?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="left"><?=$LokasiB?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="right"><?=number_format($Luas1,2)?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="right"><?=number_format($Luas2,2)?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="right"><?=number_format($NJOP1,2)?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="right"><?=number_format($NJOP2,2)?></td>
+            <td style="border:0; border-top:1px dashed #000;" align="right"><?=number_format($PBB,2)?></td>
         </tr>
         <?php endforeach ?>
     </table>
