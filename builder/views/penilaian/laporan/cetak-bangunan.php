@@ -5,10 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Penilaian Bangunan</title>
+    <style>
+    table tr {
+        page-break-before: always;
+    }
+
+    thead {display: table-header-group;}
+    </style>
 </head>
 <body onload="window.print()">
     <h2 align="center">LAPORAN PENILAIAN BANGUNAN<br>TAHUN <?=$_GET['tahun']?></h2>
-    <table class="min-w-max w-full table-auto" width="100%" border="1">
+    <table class="min-w-max w-full table-auto" width="100%" border="1" cellspacing="0" cellpadding="10">
         <tbody class="text-gray-600 text-sm font-light">
             <?php if(empty($datas)): ?>
             <tr>

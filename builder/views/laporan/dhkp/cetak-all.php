@@ -10,22 +10,6 @@
         margin:10mm;
         position:relative;
     }
-
-    @page {
-        /* margin-top:190px; */
-    }
-
-    .title-header {
-        position:fixed;
-        top:0;
-        width:calc(100% - 20mm);
-    }
-    .print-content {
-        /* margin-top:190px; */
-    }
-    @media print {
-    }
-
     table tr {
         page-break-before: always;
     }
