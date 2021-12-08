@@ -9,18 +9,26 @@ $failed = get_flash_msg('failed');
 //KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP =  '" & Trim(aNOP.Text) & "' ORDER BY NO_BNG*1 DESC"
 $data = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$_GET['id'])->first();
 
-$opBumis = $qb->select("DAT_OP_BUMI","DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
-            ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
-            ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
-            ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where("SUBJEK_PAJAK_ID",$_GET['id'])->get();
+// $opBumis = $qb->select("DAT_OP_BUMI","DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+//             ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
+//             ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
+//             ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where("SUBJEK_PAJAK_ID",$_GET['id'])->get();
 
 $clause = "DAT_OP_BANGUNAN.KD_PROPINSI + '.' + DAT_OP_BANGUNAN.KD_DATI2 + '.' + DAT_OP_BANGUNAN.KD_KECAMATAN + '.' + DAT_OP_BANGUNAN.KD_KELURAHAN + '.' + DAT_OP_BANGUNAN.KD_BLOK + '-' + DAT_OP_BANGUNAN.NO_URUT + '.' + DAT_OP_BANGUNAN.KD_JNS_OP";
+
+$clauseBumi = "DAT_OP_BUMI.KD_PROPINSI + '.' + DAT_OP_BUMI.KD_DATI2 + '.' + DAT_OP_BUMI.KD_KECAMATAN + '.' + DAT_OP_BUMI.KD_KELURAHAN + '.' + DAT_OP_BUMI.KD_BLOK + '-' + DAT_OP_BUMI.NO_URUT + '.' + DAT_OP_BUMI.KD_JNS_OP";
 
 $qOPs = $qb->select("QOBJEKPAJAK")->where("SUBJEK_PAJAK_ID",$data['SUBJEK_PAJAK_ID'])->get();
 
 $opBangunans = [];
+$opBumis = [];
 
 foreach ($qOPs as $qOP) {
+
+    $opBumis += $qb->select("DAT_OP_BUMI","DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+            ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
+            ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
+            ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where($clauseBumi,$qOP['NOPQ'])->get();
 
     $opBangunans += $qb
                 ->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN, $clause as NOP")
