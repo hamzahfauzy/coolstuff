@@ -129,8 +129,8 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
         </div>
     </div>
     <div class="nav bg-green-500 shadow w-full">
-        <div class="lg:max-w-screen-lg lg:mx-auto mx-6 flex justify-between">
-            <div class="nav-container w-full mr-1 overflow-x-auto">
+        <div class="mx-6 flex justify-between">
+            <div class="nav-container w-full mr-1">
                 <ul class="flex">
                     <li>
                         <a class="text-white hover:bg-purple-700 <?=$_GET['page'] == 'builder/home/dashboard' ? $nav_class_active : ''?> p-2 px-4 inline-block" href="index.php?page=builder/home/dashboard">Home</a>
