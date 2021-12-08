@@ -4,10 +4,10 @@ load('builder/partials/modals/list-objek-pajak');
 ?>
 
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Cetak Log Perubahan Objek</h2>
+    <h2 class="text-3xl">Cetak Log Objek Baru</h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form action="index.php" onsubmit="doSubmit(this); return false;">
-            <input type="hidden" name="page" value="builder/penatausahaan/log-perubahan-objek/results">
+            <input type="hidden" name="page" value="builder/penatausahaan/log-objek-baru/results">
             <div class="form-group mb-2">
                 <?php 
                 $options = [];
@@ -112,7 +112,7 @@ load('builder/partials/modals/list-objek-pajak');
         }
         else
         {
-            fetch("index.php?page=builder/penatausahaan/log-perubahan-objek/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
+            fetch("index.php?page=builder/penatausahaan/log-objek-baru/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
 
                     var html = `
                             <label>Kelurahan</label>
@@ -154,7 +154,7 @@ load('builder/partials/modals/list-objek-pajak');
             {
                 params.delete('page')
 
-                location.href='index.php?page=builder/penatausahaan/log-perubahan-objek/cetak-all&'+params.toString()
+                location.href='index.php?page=builder/penatausahaan/log-objek-baru/cetak-all&'+params.toString()
                 document.querySelector('button[name=cetak]').disabled = false
             }
         })
