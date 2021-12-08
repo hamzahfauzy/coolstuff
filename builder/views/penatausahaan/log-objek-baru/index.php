@@ -1,10 +1,13 @@
-<?php load('builder/partials/top');?>
+<?php load('builder/partials/top');
+
+load('builder/partials/modals/list-objek-pajak');
+?>
 
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Cetak SSPD</h2>
+    <h2 class="text-3xl">Cetak Log Objek Baru</h2>
     <div class="bg-white shadow-md rounded my-6 p-8">
         <form action="index.php" onsubmit="doSubmit(this); return false;">
-            <input type="hidden" name="page" value="builder/laporan/sspd/results">
+            <input type="hidden" name="page" value="builder/penatausahaan/log-objek-baru/results">
             <div class="form-group mb-2">
                 <?php 
                 $options = [];
@@ -14,6 +17,15 @@
                 <label>Tahun Pajak</label>
                 <?= Form::input('options:'.$options, 'tahun_pajak', ['class'=>"p-2 w-full border rounded"]) ?>
             </div>
+
+            <div class="form-group mb-2">
+                    <label for="NOP">NOP</label>
+                    <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded">
+                </div>
+                
+                <div class="form-group mb-2">
+                    <button type="button" class="p-2 mb-2 bg-green-800 text-white rounded" onclick="onSelectQOP()">Pilih</button>
+                </div>
 
             <div class="form-group mb-2">
                 <label>Kecamatan</label>
@@ -31,25 +43,23 @@
                     <option value="" selected readonly>- Pilih Kelurahan -</option>
                 </select>
             </div>
-            <div class="form-group mb-2">
-                <label>Jumlah SPPT</label>
-                <?= Form::input('text', 'jumlah_sppt', ['readonly'=>'readonly','class'=>"p-2 w-full border rounded","placeholder"=>'Jumlah SPPT']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>Total PBB</label>
-                <?= Form::input('text', 'total_pbb', ['readonly'=>'readonly','value'=>0,'class'=>"p-2 w-full border rounded","placeholder"=>'Total PBB']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>Tanggal Terbit</label>
-                <?= Form::input('date', 'tanggal_terbit', ['value'=>date('Y-m-d'),'readonly'=>'readonly','class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Terbit']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>Tanggal Cetak</label>
-                <?= Form::input('date', 'tanggal_cetak', ['value'=>date('Y-m-d'),'class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Cetak']) ?>
-            </div>
-            <div class="form-group mb-2">
-                <label>NIP Pencetak</label>
-                <?= Form::input('number', 'nip_pencetak', ['class'=>"p-2 w-full border rounded","placeholder"=>'NIP Pencetak','value'=>'0']) ?>
+
+            <div class="grid grid-cols-3 gap-4">
+
+                <div class="form-group mb-2">
+                    <label for="dRekam1">&nbsp;</label>
+                    <input type="checkbox" class="p-2 w-full border rounded" name="cLog" checked onchange="cLogChange(this)">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="dRekam1">Dari Tanggal</label>
+                    <input type="date" id="dRekam1" name="dRekam1" class="p-2 w-full border rounded" value="<?=date('Y-m-d')?>">
+                </div>
+    
+                <div class="form-group mb-2">
+                    <label for="dRekam2">Sampai Tanggal</label>
+                    <input type="date" id="dRekam2" name="dRekam2" class="p-2 w-full border rounded" value="<?=date('Y-m-d')?>">
+                </div>
             </div>
 
             <div class="form-group">
@@ -60,6 +70,31 @@
 </div>
 
 <script>
+
+    var modal = $("#modal-list-objek-pajak")
+
+    var nop = $("input[name='NOP']");
+
+    nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+
+    function onSelectQOP(){
+        modal.removeClass("hidden")
+    }
+
+    function cLogChange(e){
+
+        var dRekam1 = $("[name='dRekam1']")
+        var dRekam2 = $("[name='dRekam2']")
+
+        if(e.checked){
+            dRekam1.removeAttr('disabled')
+            dRekam2.removeAttr('disabled')
+        }else{
+            
+            dRekam1.attr('disabled','')
+            dRekam2.attr('disabled','')
+        }
+    }
 
     function kecamatanChange(el){
         if(el.value == 'Semua')
@@ -77,11 +112,11 @@
         }
         else
         {
-            fetch("index.php?page=builder/laporan/sspd/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
+            fetch("index.php?page=builder/penatausahaan/log-objek-baru/index&get-kelurahan=true&KD_KECAMATAN="+el.value).then(response => response.json()).then(data => {
 
                     var html = `
                             <label>Kelurahan</label>
-                            <select name="KD_KELURAHAN" class="p-2 w-full border rounded" onchange="kelurahanChange(this)">
+                            <select name="KD_KELURAHAN" class="p-2 w-full border rounded">
                                 <option value="Semua" selected>Semua</option>`
 
                     data.map(dt=>{
@@ -98,20 +133,11 @@
 
             }); 
         }
-    }    
-
-    function kelurahanChange(el){
-        var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
-
-        fetch("index.php?page=builder/laporan/sspd/index&get-jumlah-sppt=true&KD_KELURAHAN="+el.value+"&KD_KECAMATAN="+kecamatan.value).then(response => response.text()).then(data => {
-
-                document.querySelector('input[name=jumlah_sppt]').value = data
-                document.querySelector('input[name=total_pbb]').value = 0
-
-        }); 
-    }    
+    }
 
     function doSubmit(form){
+        document.querySelector('button[name=cetak]').disabled = true
+        document.querySelector('button[name=cetak]').innerHTML = "Memproses"
         const formData = new FormData(form);
         const params = new URLSearchParams(formData);
 
@@ -121,23 +147,15 @@
             if(res.status == 'fail')
             {
                 alert(res.message)
+                document.querySelector('button[name=cetak]').disabled = false
+                document.querySelector('button[name=cetak]').innerHTML = "Tampilkan"
             }
             else
             {
-                form.submit()
+                params.delete('page')
 
-                // document.querySelector('input[name=jumlah_sppt]').value = res.data.total_SPPT
-                // document.querySelector('input[name=total_pbb]').value = res.data.jumlah.toLocaleString('id-ID', {
-                //     style: 'currency',
-                //     currency: 'IDR',
-                // })
-
-                // setTimeout(() => {
-                //     if(confirm('Apa anda yakin cetak SSPD secara Masal'))
-                //     {
-                        
-                //     }
-                // }, 1500);
+                location.href='index.php?page=builder/penatausahaan/log-objek-baru/cetak-all&'+params.toString()
+                document.querySelector('button[name=cetak]').disabled = false
             }
         })
     }

@@ -5,10 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Penilaian Bumi</title>
+    <style>
+    table tr {
+        page-break-before: always;
+    }
+
+    thead {display: table-header-group;}
+    </style>
 </head>
 <body onload="window.print()">
     <h2 align="center">LAPORAN PENILAIAN BUMI<br>TAHUN <?=$_GET['tahun']?></h2>
-    <table class="min-w-max w-full table-auto" width="100%" border="1">
+    <table class="min-w-max w-full table-auto" width="100%" border="1" cellspacing="0" cellpadding="10">
         <tbody class="text-gray-600 text-sm font-light">
             <?php if(empty($datas)): ?>
             <tr>
@@ -32,9 +39,9 @@
                 $nilai_sistem_bumi = $data['TOTAL_LUAS_BUMI']*$nir;
                 $jenis_bumi = [
                     0 => '',
-                    1 => '01-Tanah dan Bangunan',
-                    2 => '02-Kavling Siang Bangun',
-                    3 => '03-Tanah Kosong'
+                    1 => '<b>01-Tanah dan Bangunan</b>',
+                    2 => '<b>02-Kavling Siang Bangun</b>',
+                    3 => '<b>03-Tanah Kosong</b>'
                 ];
                 $jns_bumi = isset($jenis_bumi[$data['JNS_BUMI']]) ? $jenis_bumi[$data['JNS_BUMI']] : '04-Fasilitas Umum';
                 $alamat = $data['JALAN_OP'] . ' Kel/Desa : ' . $data['NM_KELURAHAN'] . '<br> Kec : ' . $data['NM_KECAMATAN'];

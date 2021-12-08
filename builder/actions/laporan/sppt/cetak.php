@@ -56,5 +56,15 @@ $query = "
     SPPT.KD_JNS_OP
 ";
 
+
+$C_STR = "SELECT * FROM PEJABAT";
+$pejabat = $qb->rawQuery($C_STR)->get();
+foreach($pejabat as $pj)
+{
+    $xNIP = $pj['NIP'];
+    $xNama = $pj['NAMA'];
+    $xJabatan = $pj['JABATAN'];
+}
+
 $data = $qb->rawQuery($query)->first();
 

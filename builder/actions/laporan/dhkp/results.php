@@ -280,7 +280,7 @@ if(isset($mode) && $mode == 'cek_cetak')
                             '" . $xTempat . "',
                             '" . $xBUKU . "',
                             '" . $xBayar . "',
-                            '" . date('Y-m-d',strtotime($xTanggal)) . "',
+                            '" . ($xTanggal != "" ? date('Y-m-d',strtotime($xTanggal)) : "") . "',
                             '" . $cBayar . "',
                             '" . $tLuas . "',
                             '" . $bLuas . "',
@@ -324,7 +324,7 @@ if(isset($mode) && $mode == 'cek_cetak')
         $xBayar = $c['xBayar'];
         $xTahun = $c['xTahun'];
 
-        $qb->rawQuery("UPDATE TEMP_DHKP SET JUM_UBAH=PBB_YG_HARUS_DIBAYAR_SPPT,PBB_YG_HARUS_DIBAYAR_SPPT=$xBayar,JUM_SELISIH=(PBB_YG_HARUS_DIBAYAR_SPPT*1-$xBayar*1) WHERE $xBayar <> PBB_YG_HARUS_DIBAYAR_SPPT  and (NOPQ=$xProp +'.'+ $xKab +'.'+ $xxKec +'.'+ $xxKel +'.'+ $xxBlok +'-'+ $xxUrut +'.'+ $xxJenis)");
+        $qb->rawQuery("UPDATE TEMP_DHKP SET JUM_UBAH=PBB_YG_HARUS_DIBAYAR_SPPT,PBB_YG_HARUS_DIBAYAR_SPPT=$xBayar,JUM_SELISIH=(PBB_YG_HARUS_DIBAYAR_SPPT-$xBayar) WHERE $xBayar <> PBB_YG_HARUS_DIBAYAR_SPPT  and (NOPQ=$xProp +'.'+ $xKab +'.'+ $xxKec +'.'+ $xxKel +'.'+ $xxBlok +'-'+ $xxUrut +'.'+ $xxJenis)");
     }
 
 

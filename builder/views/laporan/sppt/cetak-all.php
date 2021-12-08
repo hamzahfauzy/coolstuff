@@ -154,8 +154,8 @@
                 </td>
                 <td style="text-align:center;">
                     <br><br><br><br><br>
-                    <u><b>BENAR BAIK SEMBIRING, SE, M.Si</b></u><br>
-                    <b>NIP. 19790111 200604 1 003</b>
+                    <u><b><?=$xNama?></b></u><br>
+                    <b>NIP. <?=$xNIP?></b>
                 </td>
             </tr>
         </table>
