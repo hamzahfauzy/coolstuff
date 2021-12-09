@@ -120,8 +120,10 @@
 
             <div class="form-group mb-2">
                 <label>Jalan</label>
-                <select name="JALAN" class="p-2 w-full border rounded">
-                    <option value="" selected readonly>- Pilih Jalan -</option>
+                <select name="JALAN" class="p-2 w-full border rounded" id="jalan">
+                    <?php foreach($jalans as $jalan): ?>
+                    <option value="<?=$jalan['NM_JLN']?>" <?=$jalan['NM_JLN']==$datOP['JALAN_OP']?'selected=""':''?> ><?=$jalan['KD_ZNT'].' - '.$jalan['NM_JLN']?></option>
+                    <?php endforeach ?>
                 </select>
             </div>
 
@@ -153,7 +155,7 @@
             <div class="grid grid-cols-2 gap-4">
                 <div class="form-group mb-2">
                     <label>Jumlah Bangunan</label>
-                    <input type="number" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["JLH_BNG"] ? $old["JLH_BNG"] : $opBumi["JLH_BNG"]?>" name="JLH_BNG">
+                    <input type="number" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["JLH_BNG"] ? $old["JLH_BNG"] : ($opBumi["JLH_BNG"]??0)?>" name="JLH_BNG">
                 </div>
                 <div class="form-group mb-2">
                     <label>Luas Tanah</label>
@@ -263,6 +265,22 @@
                 blok.innerHTML = html
 
                 blok.classList.remove("hidden")
+
+        }); 
+
+        fetch("index.php?page=builder/subjek-pajak/objek-pajak-bumi/index&get-jalan=true&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+
+        var html = ``
+
+        data.map(dt=>{
+            html += `<option value="${dt.NM_JLN}">${dt.KD_ZNT} - ${dt.NM_JLN}</option>`
+        })
+
+        var blok = document.querySelector("#jalan")
+
+        blok.innerHTML = html
+
+        blok.classList.remove("hidden")
 
         }); 
     }    

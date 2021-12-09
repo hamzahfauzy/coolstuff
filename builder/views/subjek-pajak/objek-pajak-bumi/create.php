@@ -119,7 +119,7 @@
 
             <div class="form-group mb-2">
                 <label>Jalan</label>
-                <select name="JALAN" class="p-2 w-full border rounded">
+                <select name="JALAN" class="p-2 w-full border rounded" id="jalan">
                     <option value="" selected readonly>- Pilih Jalan -</option>
                 </select>
             </div>
@@ -262,6 +262,22 @@
                 blok.innerHTML = html
 
                 blok.classList.remove("hidden")
+
+        }); 
+
+        fetch("index.php?page=builder/subjek-pajak/objek-pajak-bumi/index&get-jalan=true&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+
+            var html = ``
+
+            data.map(dt=>{
+                html += `<option value="${dt.NM_JLN}">${dt.KD_ZNT} - ${dt.NM_JLN}</option>`
+            })
+
+            var blok = document.querySelector("#jalan")
+
+            blok.innerHTML = html
+
+            blok.classList.remove("hidden")
 
         }); 
     }    

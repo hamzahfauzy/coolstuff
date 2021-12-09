@@ -33,7 +33,7 @@ if(request() == 'POST')
     if($insert)
     {
         set_flash_msg(['success'=>'Data Saved']);
-        header('location:index.php?page=builder/subjek-pajak/index');
+        header('location:index.php?page=builder/subjek-pajak/view&id='.$_POST['SUBJEK_PAJAK_ID']);
         return;
     }
 }
