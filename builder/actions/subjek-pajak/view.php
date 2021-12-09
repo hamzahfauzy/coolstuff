@@ -25,17 +25,18 @@ $opBumis = [];
 
 foreach ($qOPs as $qOP) {
 
-    $opBumis += $qb->select("DAT_OP_BUMI","DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
-            ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
-            ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
-            ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where($clauseBumi,$qOP['NOPQ'])->get();
+        $opb = $qb->select("DAT_OP_BUMI","DAT_OP_BUMI.*, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN")
+                ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BUMI.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
+                ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BUMI.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
+                ->andJoin('DAT_OP_BUMI.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where($clauseBumi,$qOP['NOPQ'])->get();
+    $opBumis = array_merge($opBumis, $opb); 
 
-    $opBangunans += $qb
-                ->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN, $clause as NOP")
+    $opbng = $qb->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, jpb.NM_JPB_JPT, kecamatan.NM_KECAMATAN, kelurahan.NM_KELURAHAN, $clause as NOP")
                 ->leftJoin('REF_KECAMATAN as kecamatan','DAT_OP_BANGUNAN.KD_KECAMATAN','kecamatan.KD_KECAMATAN')
                 ->leftJoin('JPB_JPT as jpb','DAT_OP_BANGUNAN.KD_JPB','jpb.KD_JPB_JPT')
                 ->leftJoin('REF_KELURAHAN as kelurahan','DAT_OP_BANGUNAN.KD_KECAMATAN','kelurahan.KD_KECAMATAN')
                 ->andJoin('DAT_OP_BANGUNAN.KD_KELURAHAN','kelurahan.KD_KELURAHAN')->where($clause,$qOP['NOPQ'])->get();
+    $opBangunans = array_merge($opBangunans, $opbng);
 }
 
 $kondisi = ["01-Sangat Baik","02-Baik","03-Sedang","04-Jelek"];

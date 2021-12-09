@@ -130,7 +130,7 @@
                             <th class="py-3 px-6 text-left">Luas</th>
                             <th class="py-3 px-6 text-left">Jenis Bumi</th>
                             <th class="py-3 px-6 text-left">Nilai Sistem Bumi</th>
-                            <th class="py-3 px-6 text-left">N0 Formulir</th>
+                            <th class="py-3 px-6 text-left">No Formulir</th>
                             <th class="py-3 px-6 text-left">Status Jadi</th>
                             <th class="py-3 px-6 text-left">Action</th>
                         </tr>
@@ -189,7 +189,6 @@
                                     <?php foreach($jenisBumi as $bumi){
                                         echo $data['JNS_BUMI'] == substr($bumi,0,2) ? $bumi : '';
                                     }
-                                    print_r($data['JNS_BUMI'])
                                     ?>
                                 </span>
                             </div>
