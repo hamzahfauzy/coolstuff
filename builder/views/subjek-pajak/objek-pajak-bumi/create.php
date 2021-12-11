@@ -79,13 +79,13 @@
             <div class="grid grid-cols-3 gap-4">
                 <div class="form-group mb-2">
                     <label>No Urut</label>
-                    <input type="number" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NO_URUT"] ? $old["NO_URUT"] : ''?>" name="NO_URUT">
+                    <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NO_URUT"] ? $old["NO_URUT"] : '001'?>" name="NO_URUT">
                 </div>
                 <div class="form-group mb-2">
                     <label>Kode</label>
                     <select name="KODE" class="p-2 mt-2 w-full border rounded">
                         <option value="" selected readonly>- Pilih Kode -</option>
-                        <option <?= isset($old) && $old['KODE'] == '0' ? 'selected' : ''?>  value="0">0</option>
+                        <option <?= isset($old) && $old['KODE'] == '0' ? 'selected' : 'selected'?>  value="0">0</option>
                         <option <?= isset($old) && $old['KODE'] == '7' ? 'selected' : ''?> value="7">7</option>
                     </select>
                 </div>
