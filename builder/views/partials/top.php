@@ -266,7 +266,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penatausahaan" style="top:40px">
-                            <a href="?page=builder/penatausahaan/laporan-realistis/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('laporan-realistis') ?> hover:text-white">Laporan Realistis</a>
+                            <a href="?page=builder/penatausahaan/laporan-realisasi/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('laporan-realisasi') ?> hover:text-white">Laporan Realisasi</a>
                             <a href="?page=builder/penatausahaan/laporan-piutang/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('laporan-piutang') ?> hover:text-white">Laporan Piutang</a>
                             <a href="?page=builder/penatausahaan/surat-tagihan/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('surat-tagihan') ?> hover:text-white">Surat Tagihan</a>
                             <a href="?page=builder/penatausahaan/status-wajib-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('status-wajib-pajak') ?> hover:text-white">Status Wajib Pajak</a>

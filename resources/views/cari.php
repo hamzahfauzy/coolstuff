@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="group">
                                         <label for="">Alamat :</label>
-                                        <p><?= $data['JALAN_OP']. ', ' .$data['NM_KELURAHAN']. ', ' .$data['NM_KECAMATAN'] ?></p>
+                                        <p><?= $data['JALAN_WP']. ', ' .$data['KELURAHAN_WP']. ', ' .$data['KOTA_WP'] ?></p>
                                     </div>
                                     <div class="group">
                                         <label for="">Riwayat Pembayaran :</label>
