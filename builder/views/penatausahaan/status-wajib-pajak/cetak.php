@@ -114,7 +114,11 @@
                 <th>PBB HARUS DIBAYAR</th>
                 <th>JATUH TEMPO</th>
             </tr>
-            <?php foreach($sppts as $index => $sppt): ?>
+            <?php 
+            $total = 0;
+            foreach($sppts as $index => $sppt): 
+                $total += $sppt['PBB_YG_HARUS_DIBAYAR_SPPT'];
+            ?>
             <tr>
                 <td><?=++$index?></td>
                 <td><?=$sppt['THN_PAJAK_SPPT']?></td>
@@ -123,6 +127,10 @@
                 <td><?=$sppt['TGL_JATUH_TEMPO_SPPT']->format('Y-m-d')?></td>
             </tr>
             <?php endforeach ?>
+            <tr>
+                <td colspan="3">Total</td>
+                <td colspan="2"><?=number_format($total)?></td>
+            </tr>
         </table>
 
         <br><br>
@@ -136,7 +144,11 @@
                 <th>TGL BAYAR</th>
                 <th>TGL REKAM</th>
             </tr>
-            <?php foreach($riwayats as $n => $riwayat): ?>
+            <?php 
+            $total = 0;
+            foreach($riwayats as $n => $riwayat): 
+                $total += $riwayat['JML_SPPT_YG_DIBAYAR'];
+            ?>
             <tr>
                 <td><?=++$n?></td>
                 <td><?=$riwayat['THN_PAJAK_SPPT']?></td>
@@ -145,6 +157,10 @@
                 <td><?=$riwayat['TGL_REKAM_BYR_SPPT']->format('Y-m-d')?></td>
             </tr>
             <?php endforeach ?>
+            <tr>
+                <td colspan="2">Total</td>
+                <td colspan="3"><?=number_format($total)?></td>
+            </tr>
         </table>
         </div>
 
