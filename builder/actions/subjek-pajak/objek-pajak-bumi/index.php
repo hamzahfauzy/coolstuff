@@ -32,4 +32,18 @@ if(isset($_GET['filter-kecamatan'])){
     die;
 }
 
+if(isset($_GET['get-no-urut'])){
+    $clauseBumi = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK";
+    $valBumi = "12.12.".$_GET['kecamatan'] . '.' . $_GET['kelurahan'] . '.' . $_GET['blok'];
+
+    $cntsUrut = $qb->select("DAT_OP_BUMI")->where($clauseBumi,$valBumi)->orderBy('NO_URUT','DESC')->first();
+
+    if($cntsUrut){
+        echo json_encode("00" . strval($cntsUrut['NO_URUT']+1));
+    }else{
+        echo json_encode("001");
+    }
+    die;
+}
+
 // $clauseNOP = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP '";
