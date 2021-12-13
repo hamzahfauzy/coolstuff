@@ -24,8 +24,16 @@
         </div>
         <?php endif ?>
         <div class="bg-white shadow-md rounded my-6 p-8">
-            <form method="post" action="index.php?page=builder/penatausahaan/status-wajib-pajak/cetak" target="_blank">
-
+            <form method="post" action="index.php?page=builder/penatausahaan/status-wajib-pajak/cetak" onsubmit="check(this); return false" target="_blank">
+                <div class="form-group mb-2">
+                    <?php 
+                    $options = [];
+                    for($i=date('Y');$i>=1900;$i--) $options[] = $i;
+                    $options = implode("|",$options);
+                    ?>
+                    <label>Tahun Pajak</label>
+                    <?= Form::input('options:'.$options, 'tahun_pajak', ['class'=>"p-2 w-full border rounded"]) ?>
+                </div>
                 <div class="form-group mb-2">
                     <label>Kecamatan</label>
                     <select name="KD_KECAMATAN" class="p-2 w-full border rounded" onchange="kecamatanChange(this)" required>
@@ -42,6 +50,30 @@
                     <button class="p-2 bg-indigo-800 text-white rounded" id="btn-login">Cetak</button>
                 </div>
 
+            </form>
+
+            <br>
+
+            <center>Atau Cetak Berdasarkan NOP</center>
+
+            <form method="post" action="index.php?page=builder/penatausahaan/status-wajib-pajak/cetak" onsubmit="check(this); return false" target="_blank">
+                <div class="form-group mb-2">
+                    <?php 
+                    $options = [];
+                    for($i=date('Y');$i>=1900;$i--) $options[] = $i;
+                    $options = implode("|",$options);
+                    ?>
+                    <label>Tahun Pajak</label>
+                    <?= Form::input('options:'.$options, 'tahun_pajak', ['class'=>"p-2 w-full border rounded"]) ?>
+                </div>
+                <div class="form-group mb-2">
+                    <label>NOP</label>
+                    <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded" value="">
+                </div>
+
+                <div class="form-group mb-2">
+                    <button class="p-2 bg-indigo-800 text-white rounded" id="btn-login">Cetak</button>
+                </div>
             </form>
         </div>
     </div>
@@ -71,24 +103,25 @@
         }); 
     }    
 
-    async function onProcess(el){
+    async function check(frm){
 
-        return
+        var formData = new FormData(frm)
 
-        var year = document.querySelector("select[name='YEAR']")
-
-        var res = await fetch("index.php?page=<?=$_GET['page']?>&check=true&year="+year.value)
+        var res = await fetch(frm.action + "&check=true",{
+            method:'POST',
+            body:formData
+        })
 
         var data = await res.json()
 
-        if(data){
+        if(data.count){
             var c = confirm("Data ditemukan! Apakah Ingin Dilanjutkan ?")
 
             if(c){
-                document.forms.pbbMinimal.submit()
+                frm.submit()
             }
         }else{
-            alert("NJOPTKP Untuk tahun "+ year.value +" Beluma dibuat, Proses tidak akan dilanjutkan!")
+            alert("Tidak ada Data")
         }
 
     }

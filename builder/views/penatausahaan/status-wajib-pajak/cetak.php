@@ -59,6 +59,7 @@
             THN_PAJAK_SPPT IN ($in_year)
         ORDER BY THN_PAJAK_SPPT DESC")->get();
         $riwayats = $qb->rawQuery($query)->get();
+        $status = count($sppts) < 5 ? count($sppts) == count($riwayats) : count($riwayats) == 5;
     ?>
     <div class="print-area" style="width:950px;margin:auto">
         <div style="margin-top:190px;"></div>
@@ -89,7 +90,7 @@
             <tr>
                 <td>Status</td>
                 <td>:</td>
-                <td><b><?=count($riwayats) == 5 ? 'VALID' : 'TIDAK VALID' ?></b></td>
+                <td><b><?=$status ? 'VALID' : 'TIDAK VALID' ?></b></td>
             </tr>
             <tr>
                 <td>Alamat Objek Pajak</td>
