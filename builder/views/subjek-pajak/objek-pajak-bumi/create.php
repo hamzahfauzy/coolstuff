@@ -306,6 +306,11 @@
                 znt.classList.remove("hidden")
 
         }); 
+
+        fetch("index.php?page=builder/subjek-pajak/objek-pajak-bumi/index&get-no-urut=true&blok="+el.value+"&kelurahan="+kelurahan.value+"&kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+
+            document.querySelector("[name='NO_URUT']").value = data
+        })
     }    
 </script>
 
