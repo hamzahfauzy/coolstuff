@@ -4,14 +4,6 @@ require '../helpers/QueryBuilder.php';
 $qb = new QueryBuilder();
 $builder = new Builder;
 $installation = $builder->get_installation();
-$last_year = $_POST['tahun_pajak'];
-$first_year = $last_year-4;
-$in_year = [];
-for($i=$first_year;$i<=$last_year;$i++)
-{
-    $in_year[] = $i;
-}
-$in_year = implode(",",$in_year);
 
 if(isset($_POST['NOP']))
     $query = "SELECT NOPQ,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,KELURAHAN_WP,KOTA_WP FROM QOBJEKPAJAK WHERE NOPQ = '$_POST[NOP]'";
