@@ -8,12 +8,12 @@ $installation = $builder->get_installation();
 if(isset($_POST['NOP']))
     $query = "SELECT NOPQ,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,KELURAHAN_WP,KOTA_WP FROM QOBJEKPAJAK WHERE NOPQ = '$_POST[NOP]'";
 else
-    $query = "SELECT NOPQ,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,KELURAHAN_WP,KOTA_WP FROM QOBJEKPAJAK WHERE KD_KECAMATAN = '$_POST[KD_KECAMATAN]' AND KD_KELURAHAN = '$_POST[KD_KELURAHAN]' GROUP_BY SUBJEK_PAJAK_ID";
+    $query = "SELECT NOPQ,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,KELURAHAN_WP,KOTA_WP FROM QOBJEKPAJAK WHERE KD_KECAMATAN = '$_POST[KD_KECAMATAN]' AND KD_KELURAHAN = '$_POST[KD_KELURAHAN]' GROUP BY SUBJEK_PAJAK_ID";
 $datas = $qb->rawQuery($query)->get();
 
 if(isset($_GET['check']))
 {
-    echo json_encode(['count'=>count($datas)]);
+    echo json_encode(['count'=>count($datas),'query'=>$query]);
     die();
 }
 
