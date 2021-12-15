@@ -4,19 +4,12 @@ require '../helpers/QueryBuilder.php';
 $qb = new QueryBuilder();
 $builder = new Builder;
 $installation = $builder->get_installation();
-$last_year = $_POST['tahun_pajak'];
-$first_year = $last_year-4;
-$in_year = [];
-for($i=$first_year;$i<=$last_year;$i++)
-{
-    $in_year[] = $i;
-}
-$in_year = implode(",",$in_year);
 
 if(isset($_POST['NOP']))
     $query = "SELECT NOPQ,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,KELURAHAN_WP,KOTA_WP FROM QOBJEKPAJAK WHERE NOPQ = '$_POST[NOP]'";
 else
-    $query = "SELECT NOPQ,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,KELURAHAN_WP,KOTA_WP FROM QOBJEKPAJAK WHERE KD_KECAMATAN = '$_POST[KD_KECAMATAN]' AND KD_KELURAHAN = '$_POST[KD_KELURAHAN]' GROUP_BY SUBJEK_PAJAK_ID";
+    $query = "SELECT DAT_SUBJEK_PAJAK.*, (SELECT SUBJEK_PAJAK_ID, NOPQ FROM QOBJEKPAJAK WHERE KD_KECAMATAN = '$_POST[KD_KECAMATAN]' AND KD_KELURAHAN = '$_POST[KD_KELURAHAN]' GROUP BY SUBJEK_PAJAK_ID) as QOB FROM DAT_SUBJEK_PAJAK WHERE SUBJEK_PAJAK_ID IN QOB.SUBJEK_PAJAK_ID";
+    // $query = "SELECT SUBJEK_PAJAK_ID FROM QOBJEKPAJAK WHERE KD_KECAMATAN = '$_POST[KD_KECAMATAN]' AND KD_KELURAHAN = '$_POST[KD_KELURAHAN]' GROUP BY SUBJEK_PAJAK_ID";
 $datas = $qb->rawQuery($query)->get();
 
 if(isset($_GET['check']))

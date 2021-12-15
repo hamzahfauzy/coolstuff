@@ -78,7 +78,8 @@
                 <th>JUMLAH</th>
             </tr>
             <?php
-            $qobjpajak = $qb->rawQuery("SELECT * FROM QOBJEKPAJAK WHERE NOPQ = '$data[NOPQ]'")->get();
+            $no=1;
+            $qobjpajak = $qb->rawQuery("SELECT * FROM QOBJEKPAJAK WHERE SUBJEK_PAJAK_ID = '$data[SUBJEK_PAJAK_ID]'")->get();
             foreach($qobjpajak as $n => $objpajak):
                 $sppts = $qb->rawQuery("SELECT * FROM SPPT WHERE
                     KD_PROPINSI = '$objpajak[KD_PROPINSI]' AND
@@ -90,6 +91,7 @@
                     KD_JNS_OP = '$objpajak[KD_JNS_OP]' AND
                     STATUS_PEMBAYARAN_SPPT <> 1
                 ORDER BY THN_PAJAK_SPPT")->get();
+                if(empty($sppts)) continue;
                 $tahun_pajak_sppt = "";
                 $tgl_jatuh_tempo_sppt = "";
                 $pbb_terhutang_sppt = "";
@@ -105,7 +107,7 @@
                 }
             ?>
             <tr>
-                <td><?=$n+1?></td>
+                <td><?=$no++?></td>
                 <td><?=$objpajak['NOPQ']?></td>
                 <td><?=$tahun_pajak_sppt?></td>
                 <td><?=$tgl_jatuh_tempo_sppt?></td>
