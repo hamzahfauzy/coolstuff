@@ -24,7 +24,7 @@
 </head>
 <body onload="window.print()">
     <center>
-        <b>LAPORAN REALISASI PAJAK BUMI DAN BANGUNAN PERDESAAN DAN PERKOTAAN (PBB-P2) TAHUN 2021<br>KABUPATEN PAKPAK BHARAT<br>PER DESA</b>
+        <b>LAPORAN REALISASI PAJAK BUMI DAN BANGUNAN PERDESAAN DAN PERKOTAAN (PBB-P2) TAHUN <?=$_POST['tahun_pajak']?><br>KABUPATEN PAKPAK BHARAT<br>PER DESA</b>
     </center>
     <table width="100%">
         <tr>
@@ -54,7 +54,7 @@
             <th>DENDA (Rp)</th>
             <th>SPPT (Lbr)</th>
             <th>PBB (Rp)</th>
-            <th>% 2021</th>
+            <th>% <?=$_POST['tahun_pajak']?></th>
             <th>SPPT (Lbr)</th>
             <th>PBB (Rp)</th>
             <th>SPPT (Lbr)</th>
