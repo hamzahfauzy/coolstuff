@@ -63,7 +63,7 @@
 
 <script>
     function kecamatanChange(el){
-        fetch("index.php?page=builder/penatausahaan/status-wajib-pajak/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
+        fetch("index.php?page=builder/penatausahaan/surat-tagihan/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
 
                 var html = `
                         <label>Kelurahan</label>
