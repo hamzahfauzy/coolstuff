@@ -78,6 +78,147 @@
                 </div>
 
             </form>
+
+            <br>
+
+            <center>Atau Cetak Berdasarkan NOP</center>
+
+            <form method="post">
+
+                <div class="form-group mb-2">
+                    <label>NOP</label>
+                    <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded" value="">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group mb-2">
+                        <label>Tahun</label>
+                        <select class="p-2 w-full border rounded" name="YEAR" id="">
+                            <option value="" selected readonly>- Pilih Tahun -</option>
+                            <?php foreach($years as $Y):?>
+                                <option <?= ( $year == $Y) ? "selected" : ""?> value="<?=$Y?>"><?=$Y?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+    
+                    <div class="form-group mb-2">
+                        <label>No Persil</label>
+                        <input type="text" id="NO_PERSIL" name="NO_PERSIL" class="p-2 w-full border rounded" value="">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label for="TGL_TEMPO">Tanggal Jatuh Tempo</label>
+                        <input type="date" id="TGL_TEMPO" name="TGL_TEMPO" class="p-2 w-full border rounded" value="<?=date('Y-m-d')?>">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="TGL_TERBIT">Tanggal Terbit</label>
+                        <input type="date" id="TGL_TERBIT" name="TGL_TERBIT" class="p-2 w-full border rounded" value="<?=date('Y-m-d')?>">
+                    </div>
+                    
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label>Luas Bumi</label>
+                        <input type="text" id="LUAS_BUMI" name="LUAS_BUMI" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>Luas Bangunan</label>
+                        <input type="text" id="LUAS_BNG" name="LUAS_BNG" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label>Kelas Bumi</label>
+                        <input type="text" id="KELAS_BUMI" name="KELAS_BUMI" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>Kelas Bangunan</label>
+                        <input type="text" id="KELAS_BNG" name="KELAS_BNG" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label>NJOP Bumi</label>
+                        <input type="text" id="NJOP_BUMI" name="NJOP_BUMI" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>NJOP Bangunan</label>
+                        <input type="text" id="NJOP_BNG" name="NJOP_BNG" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label>Total NJOP</label>
+                        <input type="text" id="TOTAL_NJOP" name="TOTAL_NJOP" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>NJOPTKP</label>
+                        <input type="text" id="NJOPTKP" name="NJOPTKP" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label>Tarif</label>
+                        <input type="text" id="TARIF" name="TARIF" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>NJKP</label>
+                        <input type="text" id="NJKP" name="NJKP" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="form-group mb-2">
+                        <label>Faktor Pengurang</label>
+                        <input type="text" id="FAKTOR_PENGURANG" name="FAKTOR_PENGURANG" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>PBB</label>
+                        <input type="text" id="PBB" name="PBB" class="p-2 w-full border rounded" value="">
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>Tempat Bayar</label>
+                    <select name="KD_BAYAR" class="p-2 w-full border rounded" required>
+                        <option value="" selected readonly>- Pilih Tempat Bayar -</option>
+                        <?php foreach($tBayars as $bayar):?>
+                            <option value="<?=$bayar['KD_TP']?>"><?=$bayar['KD_TP']." - ".$bayar['NM_TP']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2">
+                    <button class="p-2 bg-indigo-800 text-white rounded" id="btn-login">Proses</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
