@@ -81,7 +81,7 @@
 
             <br>
 
-            <center>Atau Cetak Berdasarkan NOP</center>
+            <center>Atau Tetapkan Berdasarkan NOP</center>
 
             <form method="post">
 

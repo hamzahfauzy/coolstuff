@@ -158,10 +158,13 @@ if(isset($mode) && $mode == 'cek_cetak')
 else
 
 {
-    $nops = explode(".",$NOP);
-
-    $KD_KECAMATAN = $nops[2];
-    $KD_KELURAHAN = $nops[3];
+    if(isset($NOP))
+    {
+        $nops = explode(".",$NOP);
+    
+        $KD_KECAMATAN = $nops[2];
+        $KD_KELURAHAN = $nops[3];
+    }
 
     $U_STR = "";
     if($KD_KECAMATAN == "Semua")
