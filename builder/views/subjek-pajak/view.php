@@ -1,4 +1,151 @@
 <?php load('builder/partials/top') ?>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="fixed z-10 inset-0 hidden overflow-y-auto" id="modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!--
+      Background overlay, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <!-- This element is to trick the browser into centering the modal contents. -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!--
+      Modal panel, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        To: "opacity-100 translate-y-0 sm:scale-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100 translate-y-0 sm:scale-100"
+        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    -->
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full">
+
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          
+        <div class="sm:flex sm:items-start">
+
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+
+            <h3 class="text-xl leading-6 text-center my-5 font-medium text-gray-900" id="modal-title">
+              Pilih Objek Pajak
+            </h3>
+
+            <div class="overflow-x-auto">
+
+                <table class="min-w-max w-full table-auto">
+                    <tbody class="text-gray-600 text-sm font-light">
+                        <?php if(empty($opBumis)): ?>
+                        <tr>
+                            <td colspan="4" class="py-3 px-6 text-center font-semibold"><i>Empty</i></td>
+                        </tr>
+                        <?php else: ?>
+                        <thead>
+                            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <th class="py-3 px-6 text-left">NOP</th>
+                                <th class="py-3 px-6 text-left">Kecamatan</th>
+                                <th class="py-3 px-6 text-left">Kelurahan</th>
+                                <th class="py-3 px-6 text-left">Blok</th>
+                                <th class="py-3 px-6 text-left">No Urut</th>
+                                <th class="py-3 px-6 text-left">Jenis OP</th>
+                                <th class="py-3 px-6 text-left">No Bumi</th>
+                                <th class="py-3 px-6 text-left">ZNT</th>
+                                <th class="py-3 px-6 text-left">Luas</th>
+                                <th class="py-3 px-6 text-left">Jenis Bumi</th>
+                            </tr>
+                        </thead>
+                        <?php foreach($opBumis as $key => $bumi): ?>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer" onclick="location.href='index.php?page=builder/subjek-pajak/objek-pajak-bangunan/create&id=<?=$_GET['id']?>&NOP=<?=$bumi['NOPQ']?>'">
+    
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['NOPQ']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['KD_KECAMATAN']." - "?><?= $bumi['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['KD_KELURAHAN']." - "?><?= $bumi['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['KD_BLOK']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['NO_URUT']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['KD_JNS_OP']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['NO_BUMI']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['KD_ZNT']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium"><?=$bumi['LUAS_BUMI']?></span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium">
+                                        <?php foreach($jenisBumi as $b){
+                                            echo $bumi['JNS_BUMI'] == substr($b,0,2) ? $b : '';
+                                        }
+                                        ?>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach ?>
+                        <?php endif ?>
+                    </tbody>
+                </table>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+
+        <button type="button" id="close-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+          Tutup
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
 
     <?php if($msg): ?>
@@ -119,7 +266,7 @@
                     <?php else: ?>
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">No</th>
+                            <th class="py-3 px-6 text-left">NOP</th>
                             <th class="py-3 px-6 text-left">Kecamatan</th>
                             <th class="py-3 px-6 text-left">Kelurahan</th>
                             <th class="py-3 px-6 text-left">Blok</th>
@@ -140,7 +287,7 @@
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$key+1?></span>
+                                <span class="font-medium"><?=$data['NOPQ']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -216,12 +363,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </div> -->
-                                <a href="index.php?page=builder/subjek-pajak/objek-pajak-bumi/edit&id=<?=$_GET['id']?>&kecamatan=<?=$data['KD_KECAMATAN']?>&kelurahan=<?=$data['KD_KELURAHAN']?>&blok=<?=$data['KD_BLOK']?>&znt=<?=$data['KD_ZNT']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <a href="index.php?page=builder/subjek-pajak/objek-pajak-bumi/edit&NOP=<?=$data['NOPQ']?>&id=<?=$_GET['id']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
                                 </a>
-                                <a href="index.php?action=builder/subjek-pajak/objek-pajak-bumi/delete&id=<?=$_GET['id']?>&kecamatan=<?=$data['KD_KECAMATAN']?>&kelurahan=<?=$data['KD_KELURAHAN']?>&blok=<?=$data['KD_BLOK']?>&znt=<?=$data['KD_ZNT']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" onclick="if(confirm('Apakah anda yakin menghapus data ini')){return true}else{return false}">
+                                <a href="index.php?action=builder/subjek-pajak/objek-pajak-bumi/delete&NOP=<?=$data['NOPQ']?>&id=<?=$_GET['id']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" onclick="if(confirm('Apakah anda yakin menghapus data ini')){return true}else{return false}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -240,7 +387,7 @@
             
             <div class="flex justify-start items-center mb-5">
                 <h2 class="text-lg mr-3">Objek Pajak Bangunan</h2>
-                <a href="index.php?page=builder/subjek-pajak/objek-pajak-bangunan/create&id=<?=$_GET['id']?>" class="p-2 bg-green-500 text-white rounded">+ Add New</a>
+                <a href="javascript:void(0)" class="p-2 bg-green-500 text-white rounded" onclick="addBangunan()">+ Add New</a>
             </div>
 
             <table class="min-w-max w-full table-auto">
@@ -252,7 +399,7 @@
                     <?php else: ?>
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">No</th>
+                            <th class="py-3 px-6 text-left">NOP</th>
                             <th class="py-3 px-6 text-left">Kecamatan</th>
                             <th class="py-3 px-6 text-left">Kelurahan</th>
                             <th class="py-3 px-6 text-left">Blok</th>
@@ -293,7 +440,7 @@
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$key+1?></span>
+                                <span class="font-medium"><?=$data['NOPQ']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -509,5 +656,14 @@
         </div>
 
 </div>
+
+<script>
+function addBangunan(){
+    $("#modal").removeClass("hidden")
+}
+$("#close-modal").on('click',function(){
+    $("#modal").addClass("hidden")
+})
+</script>
 
 <?php load('builder/partials/bottom') ?>
