@@ -11,6 +11,7 @@
             &nbsp;
             <a href="index.php?page=builder/laporan/sppt/index" class="p-2 bg-yellow-500 text-white rounded block text-center">Kembali</a>
         </div>
+        <?php if(!empty($kecamatan) || !empty($kelurahan)): ?>
         <div class="bg-white shadow-md rounded my-3 py-3 px-6">
             <?php if($kecamatan): ?>
             <h3 class="text-2xl">Kecamatan : <?=$kecamatan['NM_KECAMATAN']?></h3>
@@ -19,6 +20,7 @@
             <h3 class="text-2xl">Kelurahan : <?=$kelurahan['NM_KELURAHAN']?></h3>
             <?php endif ?>
         </div>
+        <?php endif ?>
         <?php endif ?>
         <div class="bg-white shadow-md rounded my-3 overflow-x-auto">
             <table class="min-w-max w-full table-auto">
