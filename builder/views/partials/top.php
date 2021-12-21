@@ -95,10 +95,10 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
         }
 
         /* width */
-        ::-webkit-scrollbar {
+        /* ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
-        }
+        } */
 
         /* Track */
         ::-webkit-scrollbar-track {

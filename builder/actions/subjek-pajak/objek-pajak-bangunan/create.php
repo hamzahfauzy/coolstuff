@@ -44,6 +44,60 @@ if(request() == 'POST')
     if(isset($_POST['hitung'])){
         
         // init vars
+
+            global $nDBKB, $nMezanine, $LDBKB, $nTipe_K;
+            
+            global $nDUKUNG;
+
+            global $xDinding,$xLantai,$xAtap,$xLangit2;
+
+            global $TPajak,$TRenovasi,$TBangun,$JLANTAI,$JGuna,$Umur,$JL,$umur_EFF;
+
+            global $X,$JPB;
+
+            global $cTipe,$CC;
+
+            global $nMaterial,$nFAS1,$nFAS2,$nSusut,$nSusut1;
+
+            global $W0,$W1,$W2,$W3,$W4,$W5,$W6,$W7,$W8,$W9;
+
+            global $WW0,$WW1,$WW2,$WW3,$WW4,$WW5,$WW6,$WW7,$WW8,$WW9;
+
+            global $s_W0,$s_W4,$s_W5,$s_W6,$s_W7,$s_W8,$s_W9,$s_WW0;
+
+            global $QQ1,$QQ2,$QQ3,$QQ4,$QQ5,$QQ6;
+
+            global $s_QQ1,$s_QQ2,$s_QQ3,$s_QQ4,$s_QQ5,$s_QQ6;
+
+            global $n_Mezanin,$s_nFas2;
+
+            global $DAYA_LISTRIK;
+
+            global $JUM_SPLIT,$JUM_WINDOW,$JUM_AC_CENTRAL;
+
+            global $LUAS_HRINGAN,$LUAS_HSEDANG,$LUAS_HBERAT,$LUAS_HPENUTUP;
+            
+            global $JUM_LAP_BETON1,$JUM_LAP_ASPAL1,$JUM_LAP_RUMPUT1,$JUM_LAP_BETON2,$JUM_LAP_ASPAL2,$JUM_LAP_RUMPUT2,$JUM_LAP_BETON11,$JUM_LAP_ASPAL11,$JUM_LAP_RUMPUT11,$JUM_LAP_BETON21,$JUM_LAP_ASPAL21,$JUM_LAP_RUMPUT21;
+
+            global $BAHAN_PAGAR1,$BAHAN_PAGAR2;
+
+            global $LEBAR_TANGGA1,$LEBAR_TANGGA2;
+
+            global $BAKAR_H,$BAKAR_S,$BAKAR_F;
+
+            global $JUM_PABX;
+
+            global $DALAM_SUMUR;
+
+            global $Nil_AC_Central,$Nil_Boiler_Ht;
+            
+            global $JLIFT,$Luas_Kolam,$JUM_GENSET;
+
+            global $xKondisi,$xSUSUT;
+
+            global $ck_Ulin,$N_BANGUNAN;
+
+            global $nBangunan,$nSistem;
         
             $nDBKB = 0;
             $nMezanine = 0;
@@ -582,7 +636,7 @@ if(request() == 'POST')
                     $DAYA_LISTRIK = $NFAS;
                 }
         
-                $S_Listrik = Format($DAYA_LISTRIK, "#,#0.00");
+                $S_Listrik = number_format($DAYA_LISTRIK, 2);
         
                 if( trim($value['KD_FASILITAS']) == "01" ) $JUM_SPLIT = $NFAS;
                 if( trim($value['KD_FASILITAS']) == "02" ) $JUM_WINDOW = $NFAS;
@@ -704,7 +758,7 @@ if(request() == 'POST')
         
             foreach ($data as $key => $value) {
         
-                $NFAS = is_null($value['NILAI_DEP_MIN_MAX']);
+                $NFAS = $value['NILAI_DEP_MIN_MAX'];
                 $xMIN = $value['KLS_DEP_MIN'];
                 $xMAX = $value['KLS_DEP_MAX'];
                 
