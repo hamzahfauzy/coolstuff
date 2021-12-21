@@ -42,6 +42,10 @@
                     </div>
 
                     <div class="form-group inline-block">
+                        <input name="PERSEN" type="number" class="p-2 w-full border rounded" onkeyup="persenChange(this)" placeholder="Kenaikan">
+                    </div>
+
+                    <div class="form-group inline-block">
                         <button class="p-2 bg-green-500 text-white rounded" name="filter">Filter</button>
                     </div>
 
@@ -104,14 +108,14 @@
                         
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=number_format($data['HRG_RESOURCE'],2)?></span>
+                                <span class="font-medium harga-res" data-name="HARGA_BARU[<?=$data['KD_RESOURCE']?>-<?=$data['KD_GROUP_RESOURCE']?>]" data-harga="<?=$data['HRG_RESOURCE']?>"><?=number_format($data['HRG_RESOURCE'],2)?></span>
                             </div>
                         </td>
                         
                         
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="form-group inline-block">
-                                <input type="text" class="p-2 w-full border rounded" placeholder="Harga Baru" name="HARGA_BARU[<?=$data['KD_RESOURCE']?>-<?=$data['KD_GROUP_RESOURCE']?>]">
+                                <input type="text" class="p-2 w-full border rounded" placeholder="Harga Baru" name="HARGA_BARU[<?=$data['KD_RESOURCE']?>-<?=$data['KD_GROUP_RESOURCE']?>]" value="<?=number_format($data['HRG_RESOURCE'],0)?>">
                             </div>
                         </td>
 
@@ -162,4 +166,28 @@
         </form>
     </div>
 </div>
+<script>
+var timeout;
+
+function persenChange(el){
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+
+        var nLama = document.querySelectorAll(".harga-res")
+
+        nLama.forEach(lama=>{
+            
+            var value = parseFloat(lama.dataset.harga)
+
+            var fk = lama.dataset.name
+
+            var plus = value * (el.value / 100)
+
+            document.querySelector(`[name='${fk}']`).value = value + plus
+
+        })
+
+    }, 500)
+}
+</script>
 <?php load('builder/partials/bottom') ?>
