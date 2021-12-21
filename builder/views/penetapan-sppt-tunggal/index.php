@@ -126,7 +126,7 @@
                     <div class="grid grid-cols-2 gap-4">
     
                         <div class="form-group mb-2">
-                            <label>Tarif</label>
+                            <label>Tarif %</label>
                             <input type="text" id="TARIF" name="TARIF" class="p-2 w-full border rounded" value="">
                         </div>
     
@@ -198,17 +198,28 @@
 
     function check(){
         var nop = document.querySelector("[name='NOP']")
+        var year = document.querySelector("select[name='YEAR']")
 
-        fetch("index.php?page=builder/penetapan-sppt-tunggal/index&check=true&NOP="+nop.value).then(response => response.json()).then(data => {            
+        fetch("index.php?page=builder/penetapan-sppt-tunggal/index&check=true&NOP="+nop.value).then(response => response.json()).then(data => {
 
-            if(data.hasOwnProperty("KD_PROPINSI")){
+            if(data.hasOwnProperty("data")){
                 document.querySelector(".box").classList.remove("hidden")
 
-                document.querySelector("[name='LUAS_BUMI']").value = data.TOTAL_LUAS_BUMI
-                document.querySelector("[name='LUAS_BNG']").value = data.TOTAL_LUAS_BNG
+                document.querySelector("[name='LUAS_BUMI']").value = data.data.TOTAL_LUAS_BUMI
+                document.querySelector("[name='LUAS_BNG']").value = data.data.TOTAL_LUAS_BNG
 
-                document.querySelector("[name='NJOP_BUMI']").value = data.NJOP_BUMI
-                document.querySelector("[name='NJOP_BNG']").value = data.NJOP_BNG
+                document.querySelector("[name='NJOP_BUMI']").value = data.data.NJOP_BUMI
+                document.querySelector("[name='NJOP_BNG']").value = data.data.NJOP_BNG
+
+                document.querySelector("[name='NO_PERSIL']").value = data.data.NO_PERSIL ? data.data.NO_PERSIL : "00"
+
+                document.querySelector("[name='KELAS_BUMI']").value = data.KELAS_BUMI
+                document.querySelector("[name='KELAS_BNG']").value = data.KELAS_BNG
+                document.querySelector("[name='NJKP']").value = data.NJKP
+                document.querySelector("[name='TARIF']").value = data.TARIF
+                document.querySelector("[name='NJOPTKP']").value = data.NJOPTKP
+                document.querySelector("[name='PBB']").value = data.PBB
+                document.querySelector("[name='TOTAL_NJOP']").value = data.TOTAL_NJOP
             }else{
                 document.querySelector(".box").classList.add("hidden")
                 alert("Data Tidak Ditemukan!")

@@ -72,7 +72,7 @@ if(request() == 'POST'){
     $qb->rawQuery($strLOG)->exec();
     
     set_flash_msg(['success'=>'Penetapan SPPT Massal: Sukses!']);
-    header("location:index.php?page=builder/penetapan-sppt/index");
+    header("location:index.php?page=builder/penetapan-sppt-massal/index");
     return;
 }
 
