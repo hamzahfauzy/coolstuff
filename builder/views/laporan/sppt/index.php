@@ -53,7 +53,40 @@
             </div>
 
             <div class="form-group">
-                <button class="w-full p-2 bg-indigo-800 text-white rounded" name="cetak" value="cetak">Tampilkan</button>
+                <button class="w-full p-2 bg-indigo-800 text-white rounded" name="cetak" value="cetak">Cetak</button>
+            </div>
+        </form>
+        <br>
+        <center>Atau Cetak berdasarkan NOP</center>
+        <form action="index.php" onsubmit="doSubmit(this); return false;">
+            <input type="hidden" name="page" value="builder/laporan/sppt/results">
+            <div class="form-group mb-2">
+                <?php 
+                $options = [];
+                for($i=date('Y');$i>=1900;$i--) $options[] = $i;
+                $options = implode("|",$options);
+                ?>
+                <label>Tahun Pajak</label>
+                <?= Form::input('options:'.$options, 'tahun_pajak', ['class'=>"p-2 w-full border rounded"]) ?>
+            </div>
+            <div class="form-group mb-2">
+                <label>NOP</label>
+                <?= Form::input('text', 'nop', ['class'=>"p-2 w-full border rounded","placeholder"=>'NOP']) ?>
+            </div>
+            <div class="form-group mb-2">
+                <label>Tanggal Terbit</label>
+                <?= Form::input('date', 'tanggal_terbit', ['value'=>date('Y-m-d'),'readonly'=>'readonly','class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Terbit']) ?>
+            </div>
+            <div class="form-group mb-2">
+                <label>Tanggal Cetak</label>
+                <?= Form::input('date', 'tanggal_cetak', ['value'=>date('Y-m-d'),'class'=>"p-2 w-full border rounded","placeholder"=>'Tanggal Cetak']) ?>
+            </div>
+            <div class="form-group mb-2">
+                <label>NIP Pencetak</label>
+                <?= Form::input('number', 'nip_pencetak', ['class'=>"p-2 w-full border rounded","placeholder"=>'NIP Pencetak','value'=>0]) ?>
+            </div>
+            <div class="form-group">
+                <button class="w-full p-2 bg-indigo-800 text-white rounded" name="cetak" value="cetak">Cetak</button>
             </div>
         </form>
     </div>
