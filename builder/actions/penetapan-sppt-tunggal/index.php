@@ -54,8 +54,13 @@ if(isset($_GET['check'])){
 
     $TOTAL_NJOP = $NJOP_BUMI + $NJOP_BNG;
 
-    $NJOPTKP = $cTKP[1];
-    $cTarif = $xTarif[1];
+    if( $TOTAL_NJOP >= $cMin[0] && $TOTAL_NJOP <= $cMax[0] ){
+        $NJOPTKP = $cTKP[0];
+        $cTarif = $xTarif[0];
+    }else{
+        $NJOPTKP = $cTKP[1];
+        $cTarif = $xTarif[1];
+    }
 
     $NJKP = $TOTAL_NJOP - $NJOPTKP;
 
