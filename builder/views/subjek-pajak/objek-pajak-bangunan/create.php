@@ -29,7 +29,7 @@
             <div class="grid grid-cols-3 gap-4">
                 <div class="form-group mb-2">
                     <label>NOP</label>
-                    <input type="text" required class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NOP"] ? $old["NOP"] : ''?>" name="NOP">
+                    <input type="text" required class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NOP"] ? $old["NOP"] : $_GET['NOP']?>" name="NOP" readonly>
                 </div>
 
                 <div class="form-group mb-2">

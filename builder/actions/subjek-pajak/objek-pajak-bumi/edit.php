@@ -3,15 +3,17 @@ require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
 
+$clauseBumi = "DAT_OP_BUMI.KD_PROPINSI + '.' + DAT_OP_BUMI.KD_DATI2 + '.' + DAT_OP_BUMI.KD_KECAMATAN + '.' + DAT_OP_BUMI.KD_KELURAHAN + '.' + DAT_OP_BUMI.KD_BLOK + '-' + DAT_OP_BUMI.NO_URUT + '.' + DAT_OP_BUMI.KD_JNS_OP";
+
 $fields = $qb->columns("DAT_OP_BUMI","NO_URUT,KD_JNS_OP,LUAS_BUMI,NILAI_SISTEM_BUMI,NO_FORMULIR,STATUS_JADI");
 
 $kecamatans = $qb->select('REF_KECAMATAN')->orderby('KD_KECAMATAN')->get();
 
 $subjekPajak = $qb->select("DAT_SUBJEK_PAJAK")->where('SUBJEK_PAJAK_ID',$_GET['id'])->first();
 
-$opBumi = $qb->select("DAT_OP_BUMI")->where("SUBJEK_PAJAK_ID",$_GET['id'])->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->where('KD_BLOK',$_GET['blok'])->where('KD_ZNT',$_GET['znt'])->first();
+$opBumi = $qb->select("DAT_OP_BUMI")->where($clauseBumi,$_GET['NOP'])->first();
 
-$datOP = $qb->select("DAT_OBJEK_PAJAK")->where("SUBJEK_PAJAK_ID",$_GET['id'])->where('KD_KECAMATAN',$_GET['kecamatan'])->where('KD_KELURAHAN',$_GET['kelurahan'])->where('KD_BLOK',$_GET['blok'])->first();
+$datOP = $qb->select("DAT_OBJEK_PAJAK")->where("SUBJEK_PAJAK_ID",$_GET['id'])->where('KD_KECAMATAN',$opBumi['KD_KECAMATAN'])->where('KD_KELURAHAN',$opBumi['KD_KELURAHAN'])->where('KD_BLOK',$opBumi['KD_BLOK'])->first();
 
 $old = get_flash_msg("old");
 
@@ -73,7 +75,7 @@ if(request() == 'POST')
     
     $nilaiKelas = $kelasTanah && $kelasTanah['NILAI_PER_M2_TANAH'] ? $kelasTanah['NILAI_PER_M2_TANAH'] : 1;
 
-    $NOP = "12.12.$opBumi[KD_KECAMATAN].$opBumi[KD_KELURAHAN].$opBumi[KD_BLOK]-$opBumi[NO_URUT].$opBumi[KD_JNS_OP]";
+    $NOP = $_GET['NOP']; // "12.12.$opBumi[KD_KECAMATAN].$opBumi[KD_KELURAHAN].$opBumi[KD_BLOK]-$opBumi[NO_URUT].$opBumi[KD_JNS_OP]";
 
     $tBumi3 = $LUAS_TANAH * $nilaiKelas;
 
