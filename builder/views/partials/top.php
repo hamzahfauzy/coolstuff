@@ -206,7 +206,8 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="penetapan" style="top:40px">
                             <a href="?page=builder/pbb-minimal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pbb-minimal') ?> hover:text-white">PBB Minimal</a>
                             <a href="?page=builder/penetapan-njoptkp/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-njoptkp') ?> hover:text-white">Penetapan NJOPTKP</a>
-                            <a href="?page=builder/penetapan-sppt/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt') ?> hover:text-white">Penetapan SPPT</a>
+                            <a href="?page=builder/penetapan-sppt-massal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt-massal') ?> hover:text-white">Penetapan SPPT Massal</a>
+                            <a href="?page=builder/penetapan-sppt-tunggal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('penetapan-sppt-tunggal') ?> hover:text-white">Penetapan SPPT Tunggal</a>
                             <a href="?page=builder/pelunasan-massal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pelunasan-massal') ?> hover:text-white">Pelunasan Massal</a>
                             <a href="?page=builder/pelunasan-tunggal/index" class="block px-4 py-3 hover:bg-purple-700 <?= getCurrentPageDataNav('pelunasan-tunggal') ?> hover:text-white">Pelunasan Tunggal</a>
                         </div>

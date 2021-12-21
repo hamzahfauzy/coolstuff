@@ -35,7 +35,8 @@ return [
     'penetapan'=>[
         'pbb-minimal'=>'builder/pbb-minimal/index',
         'penetapan-njoptkp'=>'builder/penetapan-njoptkp/index',
-        'penetapan-sppt'=>'builder/penetapan-sppt/index',
+        'penetapan-sppt-massal'=>'builder/penetapan-sppt-massal/index',
+        'penetapan-sppt-tunggal'=>'builder/penetapan-sppt-tunggal/index',
         'pelunasan-massal'=>'builder/pelunasan-massal/index',
         'pelunasan-tunggal'=>'builder/pelunasan-tunggal/index',
     ],
