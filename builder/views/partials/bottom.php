@@ -12,7 +12,15 @@ $installation = $builder->get_installation();
     <script>
     function toggleNav(id)
     {
-        document.querySelector(id).classList.toggle('hidden')
+        var elm = document.querySelector(id)
+        elm.classList.toggle('hidden')
+
+        var boxs = document.querySelectorAll(".nav-box:not("+id+")")
+
+        boxs.forEach(item => {
+            if(elm.parentNode.parentNode != item)
+                item.classList.add('hidden')
+        });
     }
 
     document.addEventListener('click',function(event){
