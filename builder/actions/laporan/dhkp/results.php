@@ -228,8 +228,7 @@ if(isset($mode) && $mode == 'cek_cetak')
         $xTempat = $v[14];
         $xBUKU = $v[15];
         $xBayar = $v[16];
-        $xTanggal = $v[17];
-        if($xTanggal == 0) $xTanggal = "";
+        $xTanggal = $v[17] ?? "";
         $cBayar = $v[18];
         $tLuas = $v[19];
         $bLuas = $v[20];
@@ -280,7 +279,7 @@ if(isset($mode) && $mode == 'cek_cetak')
                             '" . $xTempat . "',
                             '" . $xBUKU . "',
                             '" . $xBayar . "',
-                            '" . ($xTanggal != "" ? date('Y-m-d',strtotime($xTanggal)) : "") . "',
+                            '" . ($xTanggal != "" ? $xTanggal->format("Y-m-d") : "") . "',
                             '" . $cBayar . "',
                             '" . $tLuas . "',
                             '" . $bLuas . "',

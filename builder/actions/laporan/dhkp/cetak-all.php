@@ -6,7 +6,7 @@ $qb = new QueryBuilder();
 
 extract($_GET);
 
-$query = "SELECT * FROM TEMP_DHKP ORDER BY THN_PAJAK,KD_KECAMATAN,KD_KELURAHAN,NOPQ ASC";
+$query = "SELECT * FROM TEMP_DHKP where THN_PAJAK = '".$_GET['tahun_pajak']."' ORDER BY THN_PAJAK,KD_KECAMATAN,KD_KELURAHAN,NOPQ ASC";
 
 $datas = $qb->rawQuery($query)->get();
 

@@ -80,7 +80,7 @@
     }
 
     function doSubmit(form){
-        document.querySelector('button[name=cetak]').disabled = true
+        // document.querySelector('button[name=cetak]').disabled = true
         document.querySelector('button[name=cetak]').innerHTML = "Memproses"
         const formData = new FormData(form);
         const params = new URLSearchParams(formData);
@@ -91,6 +91,8 @@
             if(res.status == 'fail')
             {
                 alert(res.message)
+                document.querySelector('button[name=cetak]').disabled = false
+                document.querySelector('button[name=cetak]').innerHTML = "Tampilkan"
             }
             else
             {
