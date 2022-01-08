@@ -17,8 +17,6 @@ if(isset($_GET['check'])){
 
 if(request() == 'POST'){
 
-    global $vBangunan,$vBangunan1;
-
     $vBangunan = [];
     $vBangunan1 = [];
 
@@ -89,6 +87,8 @@ if(request() == 'POST'){
     function sv_NJOPTKP(){
         global $vBangunan,$vBangunan1;
         $qb = new QueryBuilder();
+        print_r($vBangunan);
+        die();
 
         if($vBangunan){
             $s_SQL = "DELETE From DAT_SUBJEK_PAJAK_NJOPTKP where THN_NJOPTKP='".$_POST['THN_NJOPTKP']."'";
