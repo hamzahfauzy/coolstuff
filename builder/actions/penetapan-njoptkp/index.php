@@ -17,6 +17,8 @@ if(isset($_GET['check'])){
 
 if(request() == 'POST'){
 
+    global $vBangunan,$vBangunan1;
+
     $vBangunan = [];
     $vBangunan1 = [];
 
