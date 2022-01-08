@@ -128,7 +128,7 @@ load('builder/partials/modals/list-objek-pajak');
 
         var data = await res.json()
 
-        if(data.length){
+        if(data.hasOwnProperty('THN_PAJAK_SPPT')){
             alert("Data ditemukan")
 
             $("#form-box").removeClass('hidden')
