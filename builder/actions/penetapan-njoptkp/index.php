@@ -87,8 +87,6 @@ if(request() == 'POST'){
     function sv_NJOPTKP(){
         global $vBangunan,$vBangunan1;
         $qb = new QueryBuilder();
-        print_r($vBangunan);
-        die();
 
         if($vBangunan){
             $s_SQL = "DELETE From DAT_SUBJEK_PAJAK_NJOPTKP where THN_NJOPTKP='".$_POST['THN_NJOPTKP']."'";
@@ -97,7 +95,7 @@ if(request() == 'POST'){
     
             foreach ($vBangunan as $key => $value) {
                 
-                $s_SQL = "Insert Into DAT_SUBJEK_PAJAK_NJOPTKP values ('" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "'," . "'" . $value[6] . "','" . $value[7] . "','" . $value[8] . "','" . $value[9] . "')";
+                $s_SQL = "Insert Into DAT_SUBJEK_PAJAK_NJOPTKP values ('" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "','" . $value[9] . "')";
                 
                 $qb->rawQuery($s_SQL)->exec();
                 
@@ -109,6 +107,8 @@ if(request() == 'POST'){
     C_NJOPTKP();
 
     sv_NJOPTKP();
+
+    die();
 
     set_flash_msg(['success'=>'Data Saved']);
     header("location:index.php?page=builder/penetapan-njoptkp/index");
