@@ -35,6 +35,10 @@ if(isset($_GET['check'])){
 
     $dt = $qb->rawQuery($StrQ1)->first();
 
+    $sppt_q = "Select * From SPPT WHERE KD_PROPINSI + '.' + KD_DATI2  +'.' + KD_KECAMATAN +'.' + KD_KELURAHAN +'.' + KD_BLOK +'-' +NO_URUT +'.' +KD_JNS_OP= '" .  $_GET['NOP'] . "'";
+
+    $sppt = $qb->rawQuery($sppt_q)->first();
+
     $xxTarif = "Select * From Tarif order by NJOP_MIN";
 
     $xTarif = $qb->rawQuery($xxTarif)->get();
@@ -94,6 +98,7 @@ if(isset($_GET['check'])){
 
     $data = [
         "data"=>$dt,
+        "sppt"=>$sppt,
         "TARIF"=>$cTarif,
         "NJKP"=>$NJKP,
         "NJOPTKP"=>$NJOPTKP,

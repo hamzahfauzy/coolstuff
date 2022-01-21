@@ -91,11 +91,17 @@
             if(res.status == 'fail')
             {
                 alert(res.message)
+                document.querySelector('button[name=cetak]').disabled = false
+                document.querySelector('button[name=cetak]').innerHTML = "Cetak"
             }
             else
             {
-                window.open('index.php?page=builder/penatausahaan/laporan-piutang/cetak-all&tahun_pajak='+document.querySelector("select[name=tahun_pajak]").value)
+                var KD_KECAMATAN = document.querySelector("[name='KD_KECAMATAN']").value
+                var KD_KELURAHAN = document.querySelector("[name='KD_KELURAHAN']").value
+
+                window.open('index.php?page=builder/penatausahaan/laporan-piutang/cetak-all&KD_KECAMATAN='+KD_KECAMATAN+'&KD_KELURAHAN='+KD_KELURAHAN+'&tahun_pajak='+document.querySelector("select[name=tahun_pajak]").value)
                 document.querySelector('button[name=cetak]').disabled = false
+                document.querySelector('button[name=cetak]').innerHTML = "Cetak"
             }
         })
     }

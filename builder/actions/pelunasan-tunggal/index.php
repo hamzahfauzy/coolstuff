@@ -11,7 +11,7 @@ if(isset($_GET['check'])){
     //         " From PEMBAYARAN_SPPT GROUP BY KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN, KD_BLOK, NO_URUT, KD_JNS_OP, THN_PAJAK_SPPT, KD_KANWIL_BANK, KD_KPPBB_BANK, KD_BANK_TUNGGAL, KD_BANK_PERSEPSI, KD_TP, TGL_PEMBAYARAN_SPPT, TGL_REKAM_BYR_SPPT, NIP_REKAM_BYR_SPPT, [KD_PROPINSI]+'.'+[KD_DATI2]+'.'+[KD_KECAMATAN]+'.'+[KD_KELURAHAN]+'.'+[KD_BLOK]+'-'+[NO_URUT]+'.'+[KD_JNS_OP] " & _
     //         " HAVING (((THN_PAJAK_SPPT)='" & ccTahun.Text & "') AND (([KD_PROPINSI]+'.'+[KD_DATI2]+'.'+[KD_KECAMATAN]+'.'+[KD_KELURAHAN]+'.'+[KD_BLOK]+'-'+[NO_URUT]+'.'+[KD_JNS_OP])='" & aNOP.Text & "' ))"
 
-    $sql = "Select * From SPPT WHERE KD_PROPINSI + '.' + KD_DATI2  +'.' + KD_KECAMATAN +'.' + KD_KELURAHAN +'.' + KD_BLOK +'-' +NO_URUT +'.' +KD_JNS_OP= '" .  $_GET['NOP'] . "' and (PROSES='M' OR PROSES='T')and THN_PAJAK_SPPT='" .  $_GET['year'] . "'";
+    $sql = "Select * From PEMBAYARAN_SPPT WHERE KD_PROPINSI + '.' + KD_DATI2  +'.' + KD_KECAMATAN +'.' + KD_KELURAHAN +'.' + KD_BLOK +'-' +NO_URUT +'.' +KD_JNS_OP= '" .  $_GET['NOP'] . "' and THN_PAJAK_SPPT='" .  $_GET['year'] . "'";
 
     $sppt = $qb->rawQuery($sql)->first();
 

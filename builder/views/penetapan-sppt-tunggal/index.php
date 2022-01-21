@@ -141,7 +141,7 @@
     
                         <div class="form-group mb-2">
                             <label>Faktor Pengurang</label>
-                            <input type="text" id="FAKTOR_PENGURANG" name="FAKTOR_PENGURANG" class="p-2 w-full border rounded" value="">
+                            <input type="text" id="FAKTOR_PENGURANG" name="FAKTOR_PENGURANG" onchange="faktorPengurang(this)" class="p-2 w-full border rounded" value="">
                         </div>
     
                         <div class="form-group mb-2">
@@ -220,12 +220,19 @@
                 document.querySelector("[name='NJOPTKP']").value = data.NJOPTKP
                 document.querySelector("[name='PBB']").value = data.PBB
                 document.querySelector("[name='TOTAL_NJOP']").value = data.TOTAL_NJOP
+
+                document.querySelector("[name='FAKTOR_PENGURANG']").value = data.sppt.FAKTOR_PENGURANG_SPPT
+                document.querySelector("[name='KD_BAYAR']").value = data.sppt.KD_TP
             }else{
                 document.querySelector(".box").classList.add("hidden")
                 alert("Data Tidak Ditemukan!")
             }
         })
     } 
+
+    function faktorPengurang(el){
+        document.querySelector("[name='PBB']").value -= el.value
+    }
 
     async function onProcess(el){
 

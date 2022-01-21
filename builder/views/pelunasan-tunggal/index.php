@@ -91,7 +91,7 @@ load('builder/partials/modals/list-objek-pajak');
                     
                     <div class="form-group mb-2">
                         <label for="NIP">NIP</label>
-                        <input type="number" id="NIP" name="NIP" class="p-2 w-full border rounded">
+                        <input type="text" id="NIP" name="NIP" class="p-2 w-full border rounded">
                     </div>
                 </div>
 
@@ -108,6 +108,8 @@ load('builder/partials/modals/list-objek-pajak');
         </form>
     </div>
 </div>
+
+<script src="js/moment.js"></script>
 
 <script>
 
@@ -130,6 +132,14 @@ load('builder/partials/modals/list-objek-pajak');
 
         if(data.hasOwnProperty('THN_PAJAK_SPPT')){
             alert("Data ditemukan")
+
+            $("[name='SPPT_KE']").val(data.PEMBAYARAN_SPPT_KE)
+            $("[name='KD_BAYAR']").val(data.KD_TP)
+            $("[name='DENDA']").val(data.DENDA_SPPT)
+            $("[name='JLH_DIBAYARKAN']").val(data.JML_SPPT_YG_DIBAYAR)
+            document.querySelector("[name='TGL_PEMBAYARAN']").value = moment(data.TGL_PEMBAYARAN_SPPT.date).format("YYYY-MM-DD")
+            document.querySelector("[name='TGL_PEREKAM']").value = moment(data.TGL_REKAM_BYR_SPPT.date).format("YYYY-MM-DD")
+            $("[name='NIP']").val(data.NIP_REKAM_BYR_SPPT)
 
             $("#form-box").removeClass('hidden')
         }else{
