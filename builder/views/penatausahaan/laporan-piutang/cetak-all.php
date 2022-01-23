@@ -54,12 +54,12 @@
                                     <tr>
                                         <td>KECAMATAN</td>
                                         <td>:</td>
-                                        <td><?=$datas[0]['KD_KECAMATAN'].' - '.$datas[0]['NM_KECAMATAN']?></td>
+                                        <td><?= $_GET['KD_KECAMATAN'] != "Semua" ? $datas[0]['KD_KECAMATAN'].' - '.$datas[0]['NM_KECAMATAN'] : "Semua"?></td>
                                     </tr>
                                     <tr>
                                         <td>KELURAHAN</td>
                                         <td>:</td>
-                                        <td><?=$datas[0]['KD_KELURAHAN'].' - '.$datas[0]['NM_KELURAHAN']?></td>
+                                        <td><?=$_GET['KD_KELURAHAN'] != "Semua" ? $datas[0]['KD_KELURAHAN'].' - '.$datas[0]['NM_KELURAHAN'] : "Semua"?></td>
                                     </tr>
                                 </table>
                             </td>
