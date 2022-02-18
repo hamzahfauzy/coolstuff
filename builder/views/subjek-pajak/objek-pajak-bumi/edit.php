@@ -16,8 +16,7 @@
         </div>
     <?php endif ?>
 
-     <form id="login-form" action="index.php?page=<?=$_GET['page']?>&id=<?=$_GET['id']?>&kecamatan=<?=$opBumi['KD_KECAMATAN']?>&kelurahan=<?=$opBumi['KD_KELURAHAN']?>&blok=<?=$opBumi['KD_BLOK']?>&znt=<?=$opBumi['KD_ZNT']?>
-&kecamatan=<?=$opBumi['KD_KECAMATAN']?>&kelurahan=<?=$opBumi['KD_KELURAHAN']?>&blok=<?=$opBumi['KD_BLOK']?>&znt=<?=$opBumi['KD_ZNT']?>" method="post" enctype="multipart/form-data">
+     <form id="login-form" action="index.php?page=<?=$_GET['page']?>&id=<?=$_GET['id']?>&NOP=<?=$_GET['NOP']?>" method="post" enctype="multipart/form-data">
 
         <div class="bg-white shadow-md rounded my-6 p-8">
 

@@ -91,7 +91,7 @@ if(request() == 'POST')
     }else{
         set_flash_msg(["old"=>$_POST]);
 
-        header('location:index.php?page=builder/subjek-pajak/objek-pajak-bumi/edit&id='.$_GET['id']."&kecamatan=$_GET[kecamatan]&kelurahan=$_GET[kelurahan]&blok=$_GET[blok]&znt=$_GET[znt]");
+        header('location:index.php?page=builder/subjek-pajak/objek-pajak-bumi/edit&id='.$_GET['id']."&NOP=".$_GET['NOP']);
         return;
     }
 }
