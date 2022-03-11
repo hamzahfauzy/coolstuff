@@ -386,7 +386,7 @@
 
         </div>
 
-        <div class="bg-white shadow-md rounded p-8 overflow-x-auto mt-5">
+        <div class="bg-white shadow-md rounded p-8 overflow-x-auto my-5">
             
             <div class="flex justify-start items-center mb-5">
                 <h2 class="text-lg mr-3">Objek Pajak Bangunan</h2>
@@ -657,6 +657,119 @@
             </table>
 
         </div>
+
+        
+        <div class="bg-white shadow-md rounded overflow-x-auto p-8">
+
+            <div class="flex justify-start items-center mb-5">
+                <h2 class="text-lg mr-3">History Objek Pajak Bumi</h2>
+            </div>
+
+            <table class="min-w-max w-full table-auto">
+                <tbody class="text-gray-600 text-sm font-light">
+                    <?php if(empty($historyOpBumis)): ?>
+                    <tr>
+                        <td colspan="4" class="py-3 px-6 text-center font-semibold"><i>Empty</i></td>
+                    </tr>
+                    <?php else: ?>
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Tahun</th>
+                            <th class="py-3 px-6 text-left">Kecamatan</th>
+                            <th class="py-3 px-6 text-left">Kelurahan</th>
+                            <th class="py-3 px-6 text-left">Blok</th>
+                            <th class="py-3 px-6 text-left">No Urut</th>
+                            <th class="py-3 px-6 text-left">Jenis OP</th>
+                            <th class="py-3 px-6 text-left">No Bumi</th>
+                            <th class="py-3 px-6 text-left">ZNT</th>
+                            <th class="py-3 px-6 text-left">Luas</th>
+                            <th class="py-3 px-6 text-left">Jenis Bumi</th>
+                            <th class="py-3 px-6 text-left">Nilai Sistem Bumi</th>
+                            <th class="py-3 px-6 text-left">No Formulir</th>
+                            <th class="py-3 px-6 text-left">Status Jadi</th>
+                        </tr>
+                    </thead>
+                    <?php foreach($historyOpBumis as $key => $data): ?>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['YEAR'] ?? "-"?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - "?><?= $data['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - "?><?= $data['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_BLOK']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_URUT']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_JNS_OP']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_BUMI']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_ZNT']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['LUAS_BUMI']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium">
+                                    <?php foreach($jenisBumi as $bumi){
+                                        echo $data['JNS_BUMI'] == substr($bumi,0,2) ? $bumi : '';
+                                    }
+                                    ?>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NILAI_SISTEM_BUMI']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_FORMULIR']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['STATUS_JADI']?></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach ?>
+                    <?php endif ?>
+                </tbody>
+            </table>
+
+        </div>
+
 
 </div>
 

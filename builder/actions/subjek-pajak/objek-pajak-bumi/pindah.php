@@ -22,6 +22,9 @@ $year = date("Y");
 
 if(request() == 'POST')
 {   
+    $opBumi['YEAR'] = $_POST['YEAR'];
+    $history = $qb->create("HISTORY_OP_BUMI",$opBumi)->exec();
+
     $update = $qb->update("DAT_OBJEK_PAJAK",["SUBJEK_PAJAK_ID"=>$_POST['SUBJEK_PAJAK_ID']])->where("SUBJEK_PAJAK_ID",$_GET['id'])->where('KD_KECAMATAN',$opBumi['KD_KECAMATAN'])->where('KD_KELURAHAN',$opBumi['KD_KELURAHAN'])->where('KD_BLOK',$opBumi['KD_BLOK'])->exec();
 
     $update = $qb->update("DAT_OP_BUMI",["SUBJEK_PAJAK_ID"=>$_POST['SUBJEK_PAJAK_ID']])->where($clauseBumi,$_GET['NOP'])->exec();
