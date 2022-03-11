@@ -363,6 +363,9 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </div> -->
+                                <a href="index.php?page=builder/subjek-pajak/objek-pajak-bumi/pindah&NOP=<?=$data['NOPQ']?>&id=<?=$_GET['id']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.944 12.979c-.489 4.509-4.306 8.021-8.944 8.021-2.698 0-5.112-1.194-6.763-3.075l1.245-1.633c1.283 1.645 3.276 2.708 5.518 2.708 3.526 0 6.444-2.624 6.923-6.021h-2.923l4-5.25 4 5.25h-3.056zm-15.864-1.979c.487-3.387 3.4-6 6.92-6 2.237 0 4.228 1.059 5.51 2.698l1.244-1.632c-1.65-1.876-4.061-3.066-6.754-3.066-4.632 0-8.443 3.501-8.941 8h-3.059l4 5.25 4-5.25h-2.92z"/></svg>
+                                </a>
                                 <a href="index.php?page=builder/subjek-pajak/objek-pajak-bumi/edit&NOP=<?=$data['NOPQ']?>&id=<?=$_GET['id']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -383,7 +386,7 @@
 
         </div>
 
-        <div class="bg-white shadow-md rounded p-8 overflow-x-auto mt-5">
+        <div class="bg-white shadow-md rounded p-8 overflow-x-auto my-5">
             
             <div class="flex justify-start items-center mb-5">
                 <h2 class="text-lg mr-3">Objek Pajak Bangunan</h2>
@@ -654,6 +657,119 @@
             </table>
 
         </div>
+
+        
+        <div class="bg-white shadow-md rounded overflow-x-auto p-8">
+
+            <div class="flex justify-start items-center mb-5">
+                <h2 class="text-lg mr-3">History Objek Pajak Bumi</h2>
+            </div>
+
+            <table class="min-w-max w-full table-auto">
+                <tbody class="text-gray-600 text-sm font-light">
+                    <?php if(empty($historyOpBumis)): ?>
+                    <tr>
+                        <td colspan="4" class="py-3 px-6 text-center font-semibold"><i>Empty</i></td>
+                    </tr>
+                    <?php else: ?>
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Tahun</th>
+                            <th class="py-3 px-6 text-left">Kecamatan</th>
+                            <th class="py-3 px-6 text-left">Kelurahan</th>
+                            <th class="py-3 px-6 text-left">Blok</th>
+                            <th class="py-3 px-6 text-left">No Urut</th>
+                            <th class="py-3 px-6 text-left">Jenis OP</th>
+                            <th class="py-3 px-6 text-left">No Bumi</th>
+                            <th class="py-3 px-6 text-left">ZNT</th>
+                            <th class="py-3 px-6 text-left">Luas</th>
+                            <th class="py-3 px-6 text-left">Jenis Bumi</th>
+                            <th class="py-3 px-6 text-left">Nilai Sistem Bumi</th>
+                            <th class="py-3 px-6 text-left">No Formulir</th>
+                            <th class="py-3 px-6 text-left">Status Jadi</th>
+                        </tr>
+                    </thead>
+                    <?php foreach($historyOpBumis as $key => $data): ?>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['YEAR'] ?? "-"?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - "?><?= $data['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - "?><?= $data['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_BLOK']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_URUT']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_JNS_OP']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_BUMI']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_ZNT']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['LUAS_BUMI']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium">
+                                    <?php foreach($jenisBumi as $bumi){
+                                        echo $data['JNS_BUMI'] == substr($bumi,0,2) ? $bumi : '';
+                                    }
+                                    ?>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NILAI_SISTEM_BUMI']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_FORMULIR']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['STATUS_JADI']?></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach ?>
+                    <?php endif ?>
+                </tbody>
+            </table>
+
+        </div>
+
 
 </div>
 
