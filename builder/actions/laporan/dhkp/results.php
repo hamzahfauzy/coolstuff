@@ -310,6 +310,16 @@ if(isset($mode) && $mode == 'cek_cetak')
     }
 
     $C_SPPT = $qb->rawQuery($C_SPPT)->get();
+
+    if(!$C_SPPT)
+    {
+        echo json_encode([
+            'status'=>'fail',
+            'message'=>'Data tidak valid'
+        ]);
+        die();
+    }
+
     foreach($C_SPPT as $c)
     {
 

@@ -59,7 +59,7 @@ if(request() == 'POST'){
         $message = "Objek pajak belum dinilai...! Kemungkinan ada data tidak valid";
 
         set_flash_msg(['failed'=>$message]);
-        header("location:index.php?page=builder/penetapan-sppt/index");
+        header("location:index.php?page=builder/penetapan-sppt-massal/index");
         return;
     }
 

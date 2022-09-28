@@ -96,7 +96,7 @@
             }
             else
             {
-                window.open('index.php?page=builder/laporan/dhkp/cetak-all&tahun_pajak='+document.querySelector("select[name=tahun_pajak]").value)
+                window.open('index.php?page=builder/laporan/dhkp/cetak-all&'+params.toString())
                 document.querySelector('button[name=cetak]').disabled = false
             }
         })
