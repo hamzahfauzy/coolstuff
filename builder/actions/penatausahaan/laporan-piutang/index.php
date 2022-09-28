@@ -2,6 +2,8 @@
 
 require '../helpers/QueryBuilder.php';
 
+$failed = get_flash_msg('failed');
+
 $qb = new QueryBuilder();
 
 $kecamatans = $qb->select('REF_KECAMATAN')->orderBy('KD_KECAMATAN')->get();

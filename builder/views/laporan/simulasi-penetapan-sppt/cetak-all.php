@@ -30,9 +30,9 @@
         <tr>
             <td style="padding:8px;" colspan="2"><?=$key?></td>
             <td align="center" style="font-weight:bold"><?=$data['total']['SPPT1']?></td>
-            <td align="center" style="font-weight:bold"><?=$data['total']['PBB1']?></td>
+            <td align="center" style="font-weight:bold"><?=number_format($data['total']['PBB1'])?></td>
             <td align="center" style="font-weight:bold"><?=$data['total']['SPPT2']?></td>
-            <td align="center" style="font-weight:bold"><?=$data['total']['PBB2']?></td>
+            <td align="center" style="font-weight:bold"><?=number_format($data['total']['PBB2'])?></td>
             
             <?php $i=1; foreach($data['kelurahans'] as $key2 => $data2): ?>
             <tr>
@@ -40,9 +40,9 @@
                 <td align="center"><?=$i?></td>
                 <td><?=$key2?></td>
                 <td align="center"><?=$data2['SPPT1']?></td>
-                <td align="center"><?=$data2['PBB1']?></td>
+                <td align="center"><?=number_format($data2['PBB1'])?></td>
                 <td align="center"><?=$data2['SPPT2']?></td>
-                <td align="center"><?=$data2['PBB2']?></td>
+                <td align="center"><?=number_format($data2['PBB2'])?></td>
 
             </tr>
             <?php $i++; endforeach ?>

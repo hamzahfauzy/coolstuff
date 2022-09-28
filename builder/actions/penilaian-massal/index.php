@@ -3,6 +3,8 @@
 require '../helpers/QueryBuilder.php';
 
 $msg = get_flash_msg('success');
+$failed = get_flash_msg('failed');
+
 $qb = new QueryBuilder();
 
 
@@ -32,6 +34,15 @@ if(isset($_GET['sppt']) && isset($_GET['KD_KECAMATAN']) && isset($_GET['KD_KELUR
 }
 
 if(request() == 'POST' && $_POST['KD_KECAMATAN'] && $_POST['KD_KELURAHAN'] && $_POST['YEAR']){
+    
+    $check_nir = $qb->select('DAT_NIR')->where('KD_KECAMATAN',$_POST['KD_KECAMATAN'])->where('KD_KELURAHAN',$_POST['KD_KELURAHAN'])->where('THN_NIR_ZNT',$_POST['YEAR'])->first();
+
+    if(!$check_nir)
+    {
+        set_flash_msg(['failed'=>'NIR tahun '.$_POST['YEAR'].' tidak ada']);
+        header("location:index.php?page=builder/penilaian-massal/index");
+        return;
+    }
 
     $T_SQL = "select * from SPPT WHERE KD_KECAMATAN='" . $_POST['KD_KECAMATAN'] . "' AND KD_KELURAHAN='" . $_POST['KD_KELURAHAN'] . "' and THN_PAJAK_SPPT='" . $_POST['YEAR'] . "'";
 
