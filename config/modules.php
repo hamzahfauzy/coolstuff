@@ -10,6 +10,8 @@ return [
             'dbkb-material'=>'builder/dbkb-material/index',
             'dbkb-fasilitas'=>'builder/dbkb-fasilitas/index',
             'dbkb-utama-material'=>'builder/dbkb-utama-material/index',
+            'dbkb-non-standar'=>'builder/dbkb-non-standar/index',
+            'dbkb-jpb'=>'builder/dbkb-jpb/index',
         ],
         'znt'=>[
             'nir'=>'builder/nir/index',

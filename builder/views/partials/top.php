@@ -163,6 +163,8 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                                     <a href="?page=builder/dbkb-fasilitas/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-fasilitas') ?> hover:text-white">DBKB Fasilitas</a>
                                     <a href="?page=builder/dbkb-utama/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-utama') ?> hover:text-white">DBKB Utama</a>
                                     <a href="?page=builder/dbkb-material/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-material') ?> hover:text-white">DBKB Material</a>
+                                    <a href="?page=builder/dbkb-non-standar/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-non-standar') ?> hover:text-white">DBKB Non Standar</a>
+                                    <a href="?page=builder/dbkb-jpb/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('dbkb-jpb') ?> hover:text-white">DBKB JPB3_JPB8</a>
                                 </div>
                             </div>
                             <a href="?page=builder/subjek-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('subjek-pajak') ?> hover:text-white">Subjek Pajak</a>

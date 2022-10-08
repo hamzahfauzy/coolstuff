@@ -96,7 +96,11 @@ if(isset($_GET['check'])){
 
     foreach ($xkelas_bumi as $key => $value) {
         if($NJOP_BUMI > 0)
-            if( ($NJOP_BUMI / $TOTAL_LUAS_BUMI) == $value['NILAI_PER_M2_TANAH'] * 1000 ){
+            // if( ($NJOP_BUMI / $TOTAL_LUAS_BUMI) == $value['NILAI_PER_M2_TANAH'] * 1000 ){
+            if( ($NJOP_BUMI / $TOTAL_LUAS_BUMI) >= $value['NILAI_MIN_TANAH'] * 1000 
+                &&
+                ($NJOP_BUMI / $TOTAL_LUAS_BUMI) <= $value['NILAI_MAX_TANAH'] * 1000 
+            ){
                 $KELAS_BUMI = $value['KD_KLS_TANAH'];
             }
     }
