@@ -867,7 +867,7 @@ if(request() == 'POST')
                     $DAYA_LISTRIK = $NFAS;
                 }
         
-                $S_Listrik = Format($DAYA_LISTRIK, "#,#0.00");
+                $S_Listrik = number_format($DAYA_LISTRIK, 2);
         
                 if( trim($value['KD_FASILITAS']) == "01" ) $JUM_SPLIT = $NFAS;
                 if( trim($value['KD_FASILITAS']) == "02" ) $JUM_WINDOW = $NFAS;
