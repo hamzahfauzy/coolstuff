@@ -18,6 +18,30 @@
         .objek-pajak p {
             margin:0;
         }
+		.navigation ul {
+			display: inline-block;
+			list-style-type: none;
+			padding:0;
+			margin:0;
+		}
+
+		.navigation ul li {
+			display:inline-block;
+		}
+		
+		.navigation ul li a {
+			padding:15px;
+			text-transform:uppercase;
+			color:#02a3dd;
+			font-size:0.8rem;
+		}
+
+		.side-header-container {
+			background-color: #f7f288;
+			padding: 10px;
+			position: relative;
+			border-radius: 8px;
+		}
 	</style>
 </head>
 <body class="is-boxed has-animations">
@@ -45,7 +69,7 @@
 				    <circle class="anime-element fadeup-animation" cx="64" cy="64" r="64" fill="url(#header-shape-2)" fill-rule="evenodd"/>
 				</svg>
 			</div>
-            <div class="container">
+            <div class="container side-header-container">
                 <div class="site-header-inner">
                     <div class="brand header-brand">
                         <h1 class="m-0">
@@ -55,6 +79,22 @@
                             </a>
                         </h1>
                     </div>
+					<div class="navigation">
+						<ul>
+							<li>
+								<a href="index.php">Beranda</a>
+							</li>
+							<li>
+								<a href="index.php?page=cek-sppt">Cek SPPT</a>
+							</li>
+							<li>
+								<a href="index.php?page=cari">Cek Riwayat Tagihan</a>
+							</li>
+							<li>
+								<a href="index.php?page=daftar">Pendaftaran PBB</a>
+							</li>
+						</ul>
+					</div>
                 </div>
             </div>
         </header>

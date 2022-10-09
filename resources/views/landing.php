@@ -8,7 +8,7 @@
 	                        <h1 class="hero-title mt-0">Pajak Bumi & Bangunan</h1>
 	                        <p class="hero-paragraph">Sebuah usaha yang berjalan pasti memerlukan lokasi fisik sebagai pusat operasi untuk menjalankan suatu usaha tersebut. Pada dasarnya, sebuah perusahaan membutuhkan biaya pengeluaran agar bisnis atau usahanya dapat berjalan di lokasi tersebut secara legal atau sah secara hukum. Biaya yang diperlukan tersebut adalah Pajak Bumi dan Bangunan  (PBB).</p>
 							
-							<a class="button button-primary button-block" href="index.php?page=cari">Klik untuk melihat riwayat tagihan anda</a>
+							<!-- <a class="button button-primary button-block" href="index.php?page=cari">Klik untuk melihat riwayat tagihan anda</a> -->
 						</div>
 						<div class="hero-illustration">
 							<div class="hero-shape hero-shape-1">
@@ -347,25 +347,6 @@
 					</div>
 				</div>
 			</section>
-
-			<section class="newsletter section text-light">
-                <div class="container-sm">
-                    <div class="newsletter-inner section-inner">
-                        <div class="newsletter-header text-center">
-                            <h2 class="section-title mt-0">Stay in the know</h2>
-                            <p class="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.</p>
-                        </div>
-                        <div class="footer-form newsletter-form field field-grouped">
-                            <div class="control control-expanded">
-                                <input class="input" type="email" name="email" placeholder="Your best email&hellip;">
-                            </div>
-                            <div class="control">
-                                <a class="button button-primary button-block button-shadow" href="#">Early access</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
 
 <?php load('partials/landing-bottom') ?>
