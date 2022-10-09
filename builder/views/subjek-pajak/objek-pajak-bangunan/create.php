@@ -61,7 +61,7 @@
                     <div class="grid grid-cols-3 gap-4">
                         <div class="form-group mb-2">
                             <label>No Bangunan</label>
-                            <input required type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NO_BNG"] ? $old["NO_BNG"] : '1'?>" name="NO_BNG">
+                            <input required type="text" class="p-2 mt-2 w-full border rounded" value="<?=isset($old) && $old["NO_BNG"] ? $old["NO_BNG"] : $jlhbng?>" name="NO_BNG">
                         </div>
         
                         <div class="form-group mb-2">
