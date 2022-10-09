@@ -6,16 +6,16 @@
                     </div>
                     <ul class="footer-links list-reset">
                         <li>
-                            <a href="#">Contact</a>
+                            <a href="index.php">Beranda</a>
                         </li>
                         <li>
-                            <a href="#">About us</a>
+                            <a href="index.php?page=cek-sppt">Cek SPPT</a>
                         </li>
                         <li>
-                            <a href="#">FAQ's</a>
+                            <a href="index.php?page=cari">Cek Riwayat Tagihan</a>
                         </li>
                         <li>
-                            <a href="#">Support</a>
+                            <a href="index.php?page=daftar">Pendaftaran PBB</a>
                         </li>
                     </ul>
                     <ul class="footer-social-links list-reset">
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="footer-copyright">&copy; 2021 . Badan Pengelolan Keuangan dan Aset Daerah Kabupaten Pakpak Bharat . All rights reserved</div>
+                    <div class="footer-copyright">&copy; <?=date('Y')?> . Badan Pengelolan Keuangan dan Aset Daerah Kabupaten Pakpak Bharat . All rights reserved</div>
                 </div>
             </div>
         </footer>
