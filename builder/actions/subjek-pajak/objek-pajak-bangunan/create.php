@@ -7,7 +7,7 @@ $qb = new QueryBuilder();
 if(isset($_GET['check'])){
     $clause = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP";
 
-    $StrQ = "Select * From DAT_OP_BANGUNAN WHERE KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP =  '" . trim($_GET['NOP']) . "' and (NO_BNG*1='" . $_GET['NO_BNG'] * 1 . "')ORDER BY NO_BNG*1 DESC";
+    $StrQ = "Select * From DAT_OP_BANGUNAN WHERE KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP =  '" . trim($_GET['NOP']) . "' and (NO_BNG*1='" . $_GET['NO_BNG'] * 1 . "') ORDER BY NO_BNG*1 DESC";
 
     $data = $qb->rawQuery($StrQ)->first();
 
@@ -15,6 +15,12 @@ if(isset($_GET['check'])){
 
     die;
 }
+
+$clause = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP";
+
+$StrQ = "Select * From DAT_OP_BANGUNAN WHERE KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP =  '" . trim($_GET['NOP']) . "' ORDER BY NO_BNG*1 DESC";
+
+$jlhbng = count($qb->rawQuery($StrQ)->get()) + 1;
 
 $kecamatans = $qb->select('REF_KECAMATAN')->get();
 
