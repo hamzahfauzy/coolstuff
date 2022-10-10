@@ -6,7 +6,7 @@
                 <input type="hidden" name="page" value="cari">
                 <div class="hero-form field field-grouped" style="margin-left:auto;margin-right:auto;">
                     <div class="control control-expanded">
-                        <select name="type" id="" class="input">
+                        <select name="type" id="tipe" class="input" onchange="init(this.value)">
                             <option>Subjek Pajak</option>
                             <option>NOP</option>
                         </select>
@@ -61,5 +61,21 @@
             endif; 
             ?>
         </main>
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+        <script>
+            function init(val)
+            {
+                if(val == 'NOP')
+                {
+                    var nop = $("input[name='subjek_pajak_id']");
+                    nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+                }
+                else
+                {
+                    $("input[name='subjek_pajak_id']").inputmask('remove');
+                }
+            }
+        </script>
 
 <?php load('partials/landing-bottom') ?>

@@ -105,5 +105,14 @@
             </section>
             <?php endif; ?>
         </main>
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+        <script>
+            $(document).ready(e => {
+                var nop = $("input[name='NOPQ']");
+
+                nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+            })
+        </script>
 
 <?php load('partials/landing-bottom') ?>
