@@ -37,7 +37,7 @@ if(isset($_POST['submit']))
             WHERE 
                 SPPT.THN_PAJAK_SPPT='" .$tahun_pajak. "' AND
                 NOPQ = '".$nop."' AND
-                SPPT.NM_WP_SPPT = '".$nm_wp."' AND
+                SPPT.NM_WP_SPPT LIKE '%".$nm_wp."%' AND
                 SPPT.PROSES <> 'N'
             ORDER BY 
                 SPPT.KD_KECAMATAN, 
