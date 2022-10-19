@@ -66,11 +66,13 @@
                     <label>Tahun Pajak</label>
                     <?= Form::input('options:'.$options, 'tahun_pajak', ['class'=>"p-2 w-full border rounded"]) ?>
                 </div>
-                <div class="form-group mb-2">
-                    <label>NOP</label>
-                    <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded" value="">
+                <div class="flex items-center my-5 gap-3">
+                    <button type="button" id="btn-type" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">NOP</button>
+                    <div class="flex-auto">
+                        <input type="text" id="NOP" name="NOP" class="p-2 w-full border rounded" value="">
+                        <input type="text" id="ID" name="ID" class="p-2 w-full border rounded hidden" value="">
+                    </div>
                 </div>
-
                 <div class="form-group mb-2">
                     <button class="p-2 bg-indigo-800 text-white rounded" id="btn-login">Cetak</button>
                 </div>
@@ -80,6 +82,25 @@
 </div>
 
 <script>
+
+    var nop = $("input[name='NOP']");
+    var idWajibPajak = $("input[name='ID']");
+
+    nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+
+    $("#btn-type").click(function(){
+        let text = this.innerText
+        if (text == "NOP") {
+            this.innerText = "ID Wajib Pajak"
+            nop.addClass('hidden')
+            idWajibPajak.removeClass('hidden')
+        } else {
+            this.innerText = "NOP"
+            idWajibPajak.addClass('hidden')
+            nop.removeClass('hidden')
+        }
+    })
+
     function kecamatanChange(el){
         fetch("index.php?page=builder/penatausahaan/status-wajib-pajak/index&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
 
