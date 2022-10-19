@@ -111,9 +111,9 @@
                 <td><?=$objpajak['NOPQ']?></td>
                 <td><?=$tahun_pajak_sppt?></td>
                 <td><?=$tgl_jatuh_tempo_sppt?></td>
-                <td><?=$pbb_terhutang_sppt?></td>
-                <td><?=$denda_sppt?></td>
-                <td><?=$total_sppt?></td>
+                <td style="text-align:right;"><?=$pbb_terhutang_sppt?></td>
+                <td style="text-align:right;"><?=$denda_sppt?></td>
+                <td style="text-align:right;"><?=$total_sppt?></td>
             </tr>
             <?php endforeach ?>
         </table>

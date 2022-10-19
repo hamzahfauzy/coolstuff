@@ -41,3 +41,13 @@ else
 }
 
 load($page,$action);
+
+?>
+
+<style>
+    @media print{
+            *{
+                font-family:Arial;
+            }
+        }
+</style>

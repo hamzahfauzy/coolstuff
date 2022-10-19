@@ -123,14 +123,14 @@
             <tr>
                 <td><?=++$index?></td>
                 <td><?=$sppt['THN_PAJAK_SPPT']?></td>
-                <td><?=number_format($sppt['PBB_TERHUTANG_SPPT'])?></td>
-                <td><?=number_format($sppt['PBB_YG_HARUS_DIBAYAR_SPPT'])?></td>
+                <td style="text-align:right;"><?=number_format($sppt['PBB_TERHUTANG_SPPT'])?></td>
+                <td style="text-align:right;"><?=number_format($sppt['PBB_YG_HARUS_DIBAYAR_SPPT'])?></td>
                 <td><?=$sppt['TGL_JATUH_TEMPO_SPPT']->format('Y-m-d')?></td>
             </tr>
             <?php endforeach ?>
             <tr>
                 <td colspan="3">Total</td>
-                <td colspan="2"><?=number_format($total)?></td>
+                <td colspan="2" style="text-align:right;"><?=number_format($total)?></td>
             </tr>
         </table>
 
@@ -153,14 +153,14 @@
             <tr>
                 <td><?=++$n?></td>
                 <td><?=$riwayat['THN_PAJAK_SPPT']?></td>
-                <td><?=number_format($riwayat['JML_SPPT_YG_DIBAYAR'],0,',','.') ?></td>
+                <td style="text-align:right;"><?=number_format($riwayat['JML_SPPT_YG_DIBAYAR'],0,',','.') ?></td>
                 <td><?=$riwayat['TGL_PEMBAYARAN_SPPT']->format('Y-m-d')?></td>
                 <td><?=$riwayat['TGL_REKAM_BYR_SPPT']->format('Y-m-d')?></td>
             </tr>
             <?php endforeach ?>
             <tr>
                 <td colspan="2">Total</td>
-                <td colspan="3"><?=number_format($total)?></td>
+                <td colspan="3" style="text-align:right;"><?=number_format($total)?></td>
             </tr>
         </table>
         </div>
