@@ -94,6 +94,10 @@
 
 <script>
 
+    var nop = $("input[name='nop']");
+
+    nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+
     function kecamatanChange(el){
         if(el.value == 'Semua')
         {
