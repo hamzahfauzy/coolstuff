@@ -4,6 +4,17 @@ require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
 
+// use Dompdf\Dompdf;
+
+// $dompdf = new Dompdf();
+// $dompdf->loadHtml('hello world');
+
+// // (Optional) Setup the paper size and orientation
+// $dompdf->setPaper('A4', 'landscape');
+
+// // Render the HTML as PDF
+// $dompdf->render();
+
 extract($_GET);
 
 $query = "
