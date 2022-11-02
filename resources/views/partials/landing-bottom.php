@@ -8,14 +8,17 @@
                         <li>
                             <a href="index.php">Beranda</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="index.php?page=cek-sppt">Cek SPPT</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="index.php?page=cari">Cek Riwayat Tagihan</a>
                         </li>
                         <li>
-                            <a href="index.php?page=daftar">Pendaftaran PBB</a>
+                            <a href="index.php?page=daftar-pbb">Daftar PBB</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=daftar-esppt">Daftar e-SPPT</a>
                         </li>
                     </ul>
                     <ul class="footer-social-links list-reset">
@@ -50,6 +53,7 @@
         </footer>
     </div>
 
+    <?php load('builder/partials/script') ?>
     <script src="dist/js/main.min.js"></script>
 </body>
 </html>

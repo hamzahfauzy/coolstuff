@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Badan Pengelola Keuangan dan Aset Daerah Kab. Pakpak Bharat</title>
+	<?php load('builder/partials/css') ?>
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,500,700|Fira+Sans:600" rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
 	<script src="https://unpkg.com/animejs@2.2.0/anime.min.js"></script>
@@ -84,14 +85,17 @@
 							<li>
 								<a href="index.php">Beranda</a>
 							</li>
-							<li>
+							<!-- <li>
 								<a href="index.php?page=cek-sppt">Cek SPPT</a>
-							</li>
+							</li> -->
 							<li>
 								<a href="index.php?page=cari">Cek Riwayat Tagihan</a>
 							</li>
 							<li>
-								<a href="index.php?page=daftar">Pendaftaran PBB</a>
+								<a href="index.php?page=daftar-pbb">Daftar PBB</a>
+							</li>
+							<li>
+								<a href="index.php?page=daftar-esppt">Daftar E-SPPT</a>
 							</li>
 						</ul>
 					</div>

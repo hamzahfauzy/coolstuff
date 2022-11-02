@@ -72,11 +72,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $installation->app_name ?></title>
     <link rel="shortcut icon" href="<?=get_file_storage('installation/'.$installation->logo)?>" type="image/x-icon">
-    <link href="css/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500&display=swap" rel="stylesheet">
+    <?php load('builder/partials/css') ?>
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -116,8 +112,6 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
         }
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
 </head>
 <body>
     <div class="nav bg-white w-full">

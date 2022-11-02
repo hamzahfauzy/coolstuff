@@ -3,10 +3,17 @@
 class QueryBuilder{
     
     public $sql = "";
+    public $type = false;
     private $conn;
     
-    function __construct(){
-        $this->conn = conn();  
+    function __construct($type = false){
+        $this->type = $type;
+        if ($type == "mysql") {
+            $conn = new mysqli("localhost","ztech","nopassword","ztech_pbb");
+            $this->conn = $conn;  
+        } else {
+            $this->conn = conn();  
+        }
     }
 
     function select($tbl,$columns = "*"){
@@ -70,15 +77,19 @@ class QueryBuilder{
     }
 
     function exec($params = []){
-        $query = sqlsrv_query( $this->conn, $this->sql ,$params);
-
-        if( $query === false ) {
-
-            // die(print_r( sqlsrv_errors(),true));
-            return ['error'=>true,'message'=>sqlsrv_errors()];
+        if(!$this->type) {
+            $query = sqlsrv_query( $this->conn, $this->sql ,$params);
+    
+            if( $query === false ) {
+    
+                // die(print_r( sqlsrv_errors(),true));
+                return ['error'=>true,'message'=>sqlsrv_errors()];
+            }
+    
+            return $query;
+        } else {
+            return $this->conn->query($this->sql);
         }
-
-        return $query;
     }
 
     function first(){
