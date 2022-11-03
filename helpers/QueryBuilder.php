@@ -9,7 +9,7 @@ class QueryBuilder{
     function __construct($type = false){
         $this->type = $type;
         if ($type == "mysql") {
-            $conn = new mysqli("localhost","ztech","nopassword","ztech_pbb");
+            $conn = mysqli_connect("localhost","ztech","nopassword","ztech_pbb");
             $this->conn = $conn;  
         } else {
             $this->conn = conn();  
@@ -28,6 +28,17 @@ class QueryBuilder{
             $this->sql .= " and $key $operator '$value' ";
         }else{
             $this->sql .= " where $key $operator '$value' ";
+        }
+
+
+        return $this;
+    }
+
+    function whereIn($key,$data){
+        if(stringContains($this->sql,"where")){
+            $this->sql .= " and $key in $data ";
+        }else{
+            $this->sql .= " where $key in $data ";
         }
 
 
@@ -77,19 +88,15 @@ class QueryBuilder{
     }
 
     function exec($params = []){
-        if(!$this->type) {
-            $query = sqlsrv_query( $this->conn, $this->sql ,$params);
-    
-            if( $query === false ) {
-    
-                // die(print_r( sqlsrv_errors(),true));
-                return ['error'=>true,'message'=>sqlsrv_errors()];
-            }
-    
-            return $query;
-        } else {
-            return $this->conn->query($this->sql);
+        $query = $this->type ? mysqli_query($this->conn, $this->sql) : sqlsrv_query( $this->conn, $this->sql ,$params);
+
+        if( $query === false ) {
+
+            // die(print_r( sqlsrv_errors(),true));
+            return ['error'=>true,'message'=>sqlsrv_errors()];
         }
+
+        return $query;
     }
 
     function first(){
@@ -97,7 +104,7 @@ class QueryBuilder{
         $query = $this->exec();
        
         $data = array();
-        while($r = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)) {
+        while($r = $this->type ? mysqli_fetch_assoc($query) : sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {
             if(isset($r["TGL_PENDATAAN_BNG"])){
                 $result = $r["TGL_PENDATAAN_BNG"]->format('Y-m-d');
                 $r["TGL_PENDATAAN_BNG"] = $result;
@@ -125,7 +132,8 @@ class QueryBuilder{
         $query = $this->exec();
 
         $datas = array();
-        while($r = sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {
+    
+        while($r = $this->type ? mysqli_fetch_assoc($query) : sqlsrv_fetch_array( $query, SQLSRV_FETCH_ASSOC)) {
 
             if(isset($r["TGL_PENDATAAN_BNG"])){
                 $result = $r["TGL_PENDATAAN_BNG"]->format('Y-m-d');

@@ -11,6 +11,7 @@ $jenis_op = '';
 $data = [];
 $dt = [];
 $old = get_flash_msg('old');
+$wajib_pajak_id = null;
 
 if(isset($_POST['proses_bangunan'])) {
     unset($_POST['proses_bangunan']);
@@ -23,6 +24,7 @@ if(isset($_POST['proses_bangunan'])) {
     $_POST['J_LIFT'] = http_build_query($_POST['J_LIFT'], '');
     $_POST['OTHERS'] = http_build_query($_POST['OTHERS'], '');
     $_POST['KOLAM_RENANG'] = http_build_query($_POST['KOLAM_RENANG'], '');
+    $_POST['WAJIB_PAJAK_ID'] = $wajib_pajak_id;
     $insert = $mysql->create('DAT_OP_BANGUNAN',$_POST)->exec();
     if ($insert) {
         set_flash_msg(['success'=>'Berhasil Mendaftar, Data akan diverifikasi terlebih dahulu!']);
@@ -48,6 +50,7 @@ if(isset($_POST['proses_bangunan'])) {
 
 if(isset($_POST['proses_bumi'])) {
     unset($_POST['proses_bumi']);
+    $_POST['WAJIB_PAJAK_ID'] = $wajib_pajak_id;
     $insert = $mysql->create('DAT_OP_BUMI',$_POST)->exec();
     if($insert) {
         set_flash_msg(['success'=>'Berhasil Mendaftar, Data akan diverifikasi terlebih dahulu!']);
@@ -68,6 +71,7 @@ if (isset($_POST['submit'])) {
         $clause = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP";
         $StrQ = "Select *,$clause as NOP From DAT_OP_BANGUNAN WHERE $clause =  '" . trim($_POST['NOPQ']) . "' ORDER BY NO_BNG*1 DESC";
         if($_POST['status'] == 'Terdaftar') {
+            $wajib_pajak_id = $_POST['ID'];
             $data = $qb->rawQuery($StrQ)->first();
         } else {
             $dt = $qb->rawQuery($StrQ)->first();
@@ -75,6 +79,7 @@ if (isset($_POST['submit'])) {
 
     } else if($jenis_op == 'bumi') {
         if($_POST['status'] == 'Terdaftar') {
+            $wajib_pajak_id = $_POST['ID'];
             $strQ = "Select * from DAT_OP_BUMI where SUBJEK_PAJAK_ID='$_POST[ID]'";
             $data = $qb->rawQuery($strQ)->first();
         }

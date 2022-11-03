@@ -8,6 +8,8 @@ $hidden = 'hidden';
 
 $modules = getModules();
 
+$pendaftaran_data = $modules['pendaftaran'];
+
 $pendataan_data = $modules['pendataan'];
 
 $penilaian_data = $modules['penilaian'];
@@ -47,6 +49,7 @@ unset($module['code']);
 $module = json_encode(array_keys($module));
 
 $penatausahaan = (isset($_GET['page']) && arrStringContains($_GET['page'],$penatausahaan_data) ? $nav_class_active : '');
+$pendaftaran = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendaftaran_data) ? $nav_class_active : '');
 $pendataan = (isset($_GET['page']) && arrStringContains($_GET['page'],$pendataan_data) ? $nav_class_active : '');
 $penilaian = (isset($_GET['page']) && arrStringContains($_GET['page'],$penilaian_data) ? $nav_class_active : '');
 $penetapan = (isset($_GET['page']) && arrStringContains($_GET['page'],$penetapan_data) ? $nav_class_active : '');
@@ -128,6 +131,16 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                 <ul class="flex">
                     <li>
                         <a class="text-white hover:bg-purple-700 <?=$_GET['page'] == 'builder/home/dashboard' ? $nav_class_active : ''?> p-2 px-4 inline-block" href="index.php?page=builder/home/dashboard">Home</a>
+                    </li>
+                    <li class="relative">
+                        <a href="#" onclick="toggleNav('#pendaftaran')" class="cursor-pointer dropdown text-white hover:bg-purple-700 <?=$pendaftaran?> p-2 px-4 inline-block">
+                            <span class=" capitalize">pendaftaran</span>
+                            <i class="fa fa-caret-down  ml-2"></i>
+                        </a>
+                        <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="pendaftaran" style="top:40px">
+                            <a href="?page=builder/pendaftaran/subjek-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pendaftaran/subjek-pajak') ?> hover:text-white">Subjek Pajak</a>
+                            <a href="?page=builder/pendaftaran/e-sppt/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pendaftaran/e-sppt') ?> hover:text-white">e-SPPT</a>
+                        </div>
                     </li>
                     <li class="relative">
                         <a href="#" onclick="toggleNav('#pendataan')" class="cursor-pointer dropdown text-white hover:bg-purple-700 <?=$pendataan?> p-2 px-4 inline-block">

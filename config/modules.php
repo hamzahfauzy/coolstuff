@@ -4,6 +4,10 @@ return [
     'homepage'=>[
         'dashboard'=>'builder/home/dashboard',
     ],
+    'pendaftaran'=>[
+        'subjek-pajak'=>'builder/pendaftaran/subjek-pajak/index',
+        'e-sppt'=>'builder/pendaftaran/e-sppt/index',
+    ],
     'pendataan'=>[
         'dbkb'=>[
             'dbkb-utama'=>'builder/dbkb-utama/index',
