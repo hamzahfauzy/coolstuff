@@ -81,6 +81,12 @@ class QueryBuilder{
         return $this;
     }
 
+    function limit($num){
+        $this->sql .= " limit $num";
+
+        return $this;
+    }
+
     function groupBy($val){
         $this->sql .= " group by $val ";
 

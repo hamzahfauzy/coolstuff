@@ -67,7 +67,7 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">No</th>
-                            <th class="py-3 px-6 text-left">ID</th>
+                            <th class="py-3 px-6 text-left">NIK</th>
                             <th class="py-3 px-6 text-left">Nama</th>
                             <th class="py-3 px-6 text-left">Jalan</th>
                             <th class="py-3 px-6 text-left">Blok</th>
@@ -95,7 +95,7 @@
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['SUBJEK_PAJAK_ID']?></span>
+                                <span class="font-medium"><?=$data['NIK']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -155,7 +155,7 @@
                         </td>
                         <td class="py-3 px-6 text-center">
                             <div class="flex item-center justify-center">
-                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&id=<?=$data['SUBJEK_PAJAK_ID']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&id=<?=$data['NIK']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -176,12 +176,10 @@
 
     function kelurahanChange(el){
 
-        fetch("index.php?page=builder/subjek-pajak/index&filter-kelurahan="+el.value).then(response => response.json()).then(data => {
+        fetch("index.php?page=builder/pendaftaran/subjek-pajak/index&filter-kelurahan="+el.value).then(response => response.json()).then(data => {
 
                 var html = `<select name="blok" class="p-2 w-full border rounded">
                             <option value="" selected readonly>- Pilih Blok -</option>`
-
-                            console.log(data)
 
                 data.map(dt=>{
                     html += `<option value="${dt.KD_BLOK}">${dt.KD_BLOK}</option>`
@@ -197,6 +195,7 @@
 
         }); 
     }    
+
 </script>
 
 <?php load('builder/partials/bottom') ?>

@@ -5,8 +5,8 @@
                 <div class="container">
                     <div class="hero-inner">
 						<div class="hero-copy">
-	                        <h1 class="hero-title mt-0">Pajak Bumi & Bangunan</h1>
-	                        <p class="hero-paragraph">Sebuah usaha yang berjalan pasti memerlukan lokasi fisik sebagai pusat operasi untuk menjalankan suatu usaha tersebut. Pada dasarnya, sebuah perusahaan membutuhkan biaya pengeluaran agar bisnis atau usahanya dapat berjalan di lokasi tersebut secara legal atau sah secara hukum. Biaya yang diperlukan tersebut adalah Pajak Bumi dan Bangunan  (PBB).</p>
+							<h1 class="hero-title mt-0">Sistem Informasi Pajak Bumi dan Bangunan</h1>
+	                        <p class="hero-paragraph">Lebih mudah akses layanan Pajak Bumi dan Bangunan Kabupaten Pakpak Bharat. Cek informasi tagihan dan pembayaran PBB saat ini sudah dapat dilakukan secara online</p>
 							
 							<!-- <a class="button button-primary button-block" href="index.php?page=cari">Klik untuk melihat riwayat tagihan anda</a> -->
 						</div>
@@ -131,8 +131,8 @@
                     <div class="features-inner section-inner">
                         <div class="features-header text-center">
                             <div class="container-sm">
-                                <h2 class="section-title mt-0">Apa itu Pajak Bumi dan Bangunan</h2>
-                                <p class="section-paragraph">Pajak Bumi dan Bangunan (PBB) merupakan sebuah biaya yang harus disetorkan atas keberadaan tanah dan bangunan yang memberikan keuntungan dan kedudukan sosial ekonomi bagi seseorang ataupun badan. Karena Pajak Bumi dan Bangunan (PBB) bersifat kebendaan, maka besaran tarifnya ditentukan dari keadaan objek bumi atau bangunan yang ada.</p>
+                                <h2 class="section-title mt-0">Mudah daftar PBB !</h2>
+                                <p class="section-paragraph">Daftarkan tanah dan bangunan anda yang belum dikenakan PBB. Pendaftaran mudah dan gratis!<br><a href="https://drive.google.com/drive/folders/14O7L5aqkuTJLub-7393Ulboyea5nV7B5?usp=sharing" target="_blank"><b>Download Formulir</b></a></p>
                             </div>
                         </div>
 						<div class="features-wrap">
@@ -146,8 +146,8 @@
 										    </g>
 										</svg>
                                     </div>
-                                    <h4 class="feature-title h3-mobile mb-8">Powerful</h4>
-                                    <p class="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.</p>
+                                    <h4 class="feature-title h3-mobile mb-8">Mudah</h4>
+                                    <p class="text-sm">Syarat pendaftaran PBB mudah, cukup dengan menyerahkan:<br>1. Fotocopy identitas Wajib Pajak <br>2. Fotocopy bukti kepemilikan tanah/ bangunan<br>3. Mengisi dan menandatangani formulir SPOP</p>
                                 </div>
                             </div>
 							<div class="feature text-center is-revealing">
@@ -160,8 +160,8 @@
 										    </g>
 										</svg>
                                     </div>
-                                    <h4 class="feature-title h3-mobile mb-8">Powerful</h4>
-                                    <p class="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.</p>
+                                    <h4 class="feature-title h3-mobile mb-8">Cepat</h4>
+                                    <p class="text-sm">Proses permohonan penerbitan SPPT PBB cepat, cukup 15 menit jika syarat sudah lengkap dan benar</p>
                                 </div>
                             </div>
 							<div class="feature text-center is-revealing">
@@ -175,8 +175,8 @@
 										    </g>
 										</svg>
                                     </div>
-                                    <h4 class="feature-title h3-mobile mb-8">Powerful</h4>
-                                    <p class="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.</p>
+                                    <h4 class="feature-title h3-mobile mb-8">Gratis</h4>
+                                    <p class="text-sm">Gratis semua layanan PBB, tidak ada pungutan lain selain pajak yang anda bayar yang langsung masuk ke Kas Daerah</p>
                                 </div>
                             </div>
 							<div class="feature text-center is-revealing">
@@ -189,8 +189,8 @@
 										    </g>
 										</svg>
                                     </div>
-                                    <h4 class="feature-title h3-mobile mb-8">Powerful</h4>
-                                    <p class="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.</p>
+                                    <h4 class="feature-title h3-mobile mb-8">Terpercaya</h4>
+                                    <p class="text-sm">Pajak yang anda bayar sepenuhnya digunakan untuk pembangunan Pakpak Bharat. Tidak ada celah PBB digunakan untuk kepentingan oknum tertentu.</p>
                                 </div>
                             </div>
 						</div>
@@ -232,25 +232,8 @@
 				</div>
 				<div class="container">
 					<div class="testimonials-inner section-inner">
-						<h2 class="section-title mt-0 text-center">Bagaimana Cara Membayarnya?</h2>
+						<h2 class="section-title mt-0 text-center">Mudah bayar PBB !</h2>
 						<div class="testimonials-wrap">
-							<div class="testimonial text-xs is-revealing">
-								<div class="testimonial-inner">
-									<div class="testimonial-main">
-										<div class="testimonial-header">
-											<div class="mb-16"><h2 class="how-to-number">2</h2></div>
-										</div>
-										<div class="testimonial-body">
-											<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-										</div>
-									</div>
-									<div class="testimonial-footer">
-										<div class="testimonial-link">
-											<a href="#">@martajones</a>
-										</div>
-									</div>
-								</div>
-							</div>
 							<div class="testimonial text-xs is-revealing">
 								<div class="testimonial-inner">
 									<div class="testimonial-main">
@@ -258,14 +241,22 @@
 											<div class="mb-16"><h2 class="how-to-number">1</h2></div>
 										</div>
 										<div class="testimonial-body">
-											<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+											<p class="mb-0"><b>Kode Bayar</b><br>Gunakan 18 Digit nomor NOP dan Tahun Pajak sebagai kode pembayaran.</p>
+										</div>
+									</div>									
+								</div>
+							</div>
+							<div class="testimonial text-xs is-revealing">
+								<div class="testimonial-inner">
+									<div class="testimonial-main">
+										<div class="testimonial-header">
+											<div class="mb-16"><h2 class="how-to-number">2</h2></div>
+										</div>
+										<div class="testimonial-body">
+											<p class="mb-0"><b>Kanal Pembayaran</b><br>Pembayaran bisa dilakukan melalui ATM Bank Sumut, Sumut Mobile, Kantor Pos, Toko Retail (Indomaret) dan berbagai ecommerce (GoPay, OVO, Link Aja, BukaLapak, Toko Pedia, Traveloka, Dll)</p>
 										</div>
 									</div>
-									<div class="testimonial-footer">
-										<div class="testimonial-link">
-											<a href="#">@michealpahm</a>
-										</div>
-									</div>
+									
 								</div>
 							</div>
 							<div class="testimonial text-xs is-revealing">
@@ -275,78 +266,28 @@
 											<div class="mb-16"><h2 class="how-to-number">3</h2></div>
 										</div>
 										<div class="testimonial-body">
-											<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+											<p class="mb-0"><b>Bukti Bayar</b><br>Nota pembayaran yang diterbitkan kanal pembayaran adalah bukti pembayaran yang sah pengganti STTS/ SSPD<br><a href="https://cetakulang.banksumut.co.id/ecetak_public/" target="_blank"><b>Cetak Ulang Bukti Bayar</b></a></p>
 										</div>
 									</div>
-									<div class="testimonial-footer">
-										<div class="testimonial-link">
-											<a href="#">@markbrown</a>
-										</div>
-									</div>
+								
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="testimonials-inner section-inner">
-						<h2 class="section-title mt-0 text-center">Bagaimana Cara Melihat Tagihannya?</h2>
-						<div class="testimonials-wrap">
-							<div class="testimonial text-xs is-revealing">
-								<div class="testimonial-inner">
-									<div class="testimonial-main">
-										<div class="testimonial-header">
-											<div class="mb-16"><h2 class="how-to-number">2</h2></div>
-										</div>
-										<div class="testimonial-body">
-											<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-										</div>
-									</div>
-									<div class="testimonial-footer">
-										<div class="testimonial-link">
-											<a href="#">@martajones</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="testimonial text-xs is-revealing">
-								<div class="testimonial-inner">
-									<div class="testimonial-main">
-										<div class="testimonial-header">
-											<div class="mb-16"><h2 class="how-to-number">1</h2></div>
-										</div>
-										<div class="testimonial-body">
-											<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-										</div>
-									</div>
-									<div class="testimonial-footer">
-										<div class="testimonial-link">
-											<a href="#">@michealpahm</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="testimonial text-xs is-revealing">
-								<div class="testimonial-inner">
-									<div class="testimonial-main">
-										<div class="testimonial-header">
-											<div class="mb-16"><h2 class="how-to-number">3</h2></div>
-										</div>
-										<div class="testimonial-body">
-											<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-										</div>
-									</div>
-									<div class="testimonial-footer">
-										<div class="testimonial-link">
-											<a href="#">@markbrown</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</section>
+
+			<section class="newsletter section text-light">
+                <div class="container-sm">
+                    <div class="newsletter-inner section-inner">
+                        <div class="newsletter-header text-center">
+                            <h2 class="section-title mt-0">Pajak yang anda bayar sepenuhnya digunakan untuk pembangunan menuju Pakpak Bharat Nduma !</h2>                           
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
         </main>
 
 <?php load('partials/landing-bottom') ?>

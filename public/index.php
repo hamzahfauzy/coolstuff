@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 ini_set('session.save_path','../session');
 session_start();
 require '../functions.php';

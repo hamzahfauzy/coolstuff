@@ -86,7 +86,7 @@
     var nop = $("input[name='NOP']");
     var idWajibPajak = $("input[name='ID']");
 
-    nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+    nop.inputmask({mask:"12.12.999.999.999-9{1,4}.9"})
 
     $("#btn-type").click(function(){
         let text = this.innerText

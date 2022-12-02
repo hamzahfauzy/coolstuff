@@ -38,6 +38,15 @@ label {
                         <label for="">Email</label>
                         <input class="input" type="email" name="EMAIL" placeholder="Email" value="<?=@$_POST['EMAIL']?>">
                     </div>
+                    <div class="control control-expanded">
+                        <label>Tahun</label>
+                        <select name="TAHUN" class="p-2 mt-2 w-full border rounded">
+                            <option value="" selected readonly>- Pilih Tahun -</option>
+                            <?php foreach($years as $year):?>
+                                <option <?= @$_POST['TAHUN'] == $year ? 'selected'  : ''?> value="<?=$year?>"><?=$year?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
                     <div class="control">
                         <button class="button button-primary button-block" name="submit">Daftar</button>
                     </div>

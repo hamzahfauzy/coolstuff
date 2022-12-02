@@ -5,6 +5,23 @@ require '../helpers/QueryBuilder.php';
 $mysql = new QueryBuilder("mysql");
 $mysql2 = new QueryBuilder("mysql");
 
+if(isset($_GET['act'])) {
+   switch ($_GET['act']) {
+
+    case 'accept':
+        
+        $mysql->update('esppt', ['STATUS'=>'DITERIMA'])->where('ID',$_GET['act_id'])->exec();
+        break;
+    case 'reject':
+        
+        $mysql->update('esppt', ['STATUS'=>'DITOLAK'])->where('ID',$_GET['act_id'])->exec();
+        break;
+   }
+
+    header('Location:index.php?page=builder/pendaftaran/e-sppt/index');
+    return;
+}
+
 $msg = get_flash_msg('success');
 
 $limit = 10;

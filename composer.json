@@ -1,0 +1,12 @@
+{
+    "name": "app/pbb",
+    "authors": [
+        {
+            "name": "Eplanning Asahan",
+            "email": "eplanningasahan@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.6"
+    }
+}

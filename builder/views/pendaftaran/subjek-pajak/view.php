@@ -29,9 +29,9 @@
     <div class="grid grid-cols-2 gap-4">
         <div class="bg-white shadow-md rounded my-6 p-8">
             <div class="flex justify-between">
-                <p>Subjek Pajak ID</p>
+                <p>NIK</p>
                 
-                <b><?= $data['SUBJEK_PAJAK_ID'] ? $data['SUBJEK_PAJAK_ID'] : "-"?></b>
+                <b><?= $data['NIK'] ? $data['NIK'] : "-"?></b>
             </div>
 
             <div class="flex justify-between">
@@ -119,38 +119,45 @@
                     <?php else: ?>
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">NOP</th>
+                            <th class="py-3 px-6 text-left">NO SPOP</th>
+                            <th class="py-3 px-6 text-left">Tahun</th>
                             <th class="py-3 px-6 text-left">Kecamatan</th>
                             <th class="py-3 px-6 text-left">Kelurahan</th>
                             <th class="py-3 px-6 text-left">Blok</th>
-                            <th class="py-3 px-6 text-left">No Urut</th>
-                            <th class="py-3 px-6 text-left">Jenis OP</th>
-                            <th class="py-3 px-6 text-left">No Bumi</th>
                             <th class="py-3 px-6 text-left">ZNT</th>
+                            <th class="py-3 px-6 text-left">No Urut</th>
+                            <th class="py-3 px-6 text-left">Kode</th>
+                            <th class="py-3 px-6 text-left">No Persil</th>
                             <th class="py-3 px-6 text-left">Luas</th>
                             <th class="py-3 px-6 text-left">Jenis Bumi</th>
-                            <th class="py-3 px-6 text-left">Nilai Sistem Bumi</th>
-                            <th class="py-3 px-6 text-left">No Formulir</th>
-                            <th class="py-3 px-6 text-left">Status Jadi</th>
-                            <th class="py-3 px-6 text-left">Action</th>
+                            <th class="py-3 px-6 text-left">Status</th>
+                            <th class="py-3 px-6 text-left">act</th>
                         </tr>
                     </thead>
-                    <?php foreach($opBumis as $key => $data): ?>
+                    <?php foreach($opBumis as $key => $data): 
+                        $kecamatan = $qb->select('REF_KECAMATAN')->where('KD_KECAMATAN', $data['KD_KECAMATAN'])->first();
+                        $kelurahan = $qb->select('REF_KELURAHAN')->where('KD_KELURAHAN', $data['KD_KELURAHAN'])->first();
+                    ?>
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NOPQ']?></span>
+                                <span class="font-medium"><?=$data['NO_SPOP']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - "?><?= $data['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
+                                <span class="font-medium"><?=$data['TAHUN']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - "?><?= $data['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
+                                <span class="font-medium"><?=$data['KD_KECAMATAN']?> - <?=$kecamatan['NM_KECAMATAN']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KD_KELURAHAN']?> - <?=$kelurahan['NM_KELURAHAN']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -160,27 +167,27 @@
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NO_URUT']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_JNS_OP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NO_BUMI']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
                                 <span class="font-medium"><?=$data['KD_ZNT']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['LUAS_BUMI']?></span>
+                                <span class="font-medium"><?=$data['NO_URUT']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['KODE']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['NO_PERSIL']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['LUAS_TANAH']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -195,26 +202,23 @@
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NILAI_SISTEM_BUMI']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NO_FORMULIR']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['STATUS_JADI']?></span>
+                                <span class="font-medium"><?=$data['STATUS']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-center">
                             <div class="flex item-center justify-center">
-                                <a href="index.php?page=builder/subjek-pajak/objek-pajak-bumi/edit&NOP=<?=$data['NOPQ']?>&id=<?=$_GET['id']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                 <?php if($data['STATUS'] == "MENUNGGU") : ?>
+                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&act=accept_bumi&id=<?=$_GET['id']?>&act_id=<?=$data['ID']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
                                     </svg>
                                 </a>
+                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&act=reject_bumi&id=<?=$_GET['id']?>&act_id=<?=$data['ID']?>" class="w-4 mr-2 transform hover:text-purple-500 text-sm hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+                                    </svg>
+                                </a>
+                                <?php endif ?>
                             </div>
                         </td>
                     </tr>
@@ -273,10 +277,14 @@
                             <th class="py-3 px-6 text-left">NIP Perekam</th>
                             <th class="py-3 px-6 text-left">NIP Pemeriksa</th>
                             <th class="py-3 px-6 text-left">NIP Pendata</th>
+                            <th class="py-3 px-6 text-left">STATUS</th>
                             <th class="py-3 px-6 text-left">Action</th>
                         </tr>
                     </thead>
-                    <?php foreach($opBangunans as $key => $data): ?>
+                    <?php foreach($opBangunans as $key => $data): 
+                        $kecamatan = $qb->select('REF_KECAMATAN')->where('KD_KECAMATAN', $data['KD_KECAMATAN'])->first();
+                        $kelurahan = $qb->select('REF_KELURAHAN')->where('KD_KELURAHAN', $data['KD_KELURAHAN'])->first();
+                    ?>
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -286,12 +294,12 @@
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KECAMATAN']." - "?><?= $data['NM_KECAMATAN'] ?? "[NO NAME]" ?></span>
+                                <span class="font-medium"><?=$data['KD_KECAMATAN']?> - <?=$kecamatan['NM_KECAMATAN']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_KELURAHAN']." - "?><?= $data['NM_KELURAHAN'] ?? "[NO NAME]" ?></span>
+                                <span class="font-medium"><?=$data['KD_KELURAHAN']?> - <?=$kelurahan['NM_KELURAHAN']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
@@ -468,13 +476,25 @@
                                 <span class="font-medium"><?=$data['NIP_PENDATA_BNG']?></span>
                             </div>
                         </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-medium"><?=$data['STATUS']?></span>
+                            </div>
+                        </td>
                         <td class="py-3 px-6 text-center">
                             <div class="flex item-center justify-center">
-                                <a href="index.php?page=builder/subjek-pajak/objek-pajak-bangunan/edit&id=<?=$_GET['id']?>&NOP=<?=$data['NOP']?>&NO_BNG=<?=$data['NO_BNG']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                <?php if($data['STATUS'] == "MENUNGGU") : ?>
+                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&act=accept_bng&id=<?=$_GET['id']?>&act_id=<?=$data['ID']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
                                     </svg>
                                 </a>
+                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&act=reject_bng&id=<?=$_GET['id']?>&act_id=<?=$data['ID']?>" class="w-4 mr-2 transform hover:text-purple-500 text-sm hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+                                    </svg>
+                                </a>
+                                <?php endif ?>
                             </div>
                         </td>
                     </tr>

@@ -4,28 +4,44 @@ require '../helpers/QueryBuilder.php';
 $qb = new QueryBuilder();
 $mysql = new QueryBuilder("mysql");
 
+if(isset($_GET['act'])) {
+   switch ($_GET['act']) {
+
+    case 'accept_bumi':
+        
+        $mysql->update('DAT_OP_BUMI', ['STATUS'=>'DITERIMA'])->where('ID',$_GET['act_id'])->exec();
+        set_flash_msg(['success'=>'Data Bumi Berhasil Diterima!']);
+        break;
+
+    case 'accept_bng':
+        
+        $mysql->update('DAT_OP_BANGUNAN', ['STATUS'=>'DITERIMA'])->where('ID',$_GET['act_id'])->exec();
+        set_flash_msg(['success'=>'Bangunan Bumi Berhasil Diterima!']);
+        break;
+
+    case 'reject_bumi':
+        
+        $mysql->update('DAT_OP_BUMI', ['STATUS'=>'DITOLAK'])->where('ID',$_GET['act_id'])->exec();
+        set_flash_msg(['success'=>'Data Bumi Ditolak!']);
+        break;
+
+    case 'reject_bng':
+        
+        $mysql->update('DAT_OP_BANGUNAN', ['STATUS'=>'DITOLAK'])->where('ID',$_GET['act_id'])->exec();
+        set_flash_msg(['success'=>'Data Bangunan Ditolak!']);
+        break;
+   }
+    header('Location:index.php?page=builder/pendaftaran/subjek-pajak/view&id='.$_GET['id']);
+    return;
+}
+
 $msg = get_flash_msg('success');
 $failed = get_flash_msg('failed');
 
-$data = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$_GET['id'])->first();
-$clauseBumi = "concat(12,'.',12,'.',KD_KECAMATAN, '.', KD_KELURAHAN , '.' , KD_BLOK , '-' , NO_URUT , '.' , KODE)";
+$data = $mysql->select('subjek_pajak')->where("NIK",$_GET['id'])->first();
 
-$qOPs = $qb->select("QOBJEKPAJAK")->where("SUBJEK_PAJAK_ID",$data['SUBJEK_PAJAK_ID'])->get();
-
-$opBangunans = [];
-$opBumis = [];
-
-foreach ($qOPs as $qOP) {
-
-        $opb = $mysql->select("DAT_OP_BUMI","DAT_OP_BUMI.*, $clauseBumi as NOPQ")
-                        ->where($clauseBumi,$qOP['NOPQ'])->get();
-        $opBumis = array_merge($opBumis, $opb); 
-
-
-        $opbng = $mysql->select("DAT_OP_BANGUNAN","DAT_OP_BANGUNAN.*, NOP as NOPQ")
-                        ->where("NOP",$qOP['NOPQ'])->get();
-        $opBangunans = array_merge($opBangunans, $opbng);
-}
+$opBumis = $mysql->select("DAT_OP_BUMI")->where('WAJIB_PAJAK_ID',$_GET['id'])->get();
+$opBangunans = $mysql->select("DAT_OP_BANGUNAN")->where('WAJIB_PAJAK_ID',$_GET['id'])->get();
 
 $kondisi = ["01-Sangat Baik","02-Baik","03-Sedang","04-Jelek"];
 $konstruksi = ["01-Baja","02-Beton","03-Batu Bata","04-Kayu"];

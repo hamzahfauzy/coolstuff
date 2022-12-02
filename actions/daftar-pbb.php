@@ -3,112 +3,347 @@
 require '../helpers/QueryBuilder.php';
 
 $qb = new QueryBuilder();
+$mysql = new QueryBuilder("mysql");
 $msg = get_flash_msg('success');
 $failed = get_flash_msg('failed');
-$mysql = new QueryBuilder("mysql");
-$submit = false;
-$jenis_op = '';
-$data = [];
-$dt = [];
-$old = get_flash_msg('old');
-$wajib_pajak_id = null;
+$clauseBumi = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK";
 
-if(isset($_POST['proses_bangunan'])) {
-    unset($_POST['proses_bangunan']);
-    $_POST['L_AC'] = http_build_query($_POST['L_AC'], '');
-    $_POST['LPH'] = http_build_query($_POST['LPH'], '');
-    $_POST['JLT_DL'] = http_build_query($_POST['JLT_DL'], '');
-    $_POST['JLT_TL'] = http_build_query($_POST['JLT_TL'], '');
-    $_POST['PAGAR'] = http_build_query($_POST['PAGAR'], '');
-    $_POST['LTB'] = http_build_query($_POST['LTB'], '');
-    $_POST['J_LIFT'] = http_build_query($_POST['J_LIFT'], '');
-    $_POST['OTHERS'] = http_build_query($_POST['OTHERS'], '');
-    $_POST['KOLAM_RENANG'] = http_build_query($_POST['KOLAM_RENANG'], '');
-    $_POST['WAJIB_PAJAK_ID'] = $wajib_pajak_id;
-    $insert = $mysql->create('DAT_OP_BANGUNAN',$_POST)->exec();
-    if ($insert) {
-        set_flash_msg(['success'=>'Berhasil Mendaftar, Data akan diverifikasi terlebih dahulu!']);
-        header('Location:'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
-        return;
-    } else {
-        parse_str($_POST['L_AC'], $_POST['L_AC']);
-        parse_str($_POST['LPH'], $_POST['LPH']);
-        parse_str($_POST['JLT_DL'], $_POST['JLT_DL']);
-        parse_str($_POST['JLT_TL'], $_POST['JLT_TL']);
-        parse_str($_POST['PAGAR'], $_POST['PAGAR']);
-        parse_str($_POST['LTB'], $_POST['LTB']);
-        parse_str($_POST['J_LIFT'], $_POST['J_LIFT']);
-        parse_str($_POST['OTHERS'], $_POST['OTHERS']);
-        parse_str($_POST['KOLAM_RENANG'], $_POST['KOLAM_RENANG']);
-        set_flash_msg(['old'=>$_POST, 'failed'=>'Gagal Mendaftar, Silahkan Cek Ulang Data yang didaftarkan']);
-        header('Location:'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
-        return;
-    }
+// get data jalan from filter
+if(isset($_GET['get-jalan']) && isset($_GET['filter-kelurahan']) && isset($_GET['filter-kecamatan']))
+{
+    $jalan = $qb->select("JALAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->where('KD_KELURAHAN',$_GET['filter-kelurahan'])->orderby('KD_ZNT')->get();
+    echo json_encode($jalan);
+    die();
 }
 
+// get data ZNT from filter
+if(isset($_GET['filter-blok']) && isset($_GET['filter-kelurahan']) && isset($_GET['filter-kecamatan'])){
+    $znts = $qb->select("DAT_PETA_ZNT")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->where('KD_KELURAHAN',$_GET['filter-kelurahan'])->where('KD_BLOK',$_GET['filter-blok'])->orderby('KD_ZNT')->get();
 
-
-if(isset($_POST['proses_bumi'])) {
-    unset($_POST['proses_bumi']);
-    $_POST['WAJIB_PAJAK_ID'] = $wajib_pajak_id;
-    $insert = $mysql->create('DAT_OP_BUMI',$_POST)->exec();
-    if($insert) {
-        set_flash_msg(['success'=>'Berhasil Mendaftar, Data akan diverifikasi terlebih dahulu!']);
-        header('Location:'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
-        return;
-    }  else {
-        set_flash_msg(['old'=>$_POST, 'failed'=>'Gagal Mendaftar, Silahkan Cek Ulang Data yang didaftarkan']);
-        header('Location:'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
-        return;
-    }
+    echo json_encode($znts);
+    die;
 }
 
-if (isset($_POST['submit'])) {
-    $submit = true;
-    $jenis_op = $_POST['jenis_op'];
+// get data BLOK from filter
+if(isset($_GET['filter-kelurahan']) && isset($_GET['filter-kecamatan'])){
+    $bloks = $qb->select("DAT_PETA_BLOK")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->where('KD_KELURAHAN',$_GET['filter-kelurahan'])->orderby('KD_BLOK')->get();
+
+    echo json_encode($bloks);
+    die;
+}
+
+// get data Kelurahan from filter
+if(isset($_GET['filter-kecamatan'])){
+    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$_GET['filter-kecamatan'])->orderby('KD_KELURAHAN')->get();
+
+    echo json_encode($kelurahans);
+    die;
+}
+
+// get nomor urut
+if(isset($_GET['get-no-urut'])){
     
-    if ($jenis_op == 'bangunan') {
-        $clause = "KD_PROPINSI + '.' + KD_DATI2 + '.' + KD_KECAMATAN + '.' + KD_KELURAHAN + '.' + KD_BLOK + '-' + NO_URUT + '.' + KD_JNS_OP";
-        $StrQ = "Select *,$clause as NOP From DAT_OP_BANGUNAN WHERE $clause =  '" . trim($_POST['NOPQ']) . "' ORDER BY NO_BNG*1 DESC";
-        if($_POST['status'] == 'Terdaftar') {
-            $wajib_pajak_id = $_POST['ID'];
-            $data = $qb->rawQuery($StrQ)->first();
+    $valBumi = "12.12.".$_GET['kecamatan'] . '.' . $_GET['kelurahan'] . '.' . $_GET['blok'];
+
+    $cntsUrut = $qb->select("DAT_OP_BUMI")->where($clauseBumi,$valBumi)->orderBy('NO_URUT','DESC')->first();
+
+    if($cntsUrut){
+        echo json_encode("00" . strval($cntsUrut['NO_URUT']+1));
+    }else{
+        echo json_encode("001");
+    }
+    die;
+}
+
+if(isset($_GET['type'])) {
+    if($_GET['type'] == 'subjek-pajak') {
+        print_r($_POST);
+        die;
+    }
+
+    // insert data objek pajak bumi
+    if($_GET['type'] == 'bumi' && isset($_POST)) {
+        
+        $bumi = $_POST['bumi'];
+        $bumi['NO_SPOP'] = $bumi['KD_KECAMATAN'].$bumi['KD_KELURAHAN'].$bumi['NO_URUT'];
+
+        // untuk subjek pajak baru
+        if($_POST['status'] == 'Baru') {
+
+            // buat subjek pajak terlebih dahulu
+            $subjek_pajak = $_POST['subjek_pajak'];
+            
+            $sp = $mysql->create("subjek_pajak", $subjek_pajak)->exec();
+            
+            if(!$sp || (is_array($sp) && $sp['error'])) {
+                echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+            } else {
+                $bumi['WAJIB_PAJAK_ID'] = $subjek_pajak['NIK'];
+                
+                if(isset($_FILES['KTP'])){
+                    $ktp = upload($_FILES['KTP'],'ktp');
+        
+                    if ($ktp) {
+                        $bumi['KTP'] = $ktp['filename'];
+                    }
+                }
+
+                if(isset($_FILES['FOTO_OBJEK'])){
+                    $FOTO_OBJEK = upload($_FILES['FOTO_OBJEK'],'foto-objek');
+        
+                    if ($FOTO_OBJEK) {
+                        $bumi['FOTO_OBJEK'] = $FOTO_OBJEK['filename'];
+                    }
+                }
+                
+                if(isset($_FILES['SURAT_TANAH'])){
+                    $SURAT_TANAH = upload($_FILES['SURAT_TANAH'],'surat-tanah');
+        
+                    if ($SURAT_TANAH) {
+                        $bumi['SURAT_TANAH'] = $SURAT_TANAH['filename'];
+                    }
+                }
+
+                $result = $mysql->create("DAT_OP_BUMI", $bumi)->exec();
+
+                if(!$result ||$result['error']) {
+                    echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+                } else {
+                    echo json_encode(['status'=>'success', 'message'=>'Data akan diverifikasi terlebih dahulu!']);
+                }
+            }
+
+        // untuk subjek pajak yang sudah ada
         } else {
-            $dt = $qb->rawQuery($StrQ)->first();
+            
+            $bumi['WAJIB_PAJAK_ID'] = $_POST['ID'];
+
+            $subjek_pajak = $_POST['subjek_pajak'];
+            
+            $sp = $mysql->create("subjek_pajak", $subjek_pajak)->exec();
+            
+            if(isset($_FILES['KTP'])){
+                $ktp = upload($_FILES['KTP'],'ktp');
+    
+                if ($ktp) {
+                    $bumi['KTP'] = $ktp['filename'];
+                }
+            }
+
+            if(isset($_FILES['FOTO_OBJEK'])){
+                $FOTO_OBJEK = upload($_FILES['FOTO_OBJEK'],'foto-objek');
+    
+                if ($FOTO_OBJEK) {
+                    $bumi['FOTO_OBJEK'] = $FOTO_OBJEK['filename'];
+                }
+            }
+            
+            if(isset($_FILES['SURAT_TANAH'])){
+                $SURAT_TANAH = upload($_FILES['SURAT_TANAH'],'surat-tanah');
+    
+                if ($SURAT_TANAH) {
+                    $bumi['SURAT_TANAH'] = $SURAT_TANAH['filename'];
+                }
+            }
+
+            $result = $mysql->create("DAT_OP_BUMI", $bumi)->exec();
+
+            if(!$result || (is_array($result) && $result['error'])) {
+                echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+            } else {
+                echo json_encode(['status'=>'success', 'message'=>'Data akan diverifikasi terlebih dahulu!']);
+            }
+        }
+        die;
+    }
+
+    if($_GET['type'] == 'bangunan' && isset($_POST)) {
+            
+        $bangunan = $_POST['bangunan'];
+        $bangunan['L_AC'] = json_encode($bangunan['L_AC']);
+        $bangunan['LPH'] = json_encode($bangunan['LPH']);
+        $bangunan['JLT_DL'] = json_encode($bangunan['JLT_DL']);
+        $bangunan['JLT_TL'] = json_encode($bangunan['JLT_TL']);
+        $bangunan['PAGAR'] = json_encode($bangunan['PAGAR']);
+        $bangunan['LTB'] = json_encode($bangunan['LTB']);
+        $bangunan['PK'] = json_encode($bangunan['PK']);
+        $bangunan['J_LIFT'] = json_encode($bangunan['J_LIFT']);
+        $bangunan['OTHERS'] = json_encode($bangunan['OTHERS']);
+        $bangunan['KOLAM_RENANG'] = json_encode($bangunan['KOLAM_RENANG']);
+
+        if($_POST['status'] == 'Baru') {
+
+            $subjek_pajak = $_POST['subjek_pajak'];
+            $bumi = $_POST['bumi'];
+            
+            $sp = $mysql->create("subjek_pajak", $subjek_pajak)->exec();
+            
+            if(!$sp || (is_array($sp) && $sp['error'])) {
+                echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+            } else {
+                $bumi['NO_SPOP'] = $bumi['KD_KECAMATAN'].$bumi['KD_KELURAHAN'].$bumi['NO_URUT'];
+                $bumi['WAJIB_PAJAK_ID'] = $subjek_pajak['NIK'];
+                
+                if(isset($_FILES['KTP_BUMI'])) {
+                    $KTP_BUMI = upload($_FILES['KTP_BUMI'],'ktp');
+    
+                    if ($KTP_BUMI) {
+                        $bumi['KTP'] = $KTP_BUMI['filename'];
+                    }
+                }
+
+
+                if(isset($_FILES['FOTO_OBJEK_BUMI'])){
+                    $FOTO_OBJEK_BUMI = upload($_FILES['FOTO_OBJEK_BUMI'],'foto-objek');
+    
+                    if ($FOTO_OBJEK_BUMI) {
+                        $bumi['FOTO_OBJEK'] = $FOTO_OBJEK_BUMI['filename'];
+                    }
+                }
+                
+                if(isset($_FILES['SURAT_TANAH_BUMI'])){
+                    $SURAT_TANAH_BUMI = upload($_FILES['SURAT_TANAH_BUMI'],'surat-tanah');
+    
+                    if ($SURAT_TANAH_BUMI) {
+                        $bumi['SURAT_TANAH'] = $SURAT_TANAH_BUMI['filename'];
+                    }
+                }
+
+                $resultBumi = $mysql->create("DAT_OP_BUMI", $bumi)->exec();
+
+                if(!$resultBumi || (is_array($resultBumi) && $resultBumi['error'])) {
+                    echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+                } else {
+
+                    $NOP = '12.12.' . $bumi['KD_KECAMATAN'] . '.' . $bumi['KD_KELURAHAN'] . '.' . $bumi['KD_BLOK'] . '-' . $bumi['NO_URUT'] . '.' . $bumi['KODE'];
+                    $bangunan['NOP'] = $NOP;
+                    $bangunan['WAJIB_PAJAK_ID'] = $subjek_pajak['NIK'];
+            
+                    if(isset($_FILES['KTP'])){
+                        $KTP = upload($_FILES['KTP'],'ktp');
+    
+                        if ($KTP) {
+                            $bangunan['KTP'] = $KTP['filename'];
+                        }
+                    }
+
+                    if(isset($_FILES['FOTO_OBJEK'])){
+                        $FOTO_OBJEK = upload($_FILES['FOTO_OBJEK'],'foto-objek');
+    
+                        if ($FOTO_OBJEK) {
+                            $bangunan['FOTO_OBJEK'] = $FOTO_OBJEK['filename'];
+                        }
+                    }
+
+                    if(isset($_FILES['SURAT_TANAH'])){
+                        $SURAT_TANAH = upload($_FILES['SURAT_TANAH'],'surat-tanah');
+    
+                        if ($SURAT_TANAH) {
+                            $bangunan['SURAT_TANAH'] = $SURAT_TANAH['filename'];
+                        }
+                    }
+
+                    $result = $mysql->create("DAT_OP_BANGUNAN", $bangunan)->exec();
+
+                    if(!$result || (is_array($result) && $result['error'])) {
+                        echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+                    } else {
+                        echo json_encode(['status'=>'success', 'message'=>'Data akan diverifikasi terlebih dahulu!']);
+                    }
+                }
+            }
+
+        } else {
+            
+            $bangunan['NOP'] = $_POST['NOP'];
+            // $bangunan['WAJIB_PAJAK_ID'] = $subjek_pajak['NIK'];
+            
+            if(isset($_FILES['KTP'])){
+                $ktp = upload($_FILES['KTP'],'ktp');
+    
+                if ($ktp) {
+                    $bangunan['KTP'] = $ktp['filename'];
+                }
+            }
+
+            if(isset($_FILES['FOTO_OBJEK'])){
+                $FOTO_OBJEK = upload($_FILES['FOTO_OBJEK'],'foto-objek');
+    
+                if ($FOTO_OBJEK) {
+                    $bangunan['FOTO_OBJEK'] = $FOTO_OBJEK['filename'];
+                }
+            }
+            
+            if(isset($_FILES['SURAT_TANAH'])){
+                $SURAT_TANAH = upload($_FILES['SURAT_TANAH'],'surat-tanah');
+    
+                if ($SURAT_TANAH) {
+                    $bangunan['SURAT_TANAH'] = $SURAT_TANAH['filename'];
+                }
+            }
+
+            $result = $mysql->create("DAT_OP_BANGUNAN", $bangunan)->exec();
+
+            if(!$result || (is_array($result) && $result['error'])) {
+                echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek data anda terlebih dahulu!']);
+            } else {
+                echo json_encode(['status'=>'success', 'message'=>'Data akan diverifikasi terlebih dahulu!']);
+            }
         }
 
-    } else if($jenis_op == 'bumi') {
-        if($_POST['status'] == 'Terdaftar') {
-            $wajib_pajak_id = $_POST['ID'];
-            $strQ = "Select * from DAT_OP_BUMI where SUBJEK_PAJAK_ID='$_POST[ID]'";
-            $data = $qb->rawQuery($strQ)->first();
-        }
+        die;
     }
+
+    if($_GET['type'] == 'terdaftar') {
+        if ($_POST['jenis_op'] == "Bumi") {
+            $data = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$_POST['ID'])->first();
+            if($data) {
+                echo json_encode(['status'=>'success', 'data'=>$data]);
+            } else {
+                echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek masukan terlebih dahulu!']);
+            }
+        } else {
+            $NOP = trim($_POST['NOP']);
+            $clause = "concat(KD_PROPINSI,'.', KD_DATI2,'.',KD_KECAMATAN, '.', KD_KELURAHAN , '.' , KD_BLOK , '-' , NO_URUT , '.' , KD_JNS_OP)";
+            $strQ = "Select *, $clause as NOP from DAT_OP_BUMI where $clause='$NOP' order by NO_URUT desc";
+            $data = $qb->rawQuery($strQ)->first();
+            $subjek_pajak = $qb->select('DAT_SUBJEK_PAJAK')->where("SUBJEK_PAJAK_ID",$data['SUBJEK_PAJAK_ID'])->first();
+            $data = array_merge($data, $subjek_pajak);
+            if($data) {
+                echo json_encode(['status'=>'success', 'data'=>$data]);
+            } else {
+                echo json_encode(['status'=>'failed', 'message'=>'Silahkan cek masukan terlebih dahulu!']);
+            }
+        }
+        die;
+    } 
 }
 
-if($submit){
-    $kecamatans = $qb->select('REF_KECAMATAN')->orderby('KD_KECAMATAN')->get();
-    $old = get_flash_msg("old");
+$subjekPajakFields = $qb->columns("DAT_SUBJEK_PAJAK","KELURAHAN_WP,SUBJEK_PAJAK_ID,NM_WP,JALAN_WP,RW_WP,RT_WP,KOTA_WP,KD_POS_WP,TELP_WP,NPWP,BLOK_KAV_NO_WP");
 
-    $datOP = $qb->select("DAT_OBJEK_PAJAK")->where("SUBJEK_PAJAK_ID",$_POST['ID'])->where('KD_KECAMATAN',$data['KD_KECAMATAN'])->where('KD_KELURAHAN',$data['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->first();
-    
-    $kelurahans = $qb->select("REF_KELURAHAN")->where('KD_KECAMATAN',$data['KD_KECAMATAN'])->orderby('KD_KELURAHAN')->get();
-    $bloks = $qb->select("DAT_PETA_BLOK")->where('KD_KECAMATAN',$data['KD_KECAMATAN'])->where('KD_KELURAHAN',$data['KD_KELURAHAN'])->orderby('KD_BLOK')->get();
-    $znts = $qb->select("DAT_PETA_ZNT")->where('KD_KECAMATAN',$data['KD_KECAMATAN'])->where('KD_KELURAHAN',$data['KD_KELURAHAN'])->where('KD_BLOK',$data['KD_BLOK'])->orderby('KD_ZNT')->get();
-    $jalans = $qb->select("JALAN")->where('KD_KECAMATAN',$data['KD_KECAMATAN'])->where('KD_KELURAHAN',$data['KD_KELURAHAN'])->orderby('KD_ZNT')->get();
+$kecamatans = $qb->select('REF_KECAMATAN')->orderby('KD_KECAMATAN')->get();
 
-    $jenisBumis = ["01-TANAH DAN BANGUNAN","02-KAVLING SIAP BANGUN","03-TANAH KOSONG","04-FASILITAS UMUM"];
-    $kondisis = ["01-Sangat Baik","02-Baik","03-Sedang","04-Jelek"];
-    $konstruksis = ["01-Baja","02-Beton","03-Batu Bata","04-Kayu"];
-    $ataps = ["01-Decrabon/Beton/Gtg Glazur","02-Gtg Beton/Aluminium","03-Gtg Biasa/Sirap","04-Asbes","05-Seng"];
-    $dindings = ["01-Kaca/Aluminium","02-Beton","03-Batu Bata/Conblok","04-Kayu","05-Seng","06-Spandex"];
-    $lantais = ["01-Marmer","02-Keramik","03-Teraso","04-Ubin PC/Papan","05-Semen"];
-    $langits = ["01-Akuistik/Jati","02-Triplek/Asbes/Bambu","30-Tidak Ada"];
-    $jpbs = $qb->select('REF_JPB')->orderBy('KD_JPB')->get();
+$pekerjaans = [
+    '1' => 'PNS',
+    '2' => 'TNI/Polri',
+    '3' => 'Pensiunan',
+    '4' => 'Badan',
+    '5' => 'Lainnya'
+];
 
-    $years = []; 
 
-    for($i = 0 ; $i<100;$i++){
-        $years[] = date("Y",strtotime("-$i year"));
-    }
+$jenisBumis = ["01-TANAH DAN BANGUNAN","02-KAVLING SIAP BANGUN","03-TANAH KOSONG","04-FASILITAS UMUM"];
+
+$kondisis = ["01-Sangat Baik","02-Baik","03-Sedang","04-Jelek"];
+$konstruksis = ["01-Baja","02-Beton","03-Batu Bata","04-Kayu"];
+$ataps = ["01-Decrabon/Beton/Gtg Glazur","02-Gtg Beton/Aluminium","03-Gtg Biasa/Sirap","04-Asbes","05-Seng"];
+$dindings = ["01-Kaca/Aluminium","02-Beton","03-Batu Bata/Conblok","04-Kayu","05-Seng","06-Spandex"];
+$lantais = ["01-Marmer","02-Keramik","03-Teraso","04-Ubin PC/Papan","05-Semen"];
+$langits = ["01-Akuistik/Jati","02-Triplek/Asbes/Bambu","30-Tidak Ada"];
+
+$jpbs = $qb->select('REF_JPB')->orderBy('KD_JPB')->get();
+
+$years = []; 
+for($i = 0 ; $i<100;$i++){
+    $years[] = date("Y",strtotime("-$i year"));
 }

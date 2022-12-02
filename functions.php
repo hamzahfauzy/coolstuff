@@ -2,7 +2,13 @@
 require '../config/main.php';
 require '../helpers/Builder.php';
 require '../helpers/Form.php';
+require '../helpers/Mailer.php';
 require_once '../config/database.php';
+
+if(file_exists('../vendor/autoload.php'))
+{
+    require '../vendor/autoload.php';
+}
 
 function conn(){
     global $conn;

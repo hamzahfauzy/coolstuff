@@ -111,7 +111,7 @@
             $(document).ready(e => {
                 var nop = $("input[name='NOPQ']");
 
-                nop.inputmask({mask:"12.12.999.999.999-9999.9"})
+                nop.inputmask({mask:"12.12.999.999.999-9{1,4}.9"})
             })
         </script>
 
