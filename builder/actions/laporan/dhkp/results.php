@@ -322,16 +322,15 @@ if(isset($mode) && $mode == 'cek_cetak')
 
     foreach($C_SPPT as $c)
     {
-
-        $xProp = $c['xProp'];
-        $xKab = $c['xKab'];
-        $xxKec = $c['xxKec'];
-        $xxKel = $c['xxKel'];
-        $xxBlok = $c['xxBlok'];
-        $xxUrut = $c['xxUrut'];
-        $xxJenis = $c['xxJenis'];
-        $xBayar = $c['xBayar'];
-        $xTahun = $c['xTahun'];
+        $xProp = $c['KD_PROPINSI'];
+        $xKab = $c['KD_DATI2'];
+        $xxKec = $c['KD_KECAMATAN'];
+        $xxKel = $c['KD_KECAMATAN'];
+        $xxBlok = $c['KD_BLOK'];
+        $xxUrut = $c['NO_URUT'];
+        $xxJenis = $c['KD_JNS_OP'];
+        $xBayar = $c['PBB_YG_HARUS_DIBAYAR_SPPT'];
+        $xTahun = $c['THN_PAJAK_SPPT'];
 
         $qb->rawQuery("UPDATE TEMP_DHKP SET JUM_UBAH=PBB_YG_HARUS_DIBAYAR_SPPT,PBB_YG_HARUS_DIBAYAR_SPPT=$xBayar,JUM_SELISIH=(PBB_YG_HARUS_DIBAYAR_SPPT-$xBayar) WHERE $xBayar <> PBB_YG_HARUS_DIBAYAR_SPPT  and (NOPQ=$xProp +'.'+ $xKab +'.'+ $xxKec +'.'+ $xxKel +'.'+ $xxBlok +'-'+ $xxUrut +'.'+ $xxJenis)");
     }

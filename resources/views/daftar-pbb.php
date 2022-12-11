@@ -145,28 +145,16 @@ label {
                 </select>
             </div>
 
-            <div class="form-group mb-2" id="blok">
-                <label>Blok</label>
-                <select name="KD_BLOK" class="p-2 w-full border rounded" onchange="blokChange(this)" required>
-                    <option value="" selected disabled>- Pilih Blok -</option>
-                </select>
-            </div>
-            
-            <div class="form-group mb-2" id="znt">
-                <label>ZNT</label>
-                <select name="KD_ZNT" class="p-2 w-full border rounded" required>
-                    <option value="" selected disabled>- Pilih ZNT -</option>
-                </select>
-            </div>
-
             <div class="grid grid-cols-3 gap-4">
-                <div class="form-group mb-2">
-                    <label>No Urut</label>
-                    <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=@$_POST['NO_URUT']?>" name="NO_URUT" required>
+                <div class="form-group mb-2" id="blok">
+                    <label>Blok</label>
+                    <select name="KD_BLOK" class="p-2 w-full border rounded" onchange="blokChange(this)" required>
+                        <option value="" selected disabled>- Pilih Blok -</option>
+                    </select>
                 </div>
                 <div class="form-group mb-2">
                     <label>Kode</label>
-                    <select name="KODE" class="p-2 mt-2 w-full border rounded" required>
+                    <select name="KODE" class="p-2 w-full border rounded" required>
                         <option value="" selected readonly>- Pilih Kode -</option>
                         <option <?= @$_POST['KODE'] == '0' ? 'selected' : 'selected'?>  value="0">0</option>
                         <option <?= @$_POST['KODE'] == '7' ? 'selected' : ''?> value="7">7</option>
@@ -175,7 +163,7 @@ label {
 
                 <div class="form-group mb-2">
                     <label>Status WP</label>
-                    <select name="STATUS_WP" class="p-2 mt-2 w-full border rounded" required>
+                    <select name="STATUS_WP" class="p-2 w-full border rounded" required>
                         <option value="" selected readonly>- Pilih Kode -</option>
                         <option <?= @$_POST['STATUS_WP'] == '1' ? 'selected' : ''?> value="1">1 Pemilik</option>
                         <option <?= @$_POST['STATUS_WP'] == '2' ? 'selected' : ''?> value="2">2 Penyewa</option>
@@ -186,17 +174,29 @@ label {
                 </div>
             </div>
 
+            <div class="form-group mb-2" style="visibility:hidden;height:0px">
+                <label>No Urut</label>
+                <input type="text" class="p-2 mt-2 w-full border rounded" value="<?=@$_POST['NO_URUT']?>" name="NO_URUT" required>
+            </div>
+
         </div>
 
         <div class="bg-white shadow-md rounded my-6 p-8">
 
             <h2 class="text-lg mb-10 text-center font-bold">Lokasi</h2>
 
-            <div class="form-group mb-2">
-                <label>Jalan</label>
-                <select name="JALAN" class="p-2 w-full border rounded" id="jalan" required>
-                    <option value="" selected disabled>- Pilih Jalan -</option>
-                </select>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="form-group mb-2">
+                    <label>Jalan</label>
+                    <select name="JALAN" class="p-2 w-full border rounded" id="jalan" required onchange="fillZNT(this)">
+                        <option value="" selected disabled>- Pilih Jalan -</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2" id="znt">
+                    <label>ZNT</label>
+                    <input type="text" class="p-2 w-full border rounded" name="KD_ZNT" id="KD_ZNT" readonly>
+                </div>
             </div>
 
             <div class="grid grid-cols-3 gap-4">
@@ -243,17 +243,17 @@ label {
 
             <div class="form-group mb-2">
                 <label>KTP</label>
-                <input type="file" name="KTP" class="p-2 mt-2 w-full border rounded">
+                <input type="file" name="KTP" class="p-2 mt-2 w-full border rounded" required>
             </div>
             
             <div class="form-group mb-2">
                 <label>Foto Objek</label>
-                <input type="file" name="FOTO_OBJEK" class="p-2 mt-2 w-full border rounded">
+                <input type="file" name="FOTO_OBJEK" class="p-2 mt-2 w-full border rounded" required>
             </div>
             
             <div class="form-group mb-2">
                 <label>Surat Tanah</label>
-                <input type="file" name="SURAT_TANAH" class="p-2 mt-2 w-full border rounded">
+                <input type="file" name="SURAT_TANAH" class="p-2 mt-2 w-full border rounded" required>
             </div>
 
         </div>
@@ -700,17 +700,17 @@ label {
 
             <div class="form-group mb-2">
                 <label>KTP</label>
-                <input type="file" name="KTP" class="p-2 mt-2 w-full border rounded">
+                <input type="file" name="KTP" class="p-2 mt-2 w-full border rounded" required>
             </div>
             
             <div class="form-group mb-2">
                 <label>Foto Objek</label>
-                <input type="file" name="FOTO_OBJEK" class="p-2 mt-2 w-full border rounded">
+                <input type="file" name="FOTO_OBJEK" class="p-2 mt-2 w-full border rounded" required>
             </div>
             
             <div class="form-group mb-2">
                 <label>Surat Tanah</label>
-                <input type="file" name="SURAT_TANAH" class="p-2 mt-2 w-full border rounded">
+                <input type="file" name="SURAT_TANAH" class="p-2 mt-2 w-full border rounded" required>
             </div>
 
         </div>
@@ -823,15 +823,33 @@ label {
                         document.querySelector('input[name=NIK]').setAttribute('readonly','readonly')
                         document.querySelector('select[name=STATUS_PEKERJAAN_WP]').style.pointerEvents = 'none'
                         document.querySelector('input[name=NM_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=JALAN_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=BLOK_KAV_NO_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=RW_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=RT_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=KELURAHAN_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=KOTA_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=KD_POS_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=TELP_WP]').setAttribute('readonly','readonly')
-                        document.querySelector('input[name=NPWP]').setAttribute('readonly','readonly')
+                        document.querySelector('input[name=JALAN_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=JALAN_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=JALAN_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=BLOK_KAV_NO_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=BLOK_KAV_NO_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=BLOK_KAV_NO_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=RW_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=RW_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=RW_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=RT_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=RT_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=RT_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=KELURAHAN_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=KELURAHAN_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=KELURAHAN_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=KOTA_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=KOTA_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=KOTA_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=KD_POS_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=KD_POS_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=KD_POS_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=TELP_WP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=TELP_WP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=TELP_WP]').previousSibling.previousSibling.style.height = "0px"
+                        document.querySelector('input[name=NPWP]').setAttribute('type','hidden')
+                        document.querySelector('input[name=NPWP]').previousSibling.previousSibling.style.visibility = "hidden"
+                        document.querySelector('input[name=NPWP]').previousSibling.previousSibling.style.height = "0px"
 
 
                         if (jenisOp.val() == "Bumi") {
@@ -995,8 +1013,8 @@ label {
 
                 if(document.forms.form_subjek_pajak.checkValidity()) {
                     if(document.forms.form_bumi.checkValidity()) {
-                        submitBumi.attr('disabled', true)
-                        submitBumi.text('Loading...')
+                        submitBangunan.attr('disabled', true)
+                        submitBangunan.text('Loading...')
 
                         var body = new FormData()
                         var subjekPajakdata = formSubjekPajak.serializeJSON()
@@ -1201,7 +1219,7 @@ label {
     function kecamatanChange(el){
         fetch("index.php?page=daftar-pbb&filter-kecamatan="+el.value).then(response => response.json()).then(data => {
 
-                var html = ''
+                var html = '<option value="-">- Pilih Kelurahan -</option>'
 
                 data.map(dt=>{
                     html += `<option value="${dt.KD_KELURAHAN}">${dt.KD_KELURAHAN} - ${dt.NM_KELURAHAN}</option>`
@@ -1209,7 +1227,7 @@ label {
 
                 var kelurahan = document.querySelector("#kelurahan")
 
-                kelurahan.querySelector('select').innerHTML += html
+                kelurahan.querySelector('select').innerHTML = html
 
                 kelurahan.classList.remove("hidden")
 
@@ -1221,7 +1239,7 @@ label {
 
         fetch("index.php?page=daftar-pbb&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
-                var html = ''
+                var html = '<option value="-">- Pilih Blok -</option>'
 
                 data.map(dt=>{
                     html += `<option value="${dt.KD_BLOK}">${dt.KD_BLOK}</option>`
@@ -1229,7 +1247,7 @@ label {
 
                 var blok = document.querySelector("#blok")
 
-                blok.querySelector('select').innerHTML += html
+                blok.querySelector('select').innerHTML = html
 
                 blok.classList.remove("hidden")
 
@@ -1237,7 +1255,7 @@ label {
 
         fetch("index.php?page=daftar-pbb&get-jalan=true&filter-kelurahan="+el.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
-            var html = ''
+            var html = '<option value="-">- Pilih Jalan -</option>'
 
             data.map(dt=>{
                 html += `<option value="${dt.NM_JLN}">${dt.KD_ZNT} - ${dt.NM_JLN}</option>`
@@ -1245,7 +1263,7 @@ label {
 
             var jalan = document.querySelector("#jalan")
 
-            jalan.innerHTML += html
+            jalan.innerHTML = html
 
             jalan.classList.remove("hidden")
 
@@ -1256,26 +1274,31 @@ label {
         var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
         var kelurahan = document.querySelector("select[name='KD_KELURAHAN']")
 
-        fetch("index.php?page=daftar-pbb&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+        // fetch("index.php?page=daftar-pbb&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
-                var html = ''
+        //         var html = '<option value="-">- Pilih ZNT -</option>'
 
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_ZNT}">${dt.KD_ZNT}</option>`
-                })
+        //         data.map(dt=>{
+        //             html += `<option value="${dt.KD_ZNT}">${dt.KD_ZNT}</option>`
+        //         })
 
-                var znt = document.querySelector("#znt")
+        //         var znt = document.querySelector("#znt")
 
-                znt.querySelector('select').innerHTML += html
+        //         znt.querySelector('select').innerHTML = html
 
-                znt.classList.remove("hidden")
+        //         znt.classList.remove("hidden")
 
-        }); 
+        // }); 
 
         fetch("index.php?page=daftar-pbb&get-no-urut=true&blok="+el.value+"&kelurahan="+kelurahan.value+"&kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
             document.querySelector("[name='NO_URUT']").value = data
         })
     }   
+
+    function fillZNT(el){
+        var ZNT = el.selectedOptions[0].innerHTML.split(' - ')[0]
+        document.querySelector("#KD_ZNT").value = ZNT
+    }
 </script>
 
 <?php load('partials/landing-bottom') ?>

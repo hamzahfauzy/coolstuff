@@ -82,6 +82,7 @@
     function doSubmit(form){
         // document.querySelector('button[name=cetak]').disabled = true
         document.querySelector('button[name=cetak]').innerHTML = "Memproses"
+        document.querySelector('button[name=cetak]').disabled = true
         const formData = new FormData(form);
         const params = new URLSearchParams(formData);
 
@@ -96,8 +97,12 @@
             }
             else
             {
-                window.open('index.php?page=builder/laporan/dhkp/cetak-all&'+params.toString())
+                var KD_KECAMATAN = document.querySelector("[name='KD_KECAMATAN']").value
+                var KD_KELURAHAN = document.querySelector("[name='KD_KELURAHAN']").value
+                var url = 'index.php?page=builder/laporan/dhkp/cetak-all&KD_KECAMATAN='+KD_KECAMATAN+'&KD_KELURAHAN='+KD_KELURAHAN+'&tahun_pajak='+document.querySelector("select[name=tahun_pajak]").value
+                window.open(url)
                 document.querySelector('button[name=cetak]').disabled = false
+                document.querySelector('button[name=cetak]').innerHTML = "Tampilkan"
             }
         })
     }

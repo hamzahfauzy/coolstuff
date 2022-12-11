@@ -14,7 +14,7 @@ class Mailer
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->SMTPDebug  = false; // SMTP::DEBUG_SERVER;                      //Enable verbose debug output
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = SMTP_HOST; // 'smtp.example.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -27,6 +27,16 @@ class Mailer
     }
 
     function send($to, $subject, $message)
+    {
+        $mysql = new QueryBuilder("mysql");
+        $mysql->create("email_queues", [
+            'email' => $to,
+            'subject' => $subject,
+            'message' => $message
+        ])->exec();
+    }
+
+    function doSend($to, $subject, $message)
     {
         try {                                //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             //Recipients

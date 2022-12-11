@@ -61,25 +61,25 @@ if(isset($_GET['filter'])){
         $kelurahans->where('KD_KECAMATAN',$_GET['kecamatan']);
         $bloks->where('KD_KECAMATAN',$_GET['kecamatan']);
         $znts->where('KD_KECAMATAN',$_GET['kecamatan']);
-        $limits->where('KD_KECAMATAN',$_GET['kecamatan']);
+        $limits->where('DAT_OP_BUMI.KD_KECAMATAN',$_GET['kecamatan']);
     }
 
     if($_GET['kelurahan']){
         $datas->where('DAT_OP_BUMI.KD_KELURAHAN',$_GET['kelurahan']);
         $bloks->where('KD_KELURAHAN',$_GET['kelurahan']);
         $znts->where('KD_KELURAHAN',$_GET['kelurahan']);
-        $limits->where('KD_KELURAHAN',$_GET['kelurahan']);
+        $limits->where('DAT_OP_BUMI.KD_KELURAHAN',$_GET['kelurahan']);
     }
     
     if($_GET['blok']){
         $datas->where('DAT_OP_BUMI.KD_BLOK',$_GET['blok']);
         $znts->where('KD_BLOK',$_GET['blok']);
-        $limits->where('KD_BLOK',$_GET['blok']);
+        $limits->where('DAT_OP_BUMI.KD_BLOK',$_GET['blok']);
     }
 
     if($_GET['znt']){
         $datas->where('DAT_OP_BUMI.KD_ZNT',$_GET['znt']);
-        $limits->where('KD_ZNT',$_GET['znt']);
+        $limits->where('DAT_OP_BUMI.KD_ZNT',$_GET['znt']);
     }
 
     if($_GET['nama']){

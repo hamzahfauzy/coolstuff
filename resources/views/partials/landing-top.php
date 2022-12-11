@@ -1,3 +1,7 @@
+<?php
+$builder = new Builder;
+$installation = $builder->get_installation();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Badan Pengelola Keuangan dan Aset Daerah Kab. Pakpak Bharat</title>
 	<?php load('builder/partials/css') ?>
+	<link rel="shortcut icon" href="<?=get_file_storage('installation/'.$installation->logo)?>" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,500,700|Fira+Sans:600" rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
 	<script src="https://unpkg.com/animejs@2.2.0/anime.min.js"></script>

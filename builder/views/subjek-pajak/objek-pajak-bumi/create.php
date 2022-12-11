@@ -66,6 +66,7 @@
                     <?php endforeach ?>
                 </select>
             </div>
+            <?php /*
             <div class="form-group mb-2 <?=$opBumi['KD_ZNT'] ? '' : 'hidden' ?>" id="znt">
                 <label>ZNT</label>
                 <select name="KD_ZNT" class="p-2 w-full border rounded">
@@ -74,7 +75,7 @@
                         <option <?= $opBumi['KD_ZNT'] == $znt['KD_ZNT'] && $opBumi['KD_BLOK'] == $znt['KD_BLOK'] && $opBumi['KD_KELURAHAN'] == $znt['KD_KELURAHAN'] && $opBumi['KD_KECAMATAN'] == $znt['KD_KECAMATAN']  ? 'selected' : ''?> value="<?=$znt['KD_ZNT']?>"><?=$znt['KD_ZNT']?></option>
                     <?php endforeach ?>
                 </select>
-            </div>
+            </div> */ ?>
 
             <div class="grid grid-cols-3 gap-4">
                 <div class="form-group mb-2">
@@ -117,11 +118,18 @@
 
             <h2 class="text-lg mb-10 text-center font-bold">Lokasi</h2>
 
-            <div class="form-group mb-2">
-                <label>Jalan</label>
-                <select name="JALAN" class="p-2 w-full border rounded" id="jalan">
-                    <option value="" selected readonly>- Pilih Jalan -</option>
-                </select>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="form-group mb-2">
+                    <label>Jalan</label>
+                    <select name="JALAN" class="p-2 w-full border rounded" id="jalan" required onchange="fillZNT(this)">
+                        <option value="" selected disabled>- Pilih Jalan -</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2" id="znt">
+                    <label>ZNT</label>
+                    <input type="text" class="p-2 w-full border rounded" value="<?=isset($old) && $old["KD_ZNT"] ? $old["KD_ZNT"] : ''?>" name="KD_ZNT" id="KD_ZNT" readonly>
+                </div>
             </div>
 
             <div class="grid grid-cols-3 gap-4">
@@ -286,32 +294,37 @@
         var kecamatan = document.querySelector("select[name='KD_KECAMATAN']")
         var kelurahan = document.querySelector("select[name='KD_KELURAHAN']")
 
-        fetch("index.php?page=builder/subjek-pajak/objek-pajak-bumi/index&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
+        // fetch("index.php?page=builder/subjek-pajak/objek-pajak-bumi/index&filter-blok="+el.value+"&filter-kelurahan="+kelurahan.value+"&filter-kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
-                var html = `
-                        <label>ZNT</label>
-                        <select name="KD_ZNT" class="p-2 w-full border rounded">
-                            <option value="" selected readonly>- Pilih ZNT -</option>`
+        //         var html = `
+        //                 <label>ZNT</label>
+        //                 <select name="KD_ZNT" class="p-2 w-full border rounded">
+        //                     <option value="" selected readonly>- Pilih ZNT -</option>`
 
-                data.map(dt=>{
-                    html += `<option value="${dt.KD_ZNT}">${dt.KD_ZNT}</option>`
-                })
+        //         data.map(dt=>{
+        //             html += `<option value="${dt.KD_ZNT}">${dt.KD_ZNT}</option>`
+        //         })
 
-                html += `</select>`
+        //         html += `</select>`
 
-                var znt = document.querySelector("#znt")
+        //         var znt = document.querySelector("#znt")
 
-                znt.innerHTML = html
+        //         znt.innerHTML = html
 
-                znt.classList.remove("hidden")
+        //         znt.classList.remove("hidden")
 
-        }); 
+        // }); 
 
         fetch("index.php?page=builder/subjek-pajak/objek-pajak-bumi/index&get-no-urut=true&blok="+el.value+"&kelurahan="+kelurahan.value+"&kecamatan="+kecamatan.value).then(response => response.json()).then(data => {
 
             document.querySelector("[name='NO_URUT']").value = data
         })
     }    
+
+    function fillZNT(el){
+        var ZNT = el.selectedOptions[0].innerHTML.split(' - ')[0]
+        document.querySelector("#KD_ZNT").value = ZNT
+    }
 </script>
 
 <?php load('builder/partials/bottom') ?>

@@ -57,3 +57,11 @@ $limits = $limits->first();
 
 $kelurahans = $kelurahans->orderBy('KD_KELURAHAN')->get();
 $bloks = $bloks->groupBy("KD_BLOK")->get();
+
+$pekerjaans = [
+    '1' => 'PNS',
+    '2' => 'TNI/Polri',
+    '3' => 'Pensiunan',
+    '4' => 'Badan',
+    '5' => 'Lainnya'
+];

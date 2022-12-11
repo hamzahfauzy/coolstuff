@@ -1,6 +1,6 @@
 <?php
 
-class QueryBuilder{
+class QueryBuilder {
     
     public $sql = "";
     public $type = false;
@@ -9,7 +9,7 @@ class QueryBuilder{
     function __construct($type = false){
         $this->type = $type;
         if ($type == "mysql") {
-            $conn = mysqli_connect("localhost","ztech","nopassword","ztech_pbb");
+            $conn = mysqli_connect(MYSQL_HOST,MYSQL_USER,MYSQL_PASS,MYSQL_DB);
             $this->conn = $conn;  
         } else {
             $this->conn = conn();  

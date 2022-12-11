@@ -22,18 +22,11 @@ else
     }
 }
 
-if(!$data)
+$datas = $qb->rawQuery($query)->get();
+
+if(!$datas)
 {
     set_flash_msg(['failed'=>'Data tidak valid']);
     header("location:index.php?page=builder/penatausahaan/laporan-piutang/index");
     die();
-}
-
-$C_STR = "SELECT * FROM PEJABAT";
-$pejabat = $qb->rawQuery($C_STR)->get();
-foreach($pejabat as $pj)
-{
-    $xNIP = $pj['NIP'];
-    $xNama = $pj['NAMA'];
-    $xJabatan = $pj['JABATAN'];
 }

@@ -1,13 +1,19 @@
 <?php
-require '../config/main.php';
-require '../helpers/Builder.php';
-require '../helpers/Form.php';
-require '../helpers/Mailer.php';
-require_once '../config/database.php';
 
-if(file_exists('../vendor/autoload.php'))
+$parent_path = '../';
+if (in_array(php_sapi_name(),["cli","cgi-fcgi"])) {
+    $parent_path = '';
+}
+
+require $parent_path . 'config/main.php';
+require $parent_path . 'helpers/Builder.php';
+require $parent_path . 'helpers/Form.php';
+require $parent_path . 'helpers/Mailer.php';
+require_once $parent_path . 'config/database.php';
+
+if(file_exists($parent_path . 'vendor/autoload.php'))
 {
-    require '../vendor/autoload.php';
+    require $parent_path . 'vendor/autoload.php';
 }
 
 function conn(){
@@ -318,4 +324,79 @@ function numberToRomanRepresentation($number) {
         }
     }
     return $returnValue;
+}
+
+function createObjekPajakBumi($data)
+{
+    $qb = new QueryBuilder();
+
+    $reg_code = str_replace('REG-','',$data['reg_code']);
+
+    $data['KD_PROPINSI'] = 12;
+    $data['KD_DATI2'] = 12;
+    $data['NO_BUMI'] = 1;
+    $data["TGL_PENDATAAN"] = date('Y-m-d',$reg_code);
+    $data["TGL_PEMERIKSAAN"] = date('Y-m-d H:i:s');
+    $data["TGL_PEREKAMAN"] = date('Y-m-d',$reg_code);
+    $NIP_PENDATA = '0';
+    $NIP_PEMERIKSA = '0';
+    $NIP_PEREKAM = '0';
+
+    extract($data);
+
+    $kelasTanah = $qb->select("KELAS_TANAH")->where('THN_AWAL_KLS_TANAH',$TAHUN)->first();
+
+    $nilaiKelas = $kelasTanah && $kelasTanah['NILAI_PER_M2_TANAH'] ? $kelasTanah['NILAI_PER_M2_TANAH'] : 1;
+
+    $tBumi3 = $LUAS_TANAH * $nilaiKelas;
+
+    $sql =  "INSERT_BUMI '12', '12', '" . $KD_KECAMATAN . "', '" . $KD_KELURAHAN . "', '" . $KD_BLOK . "', '" . $NO_URUT . "', '" . $KODE . "', '1', '" . $KD_ZNT . "', '" . round($LUAS_TANAH) . "', '" . $JNS_BUMI . "', '" . round($tBumi3) . "','" . $NO_SPOP . "', '0'," . "'12', '12', '" . $KD_KECAMATAN . "', '" . $KD_KELURAHAN . "', '" . $KD_BLOK . "', '" . $NO_URUT . "', '" . $KODE . "', '" . $SUBJEK_PAJAK_ID . "', '" . $NO_SPOP . "', '" . $NO_PERSIL . "', '" . $JALAN . "', '" . $KD_BLOK . "', '" . $RW . "', '" . $RT . "', '" . $STATUS_WP . "', '" . $LUAS_TANAH . "', '" . $tBumi3 * 1000 . "', '1', '" . $TGL_PENDATAAN . "', '" . $NIP_PENDATA . "', '" . $TGL_PEMERIKSAAN . "', '" . $NIP_PEMERIKSA . "', '" . $TGL_PEREKAMAN . "', '" . $NIP_PEREKAM . "','0',0,0,'1'";
+
+    $insert = $qb->rawQuery($sql)->exec();
+
+    if($insert)
+    {
+        return ['status'=>'success','data'=>$data];
+    }
+
+    return ['status'=>'failed','message'=>'insert fail','data'=>$data];
+}
+
+function createSubjekPajak($data)
+{
+    $fields = [
+        'SUBJEK_PAJAK_ID',
+        'NM_WP',
+        'JALAN_WP',
+        'BLOK_KAV_NO_WP',
+        'RW_WP',
+        'RT_WP',
+        'KELURAHAN_WP',
+        'KOTA_WP',
+        'KD_POS_WP',
+        'TELP_WP',
+        'NPWP',
+        'STATUS_PEKERJAAN_WP',
+    ];
+
+    $create_fields = [];
+    foreach($fields as $field)
+    {
+        $create_fields[$field] = $data[$field];
+    }
+
+    $qb = new QueryBuilder();
+
+    $insert = $qb->create('DAT_SUBJEK_PAJAK',$create_fields)->exec();
+
+    if( $insert === false ) {
+        return ['status'=>'failed','message' => sqlsrv_errors()];
+    }
+
+    if($insert)
+    {
+        return ['status'=>'success','data'=>$insert];
+    }
+
+    return ['status'=>'failed','message' => 'error'];
 }

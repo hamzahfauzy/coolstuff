@@ -2,7 +2,7 @@
 
 ?>
 <div class="content lg:max-w-screen-lg lg:mx-auto py-8">
-    <h2 class="text-3xl">Subjek Pajak</h2>
+    <h2 class="text-3xl">Pendaftaran PBB</h2>
     <div class="my-6">
         <?php if($msg): ?>
         <div class="bg-green-100 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md my-6" role="alert">
@@ -67,19 +67,12 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">No</th>
+                            <th class="py-3 px-6 text-left">Tanggal Mendaftar</th>
                             <th class="py-3 px-6 text-left">NIK</th>
                             <th class="py-3 px-6 text-left">Nama</th>
-                            <th class="py-3 px-6 text-left">Jalan</th>
-                            <th class="py-3 px-6 text-left">Blok</th>
-                            <th class="py-3 px-6 text-left">RW</th>
-                            <th class="py-3 px-6 text-left">RT</th>
-                            <th class="py-3 px-6 text-left">Kelurahan</th>
-                            <th class="py-3 px-6 text-left">Kota</th>
-                            <th class="py-3 px-6 text-left">Kode Pos</th>
-                            <th class="py-3 px-6 text-left">Telepon</th>
-                            <th class="py-3 px-6 text-left">NPWP</th>
-                            <th class="py-3 px-6 text-left">Status Pekerjaan</th>
-                            <th class="py-3 px-6 text-center">Action</th>
+                            <th class="py-3 px-6 text-left">Jenis Pendaftaran</th>
+                            <th class="py-3 px-6 text-left">Status</th>
+                            <th class="py-3 px-6 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <?php foreach($datas as $key => $data):
@@ -95,6 +88,11 @@
 
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
+                                <span class="font-medium"><?=$data['created_at']?></span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
                                 <span class="font-medium"><?=$data['NIK']?></span>
                             </div>
                         </td>
@@ -105,57 +103,17 @@
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['JALAN_WP']?></span>
+                                <span class="font-medium"><?=$data['reg_type']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">
                             <div class="flex items-center">
-                                <span class="font-medium"><?=$data['BLOK_KAV_NO_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['RW_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['RT_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KELURAHAN_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KOTA_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['KD_POS_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['TELP_WP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['NPWP']?></span>
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="font-medium"><?=$data['STATUS_PEKERJAAN_WP']?></span>
+                                <span class="font-medium"><?=$data['reg_status']?></span>
                             </div>
                         </td>
                         <td class="py-3 px-6 text-center">
                             <div class="flex item-center justify-center">
-                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&id=<?=$data['NIK']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <a href="index.php?page=builder/pendaftaran/subjek-pajak/view&code=<?=$data['reg_code']?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

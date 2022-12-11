@@ -138,7 +138,7 @@ $wilayah = isset($_GET['page']) ? arrStringContains($_GET['page'],$referensi_dat
                             <i class="fa fa-caret-down  ml-2"></i>
                         </a>
                         <div class="nav-box absolute shadow bg-white hidden w-max pt-2 text-left" id="pendaftaran" style="top:40px">
-                            <a href="?page=builder/pendaftaran/subjek-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pendaftaran/subjek-pajak') ?> hover:text-white">Subjek Pajak</a>
+                            <a href="?page=builder/pendaftaran/subjek-pajak/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pendaftaran/subjek-pajak') ?> hover:text-white">PBB</a>
                             <a href="?page=builder/pendaftaran/e-sppt/index" class="block px-4 py-3 hover:bg-purple-700  <?= getCurrentPageDataNav('pendaftaran/e-sppt') ?> hover:text-white">e-SPPT</a>
                         </div>
                     </li>

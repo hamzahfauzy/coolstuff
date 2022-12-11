@@ -54,5 +54,12 @@ $atap = ["01-Decrabon/Beton/Gtg Glazur","02-Gtg Beton/Aluminium","03-Gtg Biasa/S
 $dinding = ["01-Kaca/Aluminium","02-Beton","03-Batu Bata/Conblok","04-Kayu","05-Seng","06-Spandex"];
 $lantai = ["01-Marmer","02-Keramik","03-Teraso","04-Ubin PC/Papan","05-Semen"];
 $langit = ["01-Akuistik/Jati","02-Triplek/Asbes/Bambu","30-Tidak Ada"];
+$pekerjaans = [
+        '1' => 'PNS',
+        '2' => 'TNI/Polri',
+        '3' => 'Pensiunan',
+        '4' => 'Badan',
+        '5' => 'Lainnya'
+];
 
 $jenisBumi = ["01-TANAH DAN BANGUNAN","02-KAVLING SIAP BANGUN","03-TANAH KOSONG","04-FASILITAS UMUM"];

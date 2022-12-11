@@ -245,7 +245,7 @@
             <div class="flex justify-between">
                 <p>Status Pekerjaan</p>
                 
-                <b><?= $data['STATUS_PEKERJAAN_WP'] ? $data['STATUS_PEKERJAAN_WP'] : "-"?></b>
+                <b><?= $data['STATUS_PEKERJAAN_WP'] ? $pekerjaans[$data['STATUS_PEKERJAAN_WP']] : "-"?></b>
             </div>
         </div>
     </div>

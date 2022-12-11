@@ -58,7 +58,7 @@ $pekerjaans = [
     '5' => 'Lainnya'
 ];
 
-$datas = $datas->orderBy('NM_WP')->limit($limit)->get();
+$datas = $datas->orderBy('created_at','DESC')->limit($limit)->get();
 $datas = array_map(function($d) use ($pekerjaans){
     $d['STATUS_PEKERJAAN_WP'] = isset($pekerjaans[$d['STATUS_PEKERJAAN_WP']]) ? $pekerjaans[$d['STATUS_PEKERJAAN_WP']] : $d['STATUS_PEKERJAAN_WP'];
     return $d;

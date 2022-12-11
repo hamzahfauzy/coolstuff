@@ -2,3 +2,6 @@ storage
 session
 public/storage
 config/main.php
+cron-log.txt
+lock.txt
+public/lock.txt

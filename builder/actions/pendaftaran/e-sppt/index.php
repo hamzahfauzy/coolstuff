@@ -6,15 +6,34 @@ $mysql = new QueryBuilder("mysql");
 $mysql2 = new QueryBuilder("mysql");
 
 if(isset($_GET['act'])) {
+   $data = $mysql->select("esppt")->where('ID',$_GET['act_id'])->first();
    switch ($_GET['act']) {
-
-    case 'accept':
+       
+       case 'accept':
         
         $mysql->update('esppt', ['STATUS'=>'DITERIMA'])->where('ID',$_GET['act_id'])->exec();
+        if (filter_var($data['EMAIL'], FILTER_VALIDATE_EMAIL)) {
+            ob_start();
+            require_once('mail-accept-template.php');
+            $message = ob_get_contents();
+            // send notif accept
+            $mail = new Mailer();
+            $mail->send($data['EMAIL'],'PEMBERITAHUAN PENDAFTARAN e-SPPT',$message);
+        }
+        set_flash_msg(['success'=>'Pendaftaran e-SPPT Berhasil dikonfirmasi']);
         break;
     case 'reject':
         
         $mysql->update('esppt', ['STATUS'=>'DITOLAK'])->where('ID',$_GET['act_id'])->exec();
+        if (filter_var($data['EMAIL'], FILTER_VALIDATE_EMAIL)) {
+            ob_start();
+            require_once('mail-decline-template.php');
+            $message = ob_get_contents();
+            // send notif reject
+            $mail = new Mailer();
+            $mail->send($data['EMAIL'],'PEMBERITAHUAN PENDAFTARAN e-SPPT',$message);
+        }
+        set_flash_msg(['success'=>'Pendaftaran e-SPPT telah ditolak']);
         break;
    }
 
@@ -23,6 +42,7 @@ if(isset($_GET['act'])) {
 }
 
 $msg = get_flash_msg('success');
+$failed = get_flash_msg('failed');
 
 $limit = 10;
 
