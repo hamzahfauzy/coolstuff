@@ -555,7 +555,7 @@ label {
                         <label for="">Bahan Pagar</label>
 
                         <select name="PAGAR[BP]" class="p-2 mt-2 w-full border rounded">
-                            <option value="" selected disabled>- Pilih Bahan Pagar -</option>
+                            <option value="" selected readonly>- Pilih Bahan Pagar -</option>
                             <option value="01-Baja/Besi">01-Baja/Besi</option>
                             <option value="02-Bata/Batako">02-Bata/Batako</option>
                         </select>
@@ -591,7 +591,7 @@ label {
                         <label for="">Hydrant</label>
 
                         <select name="PK[HYDRAN]" class="p-2 mt-2 w-full border rounded">
-                            <option value="" disabled>- Pilih -</option>
+                            <option value="" readonly>- Pilih -</option>
                             <option value="01">01-Ada</option>
                             <option selected value="02">02-Tidak Ada</option>
                         </select>
@@ -602,7 +602,7 @@ label {
                         <label for="">Springkler</label>
 
                         <select name="PK[SPRINGKLER]" class="p-2 mt-2 w-full border rounded">
-                            <option value="" disabled>- Pilih -</option>
+                            <option value="" readonly>- Pilih -</option>
                             <option value="01">01-Ada</option>
                             <option selected value="02">02-Tidak Ada</option>
                         </select>
@@ -613,7 +613,7 @@ label {
                         <label for="">Fire Alarm</label>
 
                         <select name="PK[FIRE_ALARM]" class="p-2 mt-2 w-full border rounded">
-                            <option value="" selected readonly>- Pilih -</option>
+                            <option value="" readonly>- Pilih -</option>
                             <option value="01">01-Ada</option>
                             <option selected value="02">02-Tidak Ada</option>
                         </select>
@@ -676,7 +676,7 @@ label {
                         <label for="">Finishing Kolam</label>
 
                         <select name="KOLAM_RENANG[F_KOLAM]" class="p-2 mt-2 w-full border rounded">
-                            <option value="" selected disabled>- Pilih -</option>
+                            <option value="" selected readonly>- Pilih -</option>
                             <option value="01">01-Displester</option>
                             <option alue="02">02-Dengan Pelapis</option>
                         </select>

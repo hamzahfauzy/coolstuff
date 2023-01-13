@@ -55,7 +55,13 @@ if(isset($_GET['get-no-urut'])){
     $cntsUrut = $qb->select("DAT_OP_BUMI")->where($clauseBumi,$valBumi)->orderBy('NO_URUT','DESC')->first();
 
     if($cntsUrut){
-        echo json_encode("00" . strval($cntsUrut['NO_URUT']+1));
+        $no_urut = strval($cntsUrut['NO_URUT']+1);
+        if($no_urut >= 100 && $no_urut < 1000) {
+            $no_urut = "0" . $no_urut;
+        } else if($no_urut < 100) {
+            $no_urut = "00" . $no_urut;
+        }
+        echo json_encode($no_urut);
     }else{
         echo json_encode("001");
     }

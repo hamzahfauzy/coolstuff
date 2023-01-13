@@ -15,6 +15,7 @@ $pekerjaans = [
 if(isset($_GET['act'])) {
     // $data = $mysql->select('DAT_OP_BUMI')->where('ID',$_GET['act_id'])->first();
     $subjek_pajak = $mysql->select('subjek_pajak')->where('reg_code',$_GET['code'])->first();
+    $subjek_pajak['SUBJEK_PAJAK_ID'] = $subjek_pajak['NIK'];
     $reg_type = $subjek_pajak['reg_type'];
     $reg_type = explode(' | ', $reg_type);
     $reg_type_0 = str_replace('REGISTRASI OBJEK PAJAK ','',$reg_type[0]);
@@ -31,7 +32,6 @@ if(isset($_GET['act'])) {
             {
                 // move data to primary db
                 $bumi = $mysql->select('DAT_OP_BUMI')->where('reg_code',$_GET['code'])->first();
-                $subjek_pajak['SUBJEK_PAJAK_ID'] = $subjek_pajak['NIK'];
                 $bumi['SUBJEK_PAJAK_ID'] = $subjek_pajak['NIK'];
                 if($reg_type[1] == 'Baru')
                 {
@@ -66,9 +66,18 @@ if(isset($_GET['act'])) {
                     {
                         createSubjekPajak($subjek_pajak);
                     }
+
+                    $clauseBumi = "DAT_OP_BUMI.KD_PROPINSI + '.' + DAT_OP_BUMI.KD_DATI2 + '.' + DAT_OP_BUMI.KD_KECAMATAN + '.' + DAT_OP_BUMI.KD_KELURAHAN + '.' + DAT_OP_BUMI.KD_BLOK + '-' + DAT_OP_BUMI.NO_URUT + '.' + DAT_OP_BUMI.KD_JNS_OP";
+
+                    if(!$qb->select("DAT_OP_BUMI")->where($clauseBumi,$bangunan['NOP'])->first())
+                    {
+                        $bumi = $mysql->select('DAT_OP_BUMI')->where('reg_code',$_GET['code'])->first();
+                        $bumi['SUBJEK_PAJAK_ID'] = $subjek_pajak['NIK'];
+                        createObjekPajakBumi($bumi);
+                    }
                 }
 
-                // createObjekPajakBumi($bumi);
+                createObjekPajakBangunan($bangunan);
 
                 // send email bangunan
                 if (filter_var($bangunan['EMAIL'], FILTER_VALIDATE_EMAIL)) {
